@@ -90,8 +90,11 @@ namespace BWT
                 /* Continuing in this manner, you can reconstruct the entire list. */
 
                 /*SIn First iteration sorting the list of pairs gives the first and second columns. */
-                dt.DefaultView.Sort = dt.Columns[0].ColumnName + " ASC";
-                dt = dt.DefaultView.ToTable();
+                //NOTE: This part is Evil. to much memory allocation an time consuming.
+                //Probably should use list of lists with fixed size instead of Data table in order to avoid the reallocation
+                /*dt.DefaultView.Sort = dt.Columns[0].ColumnName + " ASC";
+                dt = dt.DefaultView.ToTable();*/
+                dt = dt.AsEnumerable().OrderBy(r => r[0]).CopyToDataTable();
 
 
                 string currJoinedTable = this.SpeedOverReports ? String.Empty : dt.GetJoinedTable();
