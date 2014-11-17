@@ -109,6 +109,7 @@
     </Compile>
     <Compile Include="BwtLogics.cs" />
     <Compile Include="Extensions.cs" />
+    <Compile Include="InexactSearch.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="BwtBenchmarkingPanel.resx">

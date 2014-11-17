@@ -303,6 +303,11 @@ namespace BWT
         } 
         #endregion
 
+        private void btnInexactSearch_Click(object sender, EventArgs e)
+        {
+            InexactSearch.GetIndex("gol", 0);
+        }
+
 
     }
 }
