@@ -31,8 +31,6 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmBwt));
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tpAlgorithm = new System.Windows.Forms.TabPage();
-            this.bchReverse = new BWT.BwtBenchmarkingPanel();
-            this.bchBwt = new BWT.BwtBenchmarkingPanel();
             this.pbLed = new System.Windows.Forms.PictureBox();
             this.btnExecute = new System.Windows.Forms.Button();
             this.lblSeparator = new System.Windows.Forms.Label();
@@ -51,6 +49,12 @@
             this.scMain = new System.Windows.Forms.SplitContainer();
             this.pbTransform = new System.Windows.Forms.ProgressBar();
             this.btnInexactSearch = new System.Windows.Forms.Button();
+            this.bchReverse = new BWT.BwtBenchmarkingPanel();
+            this.bchBwt = new BWT.BwtBenchmarkingPanel();
+            this.txbSearch = new System.Windows.Forms.TextBox();
+            this.lblSearch = new System.Windows.Forms.Label();
+            this.lblErrorsAllowed = new System.Windows.Forms.Label();
+            this.nupErrorsAllowed = new System.Windows.Forms.NumericUpDown();
             this.tabControl1.SuspendLayout();
             this.tpAlgorithm.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbLed)).BeginInit();
@@ -60,6 +64,7 @@
             this.scMain.Panel1.SuspendLayout();
             this.scMain.Panel2.SuspendLayout();
             this.scMain.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nupErrorsAllowed)).BeginInit();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -96,26 +101,6 @@
             this.tpAlgorithm.TabIndex = 0;
             this.tpAlgorithm.Text = "Algorithm Execution";
             this.tpAlgorithm.UseVisualStyleBackColor = true;
-            // 
-            // bchReverse
-            // 
-            this.bchReverse.Location = new System.Drawing.Point(260, 500);
-            this.bchReverse.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
-            this.bchReverse.Name = "bchReverse";
-            this.bchReverse.Precision = 8;
-            this.bchReverse.Size = new System.Drawing.Size(536, 38);
-            this.bchReverse.TabIndex = 4;
-            this.bchReverse.Visible = false;
-            // 
-            // bchBwt
-            // 
-            this.bchBwt.Location = new System.Drawing.Point(260, 292);
-            this.bchBwt.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
-            this.bchBwt.Name = "bchBwt";
-            this.bchBwt.Precision = 8;
-            this.bchBwt.Size = new System.Drawing.Size(536, 38);
-            this.bchBwt.TabIndex = 4;
-            this.bchBwt.Visible = false;
             // 
             // pbLed
             // 
@@ -246,6 +231,10 @@
             // 
             // tpSettings
             // 
+            this.tpSettings.Controls.Add(this.nupErrorsAllowed);
+            this.tpSettings.Controls.Add(this.lblErrorsAllowed);
+            this.tpSettings.Controls.Add(this.lblSearch);
+            this.tpSettings.Controls.Add(this.txbSearch);
             this.tpSettings.Controls.Add(this.btnInexactSearch);
             this.tpSettings.Controls.Add(this.lnkWikipedia);
             this.tpSettings.Controls.Add(this.chbSpeedOverReports);
@@ -332,7 +321,7 @@
             // 
             // btnInexactSearch
             // 
-            this.btnInexactSearch.Location = new System.Drawing.Point(11, 88);
+            this.btnInexactSearch.Location = new System.Drawing.Point(82, 165);
             this.btnInexactSearch.Margin = new System.Windows.Forms.Padding(4);
             this.btnInexactSearch.Name = "btnInexactSearch";
             this.btnInexactSearch.Size = new System.Drawing.Size(184, 25);
@@ -340,6 +329,64 @@
             this.btnInexactSearch.Text = "Execute Inexact Search!";
             this.btnInexactSearch.UseVisualStyleBackColor = true;
             this.btnInexactSearch.Click += new System.EventHandler(this.btnInexactSearch_Click);
+            // 
+            // bchReverse
+            // 
+            this.bchReverse.Location = new System.Drawing.Point(260, 500);
+            this.bchReverse.Margin = new System.Windows.Forms.Padding(5);
+            this.bchReverse.Name = "bchReverse";
+            this.bchReverse.Precision = 8;
+            this.bchReverse.Size = new System.Drawing.Size(536, 38);
+            this.bchReverse.TabIndex = 4;
+            this.bchReverse.Visible = false;
+            // 
+            // bchBwt
+            // 
+            this.bchBwt.Location = new System.Drawing.Point(260, 292);
+            this.bchBwt.Margin = new System.Windows.Forms.Padding(5);
+            this.bchBwt.Name = "bchBwt";
+            this.bchBwt.Precision = 8;
+            this.bchBwt.Size = new System.Drawing.Size(536, 38);
+            this.bchBwt.TabIndex = 4;
+            this.bchBwt.Visible = false;
+            // 
+            // txbSearch
+            // 
+            this.txbSearch.Location = new System.Drawing.Point(181, 108);
+            this.txbSearch.Name = "txbSearch";
+            this.txbSearch.Size = new System.Drawing.Size(85, 22);
+            this.txbSearch.TabIndex = 4;
+            this.txbSearch.Text = "lol";
+            // 
+            // lblSearch
+            // 
+            this.lblSearch.AutoSize = true;
+            this.lblSearch.Location = new System.Drawing.Point(8, 111);
+            this.lblSearch.Name = "lblSearch";
+            this.lblSearch.Size = new System.Drawing.Size(108, 17);
+            this.lblSearch.TabIndex = 5;
+            this.lblSearch.Text = "String to search";
+            // 
+            // lblErrorsAllowed
+            // 
+            this.lblErrorsAllowed.AutoSize = true;
+            this.lblErrorsAllowed.Location = new System.Drawing.Point(8, 138);
+            this.lblErrorsAllowed.Name = "lblErrorsAllowed";
+            this.lblErrorsAllowed.Size = new System.Drawing.Size(167, 17);
+            this.lblErrorsAllowed.TabIndex = 5;
+            this.lblErrorsAllowed.Text = "Number of errors allowed";
+            // 
+            // nupErrorsAllowed
+            // 
+            this.nupErrorsAllowed.Location = new System.Drawing.Point(181, 136);
+            this.nupErrorsAllowed.Name = "nupErrorsAllowed";
+            this.nupErrorsAllowed.Size = new System.Drawing.Size(85, 22);
+            this.nupErrorsAllowed.TabIndex = 6;
+            this.nupErrorsAllowed.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             // 
             // frmBwt
             // 
@@ -363,6 +410,7 @@
             this.scMain.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.scMain)).EndInit();
             this.scMain.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.nupErrorsAllowed)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -391,6 +439,10 @@
         private System.Windows.Forms.LinkLabel lnkWikipedia;
         private System.Windows.Forms.CheckBox chbSpeedOverReports;
         private System.Windows.Forms.Button btnInexactSearch;
+        private System.Windows.Forms.NumericUpDown nupErrorsAllowed;
+        private System.Windows.Forms.Label lblErrorsAllowed;
+        private System.Windows.Forms.Label lblSearch;
+        private System.Windows.Forms.TextBox txbSearch;
 
     }
 }

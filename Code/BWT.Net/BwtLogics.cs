@@ -13,7 +13,7 @@ namespace BWT
         /// <summary>
         /// The end of file character
         /// </summary>
-        public const char END_OF_FILE_CHAR = '|';
+        public const char END_OF_FILE_CHAR = '$';
 
         /// <summary>
         /// Gets or sets a value indicating whether speed is valued over reports during work.
@@ -30,7 +30,7 @@ namespace BWT
         /// </summary>
         /// <param name="input">The input to perform the transform on.</param>
         /// <returns>The text after the transform</returns>
-        public string Bwt(string input)
+        public BwtResults Bwt(string input)
         {
             this.ThrowExceptionIfInputNotValid(input);
             string sterileInput = this.SterilizeInput(input);
@@ -39,9 +39,13 @@ namespace BWT
             int lastColumnIndex = table.Columns.Count - 1;
             string sortStr = this.GetSortString(table);
             table.DefaultView.Sort = sortStr;
-            string[] outputChars = table.DefaultView.ToTable().AsEnumerable().Select(row => row[lastColumnIndex].ToString()).ToArray();
+
+            var sortedTable = table.DefaultView.ToTable();
+            string[] outputChars = sortedTable.AsEnumerable().Select(row => row[lastColumnIndex].ToString()).ToArray();
             string output = String.Concat(outputChars);
-            return output;
+
+            BwtResults results = new BwtResults(input,table,sortedTable,output);
+            return results;
 
         }
         /// <summary>
@@ -255,5 +259,24 @@ namespace BWT
         } 
         #endregion
 
+        /// <summary>
+        /// A wrapperclass for the BWT results
+        /// </summary>
+        public class BwtResults
+        {
+            public readonly string OriginalText;
+            public readonly DataTable RotationTable;
+            public readonly DataTable SuffixTable;
+            public readonly string BwtString;
+
+            public BwtResults(string originalText, DataTable rotationTable, DataTable suffixTable,string bwtString)
+            {
+                this.OriginalText = originalText;
+                this.RotationTable = rotationTable;
+                this.SuffixTable = suffixTable;
+                this.BwtString = bwtString;
+            }
+            
+        }
     }
 }

@@ -29,6 +29,9 @@ namespace BWT
             this.txbInput.Text ="^BANANA";
 #endif
 
+            this.txbSearch.Text = BWT.Properties.Settings.Default.searchString ;
+            this.nupErrorsAllowed.Value = BWT.Properties.Settings.Default.errorsAllowed;
+
             LinkLabel.Link link = new LinkLabel.Link();
             link.LinkData = "http://en.wikipedia.org/wiki/Burrows%E2%80%93Wheeler_transform";
             this.lnkWikipedia.Links.Add(link);
@@ -41,7 +44,7 @@ namespace BWT
         private void PerformBwt(string input)
         {
             this.ClearResults();
-            string output = String.Empty;
+            BwtLogics.BwtResults bwtResult = null;
 
             Exception thrownException = null;
             BackgroundWorker bw = new BackgroundWorker() { WorkerReportsProgress = true };
@@ -52,7 +55,7 @@ namespace BWT
                 try
                 {
                     sw.Start();
-                    output = this._logics.Bwt(input);
+                    bwtResult = this._logics.Bwt(input);
                     sw.Stop();
                 }
                 catch (Exception ex)
@@ -74,12 +77,12 @@ namespace BWT
                 this.bchBwt.SetValues(input.Length, sw.Elapsed);
                 this.bchBwt.Visible = true;
 
-                if (thrownException == null)
+                if (thrownException == null && bwtResult != null)
                 {
-                    this.txbOutPut.Text = output;
+                    this.txbOutPut.Text = bwtResult.OriginalText;
                     if (this.chbPerformReverseTransform.Checked)
                     {
-                        this.PerformReverseBwt(output);
+                        this.PerformReverseBwt(bwtResult.BwtString);
                     }
                 }
                 else
@@ -305,7 +308,36 @@ namespace BWT
 
         private void btnInexactSearch_Click(object sender, EventArgs e)
         {
-            InexactSearch.GetIndex("gol", 0);
+            BWT.Properties.Settings.Default.searchString = this.txbSearch.Text;
+            BWT.Properties.Settings.Default.errorsAllowed= (int)this.nupErrorsAllowed.Value;
+            BWT.Properties.Settings.Default.Save();
+
+            var results = InexactSearch.GetIndex(this.txbSearch.Text, (int)this.nupErrorsAllowed.Value);
+
+            #region Log message
+            string[] indexedTableRows = 
+                results.SuffixArray.GetJoinedTable().Split(new string[]{Environment.NewLine},StringSplitOptions.RemoveEmptyEntries);
+            for (int i = 0; i < indexedTableRows.Length; i++)
+            {
+                indexedTableRows[i] = "["+(i+1)+"] "+indexedTableRows[i];
+            }
+            string indexedTable = String.Join(Environment.NewLine, indexedTableRows);
+
+            string msg = String.Format("The suffix array: {0}{0}" +
+                                       "{1}{0}{0}" +
+                                       "The query:{0}" +
+                                       "\t'{2}' with {3} errors allowed{0}" +
+                                       "The results:{0}" +
+                                       "\tIndexes: {4}{0}",
+                                       Environment.NewLine,
+                                       indexedTable,
+                                       results.StringToMatch,
+                                       results.ErrorAllowed,
+                                       String.Join(",",results.Indexes));
+            this.txbIntermediates.Text = msg;
+
+            #endregion
+            this.tabControl1.SelectedTab = this.tpIntermediates;
         }
 
 
