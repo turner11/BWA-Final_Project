@@ -6,6 +6,6 @@ The project's focus is on speeding up the Burrow-Wheeler Aligner for pairwise al
 
 The plan is to analyse the code, and implement it using paraleling on grphical cards and cuda.
 
-Project Calendar is available [here](http://projects.jce.ac.il/moodle/mod/wiki/view.php?id=6) (Sign in is required).
+Project Calendar is available [here](http://projects.jce.ac.il/moodle/mod/wiki/view.php?id=6) (Sign in is required).  
 List of issues are available [here](https://github.com/turner11/BWA-Final_Project/issues). 
 
