@@ -18,6 +18,9 @@ namespace BWT
         /// The logics for all BWT manners
         /// </summary>
         BwtLogics _logics;
+
+        
+
         public frmBwt()
         {
             this._logics = new BwtLogics();
@@ -29,12 +32,45 @@ namespace BWT
             this.txbInput.Text ="^BANANA";
 #endif
 
-            this.txbSearch.Text = BWT.Properties.Settings.Default.searchString ;
-            this.nupErrorsAllowed.Value = BWT.Properties.Settings.Default.errorsAllowed;
+            this.RestoreValuesFromSettings();
 
-            LinkLabel.Link link = new LinkLabel.Link();
-            link.LinkData = "http://en.wikipedia.org/wiki/Burrows%E2%80%93Wheeler_transform";
-            this.lnkWikipedia.Links.Add(link);
+            LinkLabel.Link linkBwt = new LinkLabel.Link();
+            linkBwt.LinkData = "http://en.wikipedia.org/wiki/Burrows%E2%80%93Wheeler_transform";
+            this.lnkWikipedia.Links.Add(linkBwt);
+
+            LinkLabel.Link linkBwa = new LinkLabel.Link();
+            linkBwa.LinkData = "http://www.math.pku.edu.cn/teachers/xirb/Courses/biostatistics2013/Bioinformatics-2009-Li-1754-60.pdf";
+            this.lnkBwaPaper.Links.Add(linkBwa);
+        }
+
+        /// <summary>
+        /// Restores the values from settings.
+        /// </summary>
+        private void RestoreValuesFromSettings()
+        {
+            this.txbSearch.Text = BWT.Properties.Settings.Default.searchString;
+            this.nupErrorsAllowed.Value = BWT.Properties.Settings.Default.errorsAllowed;
+            this.txbReference.Text = BWT.Properties.Settings.Default.referecne;
+
+            this.nupErrorPercentage.Value = BWT.Properties.Settings.Default.errorPercentage;
+            this.nupNumberOfReads.Value = BWT.Properties.Settings.Default.numberOfReads;
+            this.nupReadLength.Value = BWT.Properties.Settings.Default.readLength;
+        }
+
+        /// <summary>
+        /// Saves the settings.
+        /// </summary>
+        private void SaveSettings()
+        {
+            BWT.Properties.Settings.Default.errorPercentage = this.nupErrorPercentage.Value;
+            BWT.Properties.Settings.Default.numberOfReads = (int)this.nupNumberOfReads.Value;
+            BWT.Properties.Settings.Default.readLength = (int)this.nupReadLength.Value;
+            BWT.Properties.Settings.Default.referecne = this.txbReference.Text;
+
+            BWT.Properties.Settings.Default.searchString = this.txbSearch.Text;
+            BWT.Properties.Settings.Default.errorsAllowed = (int)this.nupErrorsAllowed.Value;
+
+            BWT.Properties.Settings.Default.Save();
         }
 
         /// <summary>
@@ -304,50 +340,16 @@ namespace BWT
         {
             this._logics.SpeedOverReports = this.chbSpeedOverReports.Checked;
         } 
+        
+
+        
+
         #endregion
 
-        private void btnInexactSearch_Click(object sender, EventArgs e)
+        private void frmBwt_FormClosing(object sender, FormClosingEventArgs e)
         {
-            this.txbBwaResults.Text = String.Empty;
-
-            BWT.Properties.Settings.Default.searchString = this.txbSearch.Text;
-            BWT.Properties.Settings.Default.errorsAllowed= (int)this.nupErrorsAllowed.Value;
-            BWT.Properties.Settings.Default.Save();
-
-            Stopwatch sw = new Stopwatch();
-            sw.Start();
-            var results = InexactSearch.GetIndex(this.txbSearch.Text, (int)this.nupErrorsAllowed.Value);
-            sw.Stop();
-
-            #region Log message
-            string[] indexedTableRows = 
-                results.SuffixArray.GetJoinedTable().Split(new string[]{Environment.NewLine},StringSplitOptions.RemoveEmptyEntries);
-            for (int i = 0; i < indexedTableRows.Length; i++)
-            {
-                indexedTableRows[i] = "["+(i+1)+"] "+indexedTableRows[i];
-            }
-            string indexedTable = String.Join(Environment.NewLine, indexedTableRows);
-
-            string msg = String.Format("The suffix array: {0}{0}" +
-                                       "{1}{0}{0}" +
-                                       "The query:{0}" +
-                                       "\t'{2}' with {3} errors allowed{0}" +
-                                       "The results:{0}" +
-                                       "\tIndexes: {4}{0}{0}" +
-                                       "Query took: {5}{0}"+
-                                       "({6} sec/char){0}",
-                                       Environment.NewLine,
-                                       indexedTable,
-                                       results.StringToMatch,
-                                       results.ErrorAllowed,
-                                       String.Join(",",results.Indexes),
-                                       sw.Elapsed.ToString(),
-                                       sw.Elapsed.TotalSeconds/results.StringToMatch.Length);
-            this.txbBwaResults.Text = msg;
-
-            #endregion
+            this.SaveSettings();
         }
-
 
     }
 }

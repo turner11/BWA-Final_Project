@@ -46,5 +46,53 @@ namespace BWT.Properties {
                 this["errorsAllowed"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string referecne {
+            get {
+                return ((string)(this["referecne"]));
+            }
+            set {
+                this["referecne"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("3")]
+        public decimal errorPercentage {
+            get {
+                return ((decimal)(this["errorPercentage"]));
+            }
+            set {
+                this["errorPercentage"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("1000")]
+        public int numberOfReads {
+            get {
+                return ((int)(this["numberOfReads"]));
+            }
+            set {
+                this["numberOfReads"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("35")]
+        public int readLength {
+            get {
+                return ((int)(this["readLength"]));
+            }
+            set {
+                this["readLength"] = value;
+            }
+        }
     }
 }

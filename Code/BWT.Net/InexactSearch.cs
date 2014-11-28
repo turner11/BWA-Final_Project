@@ -9,33 +9,45 @@ namespace BWT
 {
     public class InexactSearch
     {
-        static BwtLogics _bwtLogics;
-        static BwtLogics.BwtResults _bwtResults;
-        static BwtLogics.BwtResults _bwtReverseResults;
+        BwtLogics _bwtLogics;
+        BwtLogics.BwtResults _bwtResults;
+        BwtLogics.BwtResults _bwtReverseResults;
         /// <summary>
         /// The reference
         /// </summary>
-        static string X_Reference = "googol" + BwtLogics.END_OF_FILE_CHAR;
-        static int[] D;
+        readonly string X_Reference;
+        /// <summary>
+        /// Determines weather this instance will try to find gap errors. 
+        /// </summary>
+        /// <remarks>
+        /// In general the algorithem should, but in order to get more ituitive and clear results for debugging, we might want to shut off this option.
+        /// </remarks>
+        public readonly bool FindGapError;
 
-        public static readonly IReadOnlyCollection<char> ALPHA_BET_LETTERS;
+        int[] D;
 
-        static InexactSearch()
+        public readonly IReadOnlyCollection<char> ALPHA_BET_LETTERS;
+
+        public InexactSearch(string reference, bool findGapErrors)
         {
-            InexactSearch._bwtLogics = new BwtLogics();
+            this._bwtLogics = new BwtLogics();
+            this.X_Reference = reference + BwtLogics.END_OF_FILE_CHAR;
+
+            this.FindGapError = findGapErrors;
+
             /*Get BWt for the reference*/
-            InexactSearch._bwtResults = InexactSearch._bwtLogics.Bwt(X_Reference);
-            
+            this._bwtResults = this._bwtLogics.Bwt(X_Reference);
+
             /*Get Bwt for reverse reference*/
-            char[] chars =InexactSearch.X_Reference.Replace(BwtLogics.END_OF_FILE_CHAR.ToString(),String.Empty).ToCharArray(); 
+            char[] chars = this.X_Reference.Replace(BwtLogics.END_OF_FILE_CHAR.ToString(), String.Empty).ToCharArray();
             Array.Reverse(chars);
             string reverseReference = new String(chars);
-            InexactSearch._bwtReverseResults = InexactSearch._bwtLogics.Bwt(reverseReference);
+            this._bwtReverseResults = this._bwtLogics.Bwt(reverseReference);
 
             /*Define the alphbet*/
-            var letters = X_Reference.Substring(0,X_Reference.Length-1).Distinct().ToList();
+            var letters = X_Reference.Substring(0, X_Reference.Length - 1).Distinct().ToList();
             letters.Sort(); //this is just for easier code comparing.
-            InexactSearch.ALPHA_BET_LETTERS = letters.AsReadOnly();//new List<char> { 'A', 'C', 'G', 'T' }.AsReadOnly();
+            this.ALPHA_BET_LETTERS = letters.AsReadOnly();//new List<char> { 'A', 'C', 'G', 'T' }.AsReadOnly();
 
             //TODO: Calculate array C(·) and O(·,·) from _bwtResults.BwtString (work that can be done in before run time)
             //TODO: Calculate array O'(·,·) from _bwtReverseResults.BwtString  (work that can be done in before run time)
@@ -47,64 +59,72 @@ namespace BWT
         /// <param name="w_stringToMatch"></param>
         /// <param name="z"></param>
         /// <returns></returns>
-        public static Results GetIndex(string w_stringToMatch, int errorsAlloed)
-        {           
-            InexactSearch.D = InexactSearch.CalculateD2(w_stringToMatch);
-            var indexes = GetIndexRecursive(w_stringToMatch, w_stringToMatch.Length-1,errorsAlloed,0,InexactSearch.X_Reference.Length -1).ToArray();
-            
-            return new Results(indexes, InexactSearch._bwtResults.SuffixTable, InexactSearch._bwtResults.BwtString, w_stringToMatch, errorsAlloed);
+        public Results GetIndex(string w_stringToMatch, int errorsAlloed)
+        {
+            var sw = new System.Diagnostics.Stopwatch();
+            sw.Start();
+            this.D = this.CalculateD2(w_stringToMatch);
+            var indexes = GetIndexRecursive(w_stringToMatch, w_stringToMatch.Length - 1, errorsAlloed, 0, this.X_Reference.Length - 1).ToArray();
+            sw.Stop();
+            sw.Start();
+            return new Results(indexes, this._bwtResults.SuffixTable, this._bwtResults.BwtString, w_stringToMatch, errorsAlloed, this.FindGapError, sw.Elapsed);
         }
 
-        private static IEnumerable<int> GetIndexRecursive(string w_stringToMatch, int i, int errorsAlloed, int lowerBound, int upperBound)
+        private IEnumerable<int> GetIndexRecursive(string w_stringToMatch, int i, int errorsAlloed, int lowerBound, int upperBound)
         {
             if (errorsAlloed < 0)
                 return new List<int>();
             if (i < 0)
             {
                 int startIndex = lowerBound;
-                int count = Math.Max(0,upperBound - lowerBound + 1);
-                var range = Enumerable.Range(lowerBound,count).ToList();
+                int count = Math.Max(0, upperBound - lowerBound + 1);
+                var range = Enumerable.Range(lowerBound, count).ToList();
                 return range;
             }
-           
-            
+
+
 
             /*The bounds to retunr*/
             IEnumerable<int> I = new List<int>();
 
-            /*Find matches with less errors (gaps?)*/
-            //var boundsWithLessErrors = InexactSearch.GetIndexRecursive(w_stringToMatch, i - 1, errorsAlloed - 1, lowerBound, upperBound).ToList();
-            //I = I.Union(boundsWithLessErrors);//Remove?
-
-
-            foreach (var letter in InexactSearch.ALPHA_BET_LETTERS)
+            if (this.FindGapError)
             {
-                
-                int c_index = InexactSearch.C(letter);
-                var temp_lowerBound = c_index + InexactSearch.O(letter, lowerBound - 1) + 1;
-                var temp_upperBound = c_index + InexactSearch.O(letter, upperBound);
+                /*Find matches with less errors (gaps?)*/
+                var boundsWithLessErrors = this.GetIndexRecursive(w_stringToMatch, i - 1, errorsAlloed - 1, lowerBound, upperBound).ToList();
+                I = I.Union(boundsWithLessErrors);//Remove?
+            }
+
+
+            foreach (var letter in this.ALPHA_BET_LETTERS)
+            {
+
+                int c_index = this.C(letter);
+                var temp_lowerBound = c_index + this.O(letter, lowerBound - 1) + 1;
+                var temp_upperBound = c_index + this.O(letter, upperBound);
 
                 bool isLegalBounds = lowerBound <= upperBound;
                 if (isLegalBounds)
                 {
-                    /*
-                    var boundsInNewBoundeariesWithLessErrors =
-                        InexactSearch.GetIndexRecursive(w_stringToMatch, i, errorsAlloed - 1, temp_lowerBound, temp_upperBound);
-                    I = I.Union(boundsInNewBoundeariesWithLessErrors); //Remove?
-                    */
+                    if (this.FindGapError)
+                    {
+                        var boundsInNewBoundeariesWithLessErrors =
+                            this.GetIndexRecursive(w_stringToMatch, i, errorsAlloed - 1, temp_lowerBound, temp_upperBound);
+                        I = I.Union(boundsInNewBoundeariesWithLessErrors);
+                    }
+
                     if (letter == w_stringToMatch[i])
                     {
                         //current leeter is a match, we go on into deeper recursion with same ampunt of eerrors allowes
                         var deepperRecursiveBoundaries =
-                        InexactSearch.GetIndexRecursive(w_stringToMatch, i - 1, errorsAlloed, temp_lowerBound, temp_upperBound);
+                        this.GetIndexRecursive(w_stringToMatch, i - 1, errorsAlloed, temp_lowerBound, temp_upperBound);
                         I = I.Union(deepperRecursiveBoundaries);
                         var a = String.Join(",", I.ToList());
                     }
-                    else 
+                    else
                     {
                         //we found an error, we reduce the number of allowed errors in next iteration
                         var deepperRecursiveWithLessErrorsBoundaries =
-                       InexactSearch.GetIndexRecursive(w_stringToMatch, i - 1, errorsAlloed - 1, temp_lowerBound, temp_upperBound).ToList();
+                       this.GetIndexRecursive(w_stringToMatch, i - 1, errorsAlloed - 1, temp_lowerBound, temp_upperBound).ToList();
                         I = I.Union(deepperRecursiveWithLessErrorsBoundaries);
                     }
                 }
@@ -115,7 +135,7 @@ namespace BWT
             return I;
         }
 
-        private static int[] CalculateD(string w)
+        private int[] CalculateD(string w)
         {
             int[] d = new int[w.Length];
             int z = 0;
@@ -123,7 +143,7 @@ namespace BWT
             for (int i = 0; i < w.Length; i++)
             {
                 string substring = w.Substring(j, i);
-                bool isSubstring = InexactSearch.X_Reference.IndexOf(substring) >=0;
+                bool isSubstring = this.X_Reference.IndexOf(substring) >= 0;
                 if (!isSubstring)
                 {
                     z = z + 1;
@@ -137,34 +157,34 @@ namespace BWT
         }
 
 
-        private static int[] CalculateD2(string w)
+        private int[] CalculateD2(string w)
         {
             int[] d = new int[w.Length];
-            
+
             int k = 1;
-            int l = InexactSearch.X_Reference.Length - 1;
+            int l = this.X_Reference.Length - 1;
             int z = 0;
 
             for (int i = 0; i < w.Length; i++)
             {
                 var currChar = w[i]; /*a*/
                 var charAsString = currChar.ToString();
-                k = InexactSearch.C(currChar) + InexactSearch.OT(currChar, k - 1) + 1;//InexactSearch.GetBottomRowIndex(charAsString);
-                l = InexactSearch.C(currChar) + InexactSearch.OT(currChar, l);
+                k = this.C(currChar) + this.OT(currChar, k - 1) + 1;//this.GetBottomRowIndex(charAsString);
+                l = this.C(currChar) + this.OT(currChar, l);
 
                 if (k > l)
                 {
                     k = l;
-                    l = InexactSearch.X_Reference.Length - 1;
+                    l = this.X_Reference.Length - 1;
                     z++;
                 }
                 d[i] = z;
 
-                
+
             }
             return d;
         }
-       
+
         /// <summary>
         /// Gets the number of symbols in X[0,n−2] that are lexicographically 
         /// smaller than a
@@ -172,10 +192,10 @@ namespace BWT
         /// <param name="a"></param>
         /// <returns>the number of symbols in X[0,n−2] that are lexicographically 
         /// smaller than a</returns>
-        private static int C(char a)
+        private int C(char a)
         {
-           int c = /*C(a)*/InexactSearch.X_Reference.Take(InexactSearch.X_Reference.Length - 1)
-                                                 .Count(x => x < a);
+            int c = /*C(a)*/this.X_Reference.Take(this.X_Reference.Length - 1)
+                                                  .Count(x => x < a);
             return c;
         }
 
@@ -185,9 +205,9 @@ namespace BWT
         /// </summary>
         /// <param name="a"></param>
         /// <returns>the number of occurrences of a in B[0,i]</returns>
-        private static int O(char a, int i)
+        private int O(char a, int i)
         {
-            string str = InexactSearch._bwtResults.BwtString;
+            string str = this._bwtResults.BwtString;
             return O_Base(a, i, str);
         }
 
@@ -196,9 +216,9 @@ namespace BWT
         /// </summary>
         /// <param name="a"></param>
         /// <returns>the number of occurrences of a in B[0,i]</returns>
-        private static int OT(char a, int i)
+        private int OT(char a, int i)
         {
-            string str = InexactSearch._bwtReverseResults.BwtString;
+            string str = this._bwtReverseResults.BwtString;
             return O_Base(a, i, str);
         }
         /// <summary>
@@ -217,7 +237,7 @@ namespace BWT
 
         private static int GetBottomRowIndex2(string w)
         {
-           
+
             throw new NotImplementedException();
 
         }
@@ -230,24 +250,24 @@ namespace BWT
         }
 
 
-        
 
-       
 
-        private static int GetRowIndex(string w, RowBoundaries boundary)
+
+
+        private int GetRowIndex(string w, RowBoundaries boundary)
         {
             if (w == string.Empty)
-                return boundary == RowBoundaries.Bottom ? 1 : InexactSearch.X_Reference.Length - 1;
+                return boundary == RowBoundaries.Bottom ? 1 : this.X_Reference.Length - 1;
             //the prefiex
             char a = w[0];
 
             string trimmed_W = w.Substring(1);
-            int trimmedIndex = InexactSearch.GetRowIndex(trimmed_W,boundary);
+            int trimmedIndex = this.GetRowIndex(trimmed_W, boundary);
 
             int innerOffset = boundary == RowBoundaries.Bottom ? -1 : 0;
-            int outerOffset = boundary == RowBoundaries.Bottom ?  1 : 0;
+            int outerOffset = boundary == RowBoundaries.Bottom ? 1 : 0;
 
-            int index = InexactSearch.C(a) + InexactSearch.O(a, trimmedIndex + innerOffset) + outerOffset;
+            int index = this.C(a) + this.O(a, trimmedIndex + innerOffset) + outerOffset;
             return index;
         }
 
@@ -265,17 +285,63 @@ namespace BWT
             public string BwtString { get; private set; }
             public string StringToMatch { get; private set; }
             public int ErrorAllowed { get; private set; }
+            public bool HandleGapError { get; private set; }
+            public TimeSpan TimeElapsed { get; private set; }
+            public double SecondsPerCharachtar
+            {
+                get
+                {
+                    return this.TimeElapsed.TotalSeconds / this.StringToMatch.Length;
+                }
+            }
 
 
-
-            public Results(int[] indexes, DataTable suffixArray, string bwtString, string stringToMatch, int errorAllowed)
+            public Results(int[] indexes, DataTable suffixArray, string bwtString, string stringToMatch, int errorAllowed, bool handleGapError, TimeSpan timeElapes)
             {
                 this.Indexes = indexes;
+                Array.Sort(this.Indexes);
                 this.SuffixArray = suffixArray;
                 this.BwtString = bwtString;
                 this.StringToMatch = stringToMatch;
                 this.ErrorAllowed = errorAllowed;
+                this.HandleGapError = handleGapError;
+                this.TimeElapsed = timeElapes;
+            }
+            /// <summary>
+            /// Gets the summary message for the BWA algorithm results.
+            /// </summary>
+            /// <returns></returns>
+            public string GetSummaryMessage()
+            {
+                string[] indexedTableRows =
+                    this.SuffixArray.GetJoinedTable().Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
+
+                for (int i = 0; i < indexedTableRows.Length; i++)
+                {
+                    indexedTableRows[i] = "[" + (i) + "] " + indexedTableRows[i];
+                }
+                string indexedTable = String.Join(Environment.NewLine, indexedTableRows);
+
+                string msg = String.Format("The query:{0}" +
+                                           "\t'{1}' with {2} errors allowed ({3}){0} " +
+                                           "The results:{0}" +
+                                            "\tIndexes: {4}{0}{0}" +
+                                           "\tQuery took: {5}{0}" +
+                                           "\t({6} sec/char){0}" +
+                                           "The suffix array: {0}{0}" +
+                                           "{7}{0}{0}",
+                                           Environment.NewLine,
+                                           this.StringToMatch,
+                                           this.ErrorAllowed,
+                                           (this.HandleGapError ? "With" : "NO") + " Gap handling",
+                                           String.Join(",", this.Indexes),
+                                           this.TimeElapsed.ToString(),
+                                           this.SecondsPerCharachtar,
+                                           indexedTable);
+
+                return msg;
             }
         }
+
     }
 }
