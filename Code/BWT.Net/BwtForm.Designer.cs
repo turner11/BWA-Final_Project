@@ -29,8 +29,10 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmBwt));
-            this.tabControl1 = new System.Windows.Forms.TabControl();
-            this.tpAlgorithm = new System.Windows.Forms.TabPage();
+            this.tcMain = new System.Windows.Forms.TabControl();
+            this.tpBwt = new System.Windows.Forms.TabPage();
+            this.bchReverse = new BWT.BwtBenchmarkingPanel();
+            this.bchBwt = new BWT.BwtBenchmarkingPanel();
             this.pbLed = new System.Windows.Forms.PictureBox();
             this.btnExecute = new System.Windows.Forms.Button();
             this.lblSeparator = new System.Windows.Forms.Label();
@@ -48,15 +50,15 @@
             this.chbPerformReverseTransform = new System.Windows.Forms.CheckBox();
             this.scMain = new System.Windows.Forms.SplitContainer();
             this.pbTransform = new System.Windows.Forms.ProgressBar();
-            this.btnInexactSearch = new System.Windows.Forms.Button();
-            this.bchReverse = new BWT.BwtBenchmarkingPanel();
-            this.bchBwt = new BWT.BwtBenchmarkingPanel();
-            this.txbSearch = new System.Windows.Forms.TextBox();
-            this.lblSearch = new System.Windows.Forms.Label();
-            this.lblErrorsAllowed = new System.Windows.Forms.Label();
+            this.tpBwa = new System.Windows.Forms.TabPage();
             this.nupErrorsAllowed = new System.Windows.Forms.NumericUpDown();
-            this.tabControl1.SuspendLayout();
-            this.tpAlgorithm.SuspendLayout();
+            this.lblErrorsAllowed = new System.Windows.Forms.Label();
+            this.lblSearch = new System.Windows.Forms.Label();
+            this.txbSearch = new System.Windows.Forms.TextBox();
+            this.btnInexactSearch = new System.Windows.Forms.Button();
+            this.txbBwaResults = new System.Windows.Forms.TextBox();
+            this.tcMain.SuspendLayout();
+            this.tpBwt.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbLed)).BeginInit();
             this.tpIntermediates.SuspendLayout();
             this.tpSettings.SuspendLayout();
@@ -64,43 +66,65 @@
             this.scMain.Panel1.SuspendLayout();
             this.scMain.Panel2.SuspendLayout();
             this.scMain.SuspendLayout();
+            this.tpBwa.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nupErrorsAllowed)).BeginInit();
             this.SuspendLayout();
             // 
-            // tabControl1
+            // tcMain
             // 
-            this.tabControl1.Controls.Add(this.tpAlgorithm);
-            this.tabControl1.Controls.Add(this.tpIntermediates);
-            this.tabControl1.Controls.Add(this.tpSettings);
-            this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tabControl1.Location = new System.Drawing.Point(0, 0);
-            this.tabControl1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.tabControl1.Name = "tabControl1";
-            this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(879, 753);
-            this.tabControl1.TabIndex = 0;
+            this.tcMain.Controls.Add(this.tpBwa);
+            this.tcMain.Controls.Add(this.tpBwt);
+            this.tcMain.Controls.Add(this.tpIntermediates);
+            this.tcMain.Controls.Add(this.tpSettings);
+            this.tcMain.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tcMain.Location = new System.Drawing.Point(0, 0);
+            this.tcMain.Margin = new System.Windows.Forms.Padding(4);
+            this.tcMain.Name = "tcMain";
+            this.tcMain.SelectedIndex = 0;
+            this.tcMain.Size = new System.Drawing.Size(879, 753);
+            this.tcMain.TabIndex = 0;
             // 
-            // tpAlgorithm
+            // tpBwt
             // 
-            this.tpAlgorithm.Controls.Add(this.bchReverse);
-            this.tpAlgorithm.Controls.Add(this.bchBwt);
-            this.tpAlgorithm.Controls.Add(this.pbLed);
-            this.tpAlgorithm.Controls.Add(this.btnExecute);
-            this.tpAlgorithm.Controls.Add(this.lblSeparator);
-            this.tpAlgorithm.Controls.Add(this.lblReversedOutput);
-            this.tpAlgorithm.Controls.Add(this.lblOutPut);
-            this.tpAlgorithm.Controls.Add(this.lblInput);
-            this.tpAlgorithm.Controls.Add(this.txbReversedOutput);
-            this.tpAlgorithm.Controls.Add(this.txbOutPut);
-            this.tpAlgorithm.Controls.Add(this.txbInput);
-            this.tpAlgorithm.Location = new System.Drawing.Point(4, 25);
-            this.tpAlgorithm.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.tpAlgorithm.Name = "tpAlgorithm";
-            this.tpAlgorithm.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.tpAlgorithm.Size = new System.Drawing.Size(871, 724);
-            this.tpAlgorithm.TabIndex = 0;
-            this.tpAlgorithm.Text = "Algorithm Execution";
-            this.tpAlgorithm.UseVisualStyleBackColor = true;
+            this.tpBwt.Controls.Add(this.bchReverse);
+            this.tpBwt.Controls.Add(this.bchBwt);
+            this.tpBwt.Controls.Add(this.pbLed);
+            this.tpBwt.Controls.Add(this.btnExecute);
+            this.tpBwt.Controls.Add(this.lblSeparator);
+            this.tpBwt.Controls.Add(this.lblReversedOutput);
+            this.tpBwt.Controls.Add(this.lblOutPut);
+            this.tpBwt.Controls.Add(this.lblInput);
+            this.tpBwt.Controls.Add(this.txbReversedOutput);
+            this.tpBwt.Controls.Add(this.txbOutPut);
+            this.tpBwt.Controls.Add(this.txbInput);
+            this.tpBwt.Location = new System.Drawing.Point(4, 25);
+            this.tpBwt.Margin = new System.Windows.Forms.Padding(4);
+            this.tpBwt.Name = "tpBwt";
+            this.tpBwt.Padding = new System.Windows.Forms.Padding(4);
+            this.tpBwt.Size = new System.Drawing.Size(871, 724);
+            this.tpBwt.TabIndex = 0;
+            this.tpBwt.Text = "BWT";
+            this.tpBwt.UseVisualStyleBackColor = true;
+            // 
+            // bchReverse
+            // 
+            this.bchReverse.Location = new System.Drawing.Point(260, 500);
+            this.bchReverse.Margin = new System.Windows.Forms.Padding(5);
+            this.bchReverse.Name = "bchReverse";
+            this.bchReverse.Precision = 8;
+            this.bchReverse.Size = new System.Drawing.Size(536, 38);
+            this.bchReverse.TabIndex = 4;
+            this.bchReverse.Visible = false;
+            // 
+            // bchBwt
+            // 
+            this.bchBwt.Location = new System.Drawing.Point(260, 292);
+            this.bchBwt.Margin = new System.Windows.Forms.Padding(5);
+            this.bchBwt.Name = "bchBwt";
+            this.bchBwt.Precision = 8;
+            this.bchBwt.Size = new System.Drawing.Size(536, 38);
+            this.bchBwt.TabIndex = 4;
+            this.bchBwt.Visible = false;
             // 
             // pbLed
             // 
@@ -108,7 +132,7 @@
             this.pbLed.ErrorImage = null;
             this.pbLed.Image = global::BWT.Properties.Resources.green_led;
             this.pbLed.Location = new System.Drawing.Point(804, 511);
-            this.pbLed.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.pbLed.Margin = new System.Windows.Forms.Padding(4);
             this.pbLed.Name = "pbLed";
             this.pbLed.Size = new System.Drawing.Size(27, 23);
             this.pbLed.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -119,7 +143,7 @@
             // btnExecute
             // 
             this.btnExecute.Location = new System.Drawing.Point(13, 219);
-            this.btnExecute.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnExecute.Margin = new System.Windows.Forms.Padding(4);
             this.btnExecute.Name = "btnExecute";
             this.btnExecute.Size = new System.Drawing.Size(129, 25);
             this.btnExecute.TabIndex = 2;
@@ -173,7 +197,7 @@
             this.txbReversedOutput.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txbReversedOutput.Location = new System.Drawing.Point(16, 542);
-            this.txbReversedOutput.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txbReversedOutput.Margin = new System.Windows.Forms.Padding(4);
             this.txbReversedOutput.Multiline = true;
             this.txbReversedOutput.Name = "txbReversedOutput";
             this.txbReversedOutput.ReadOnly = true;
@@ -185,7 +209,7 @@
             this.txbOutPut.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txbOutPut.Location = new System.Drawing.Point(13, 334);
-            this.txbOutPut.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txbOutPut.Margin = new System.Windows.Forms.Padding(4);
             this.txbOutPut.Multiline = true;
             this.txbOutPut.Name = "txbOutPut";
             this.txbOutPut.ReadOnly = true;
@@ -197,7 +221,7 @@
             this.txbInput.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txbInput.Location = new System.Drawing.Point(13, 39);
-            this.txbInput.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txbInput.Margin = new System.Windows.Forms.Padding(4);
             this.txbInput.Multiline = true;
             this.txbInput.Name = "txbInput";
             this.txbInput.Size = new System.Drawing.Size(832, 171);
@@ -209,9 +233,9 @@
             // 
             this.tpIntermediates.Controls.Add(this.txbIntermediates);
             this.tpIntermediates.Location = new System.Drawing.Point(4, 25);
-            this.tpIntermediates.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tpIntermediates.Margin = new System.Windows.Forms.Padding(4);
             this.tpIntermediates.Name = "tpIntermediates";
-            this.tpIntermediates.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tpIntermediates.Padding = new System.Windows.Forms.Padding(4);
             this.tpIntermediates.Size = new System.Drawing.Size(871, 724);
             this.tpIntermediates.TabIndex = 2;
             this.tpIntermediates.Text = "Intermediate states";
@@ -221,7 +245,7 @@
             // 
             this.txbIntermediates.Dock = System.Windows.Forms.DockStyle.Fill;
             this.txbIntermediates.Location = new System.Drawing.Point(4, 4);
-            this.txbIntermediates.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txbIntermediates.Margin = new System.Windows.Forms.Padding(4);
             this.txbIntermediates.Multiline = true;
             this.txbIntermediates.Name = "txbIntermediates";
             this.txbIntermediates.ReadOnly = true;
@@ -231,18 +255,13 @@
             // 
             // tpSettings
             // 
-            this.tpSettings.Controls.Add(this.nupErrorsAllowed);
-            this.tpSettings.Controls.Add(this.lblErrorsAllowed);
-            this.tpSettings.Controls.Add(this.lblSearch);
-            this.tpSettings.Controls.Add(this.txbSearch);
-            this.tpSettings.Controls.Add(this.btnInexactSearch);
             this.tpSettings.Controls.Add(this.lnkWikipedia);
             this.tpSettings.Controls.Add(this.chbSpeedOverReports);
             this.tpSettings.Controls.Add(this.chbPerformReverseTransform);
             this.tpSettings.Location = new System.Drawing.Point(4, 25);
-            this.tpSettings.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tpSettings.Margin = new System.Windows.Forms.Padding(4);
             this.tpSettings.Name = "tpSettings";
-            this.tpSettings.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tpSettings.Padding = new System.Windows.Forms.Padding(4);
             this.tpSettings.Size = new System.Drawing.Size(871, 724);
             this.tpSettings.TabIndex = 1;
             this.tpSettings.Text = "Settings";
@@ -266,7 +285,7 @@
             this.chbSpeedOverReports.Checked = true;
             this.chbSpeedOverReports.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chbSpeedOverReports.Location = new System.Drawing.Point(11, 59);
-            this.chbSpeedOverReports.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.chbSpeedOverReports.Margin = new System.Windows.Forms.Padding(4);
             this.chbSpeedOverReports.Name = "chbSpeedOverReports";
             this.chbSpeedOverReports.Size = new System.Drawing.Size(447, 21);
             this.chbSpeedOverReports.TabIndex = 0;
@@ -280,7 +299,7 @@
             this.chbPerformReverseTransform.Checked = true;
             this.chbPerformReverseTransform.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chbPerformReverseTransform.Location = new System.Drawing.Point(11, 31);
-            this.chbPerformReverseTransform.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.chbPerformReverseTransform.Margin = new System.Windows.Forms.Padding(4);
             this.chbPerformReverseTransform.Name = "chbPerformReverseTransform";
             this.chbPerformReverseTransform.Size = new System.Drawing.Size(346, 21);
             this.chbPerformReverseTransform.TabIndex = 0;
@@ -292,13 +311,13 @@
             this.scMain.Dock = System.Windows.Forms.DockStyle.Fill;
             this.scMain.IsSplitterFixed = true;
             this.scMain.Location = new System.Drawing.Point(0, 0);
-            this.scMain.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.scMain.Margin = new System.Windows.Forms.Padding(4);
             this.scMain.Name = "scMain";
             this.scMain.Orientation = System.Windows.Forms.Orientation.Horizontal;
             // 
             // scMain.Panel1
             // 
-            this.scMain.Panel1.Controls.Add(this.tabControl1);
+            this.scMain.Panel1.Controls.Add(this.tcMain);
             this.scMain.Panel1MinSize = 500;
             // 
             // scMain.Panel2
@@ -314,79 +333,85 @@
             // 
             this.pbTransform.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pbTransform.Location = new System.Drawing.Point(0, 0);
-            this.pbTransform.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.pbTransform.Margin = new System.Windows.Forms.Padding(4);
             this.pbTransform.Name = "pbTransform";
             this.pbTransform.Size = new System.Drawing.Size(879, 31);
             this.pbTransform.TabIndex = 0;
             // 
-            // btnInexactSearch
+            // tpBwa
             // 
-            this.btnInexactSearch.Location = new System.Drawing.Point(82, 165);
-            this.btnInexactSearch.Margin = new System.Windows.Forms.Padding(4);
-            this.btnInexactSearch.Name = "btnInexactSearch";
-            this.btnInexactSearch.Size = new System.Drawing.Size(184, 25);
-            this.btnInexactSearch.TabIndex = 3;
-            this.btnInexactSearch.Text = "Execute Inexact Search!";
-            this.btnInexactSearch.UseVisualStyleBackColor = true;
-            this.btnInexactSearch.Click += new System.EventHandler(this.btnInexactSearch_Click);
-            // 
-            // bchReverse
-            // 
-            this.bchReverse.Location = new System.Drawing.Point(260, 500);
-            this.bchReverse.Margin = new System.Windows.Forms.Padding(5);
-            this.bchReverse.Name = "bchReverse";
-            this.bchReverse.Precision = 8;
-            this.bchReverse.Size = new System.Drawing.Size(536, 38);
-            this.bchReverse.TabIndex = 4;
-            this.bchReverse.Visible = false;
-            // 
-            // bchBwt
-            // 
-            this.bchBwt.Location = new System.Drawing.Point(260, 292);
-            this.bchBwt.Margin = new System.Windows.Forms.Padding(5);
-            this.bchBwt.Name = "bchBwt";
-            this.bchBwt.Precision = 8;
-            this.bchBwt.Size = new System.Drawing.Size(536, 38);
-            this.bchBwt.TabIndex = 4;
-            this.bchBwt.Visible = false;
-            // 
-            // txbSearch
-            // 
-            this.txbSearch.Location = new System.Drawing.Point(181, 108);
-            this.txbSearch.Name = "txbSearch";
-            this.txbSearch.Size = new System.Drawing.Size(85, 22);
-            this.txbSearch.TabIndex = 4;
-            this.txbSearch.Text = "lol";
-            // 
-            // lblSearch
-            // 
-            this.lblSearch.AutoSize = true;
-            this.lblSearch.Location = new System.Drawing.Point(8, 111);
-            this.lblSearch.Name = "lblSearch";
-            this.lblSearch.Size = new System.Drawing.Size(108, 17);
-            this.lblSearch.TabIndex = 5;
-            this.lblSearch.Text = "String to search";
-            // 
-            // lblErrorsAllowed
-            // 
-            this.lblErrorsAllowed.AutoSize = true;
-            this.lblErrorsAllowed.Location = new System.Drawing.Point(8, 138);
-            this.lblErrorsAllowed.Name = "lblErrorsAllowed";
-            this.lblErrorsAllowed.Size = new System.Drawing.Size(167, 17);
-            this.lblErrorsAllowed.TabIndex = 5;
-            this.lblErrorsAllowed.Text = "Number of errors allowed";
+            this.tpBwa.Controls.Add(this.txbBwaResults);
+            this.tpBwa.Controls.Add(this.nupErrorsAllowed);
+            this.tpBwa.Controls.Add(this.lblErrorsAllowed);
+            this.tpBwa.Controls.Add(this.lblSearch);
+            this.tpBwa.Controls.Add(this.txbSearch);
+            this.tpBwa.Controls.Add(this.btnInexactSearch);
+            this.tpBwa.Location = new System.Drawing.Point(4, 25);
+            this.tpBwa.Name = "tpBwa";
+            this.tpBwa.Size = new System.Drawing.Size(871, 724);
+            this.tpBwa.TabIndex = 3;
+            this.tpBwa.Text = "BWA";
+            this.tpBwa.UseVisualStyleBackColor = true;
             // 
             // nupErrorsAllowed
             // 
-            this.nupErrorsAllowed.Location = new System.Drawing.Point(181, 136);
+            this.nupErrorsAllowed.Location = new System.Drawing.Point(181, 37);
             this.nupErrorsAllowed.Name = "nupErrorsAllowed";
             this.nupErrorsAllowed.Size = new System.Drawing.Size(85, 22);
-            this.nupErrorsAllowed.TabIndex = 6;
+            this.nupErrorsAllowed.TabIndex = 11;
             this.nupErrorsAllowed.Value = new decimal(new int[] {
             1,
             0,
             0,
             0});
+            // 
+            // lblErrorsAllowed
+            // 
+            this.lblErrorsAllowed.AutoSize = true;
+            this.lblErrorsAllowed.Location = new System.Drawing.Point(8, 39);
+            this.lblErrorsAllowed.Name = "lblErrorsAllowed";
+            this.lblErrorsAllowed.Size = new System.Drawing.Size(167, 17);
+            this.lblErrorsAllowed.TabIndex = 9;
+            this.lblErrorsAllowed.Text = "Number of errors allowed";
+            // 
+            // lblSearch
+            // 
+            this.lblSearch.AutoSize = true;
+            this.lblSearch.Location = new System.Drawing.Point(8, 12);
+            this.lblSearch.Name = "lblSearch";
+            this.lblSearch.Size = new System.Drawing.Size(108, 17);
+            this.lblSearch.TabIndex = 10;
+            this.lblSearch.Text = "String to search";
+            // 
+            // txbSearch
+            // 
+            this.txbSearch.Location = new System.Drawing.Point(181, 9);
+            this.txbSearch.Name = "txbSearch";
+            this.txbSearch.Size = new System.Drawing.Size(85, 22);
+            this.txbSearch.TabIndex = 8;
+            this.txbSearch.Text = "lol";
+            // 
+            // btnInexactSearch
+            // 
+            this.btnInexactSearch.Location = new System.Drawing.Point(82, 66);
+            this.btnInexactSearch.Margin = new System.Windows.Forms.Padding(4);
+            this.btnInexactSearch.Name = "btnInexactSearch";
+            this.btnInexactSearch.Size = new System.Drawing.Size(184, 25);
+            this.btnInexactSearch.TabIndex = 7;
+            this.btnInexactSearch.Text = "Execute Inexact Search!";
+            this.btnInexactSearch.UseVisualStyleBackColor = true;
+            this.btnInexactSearch.Click += new System.EventHandler(this.btnInexactSearch_Click);
+            // 
+            // txbBwaResults
+            // 
+            this.txbBwaResults.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txbBwaResults.Location = new System.Drawing.Point(8, 98);
+            this.txbBwaResults.Multiline = true;
+            this.txbBwaResults.Name = "txbBwaResults";
+            this.txbBwaResults.ReadOnly = true;
+            this.txbBwaResults.Size = new System.Drawing.Size(855, 623);
+            this.txbBwaResults.TabIndex = 12;
             // 
             // frmBwt
             // 
@@ -395,12 +420,12 @@
             this.ClientSize = new System.Drawing.Size(879, 789);
             this.Controls.Add(this.scMain);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "frmBwt";
             this.Text = "Burrows–Wheeler transform";
-            this.tabControl1.ResumeLayout(false);
-            this.tpAlgorithm.ResumeLayout(false);
-            this.tpAlgorithm.PerformLayout();
+            this.tcMain.ResumeLayout(false);
+            this.tpBwt.ResumeLayout(false);
+            this.tpBwt.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbLed)).EndInit();
             this.tpIntermediates.ResumeLayout(false);
             this.tpIntermediates.PerformLayout();
@@ -410,6 +435,8 @@
             this.scMain.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.scMain)).EndInit();
             this.scMain.ResumeLayout(false);
+            this.tpBwa.ResumeLayout(false);
+            this.tpBwa.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nupErrorsAllowed)).EndInit();
             this.ResumeLayout(false);
 
@@ -417,8 +444,8 @@
 
         #endregion
 
-        private System.Windows.Forms.TabControl tabControl1;
-        private System.Windows.Forms.TabPage tpAlgorithm;
+        private System.Windows.Forms.TabControl tcMain;
+        private System.Windows.Forms.TabPage tpBwt;
         private System.Windows.Forms.Label lblSeparator;
         private System.Windows.Forms.Label lblOutPut;
         private System.Windows.Forms.Label lblInput;
@@ -438,11 +465,13 @@
         private BwtBenchmarkingPanel bchReverse;
         private System.Windows.Forms.LinkLabel lnkWikipedia;
         private System.Windows.Forms.CheckBox chbSpeedOverReports;
-        private System.Windows.Forms.Button btnInexactSearch;
+        private System.Windows.Forms.TabPage tpBwa;
         private System.Windows.Forms.NumericUpDown nupErrorsAllowed;
         private System.Windows.Forms.Label lblErrorsAllowed;
         private System.Windows.Forms.Label lblSearch;
         private System.Windows.Forms.TextBox txbSearch;
+        private System.Windows.Forms.Button btnInexactSearch;
+        private System.Windows.Forms.TextBox txbBwaResults;
 
     }
 }

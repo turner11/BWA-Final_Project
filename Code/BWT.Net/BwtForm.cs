@@ -308,11 +308,16 @@ namespace BWT
 
         private void btnInexactSearch_Click(object sender, EventArgs e)
         {
+            this.txbBwaResults.Text = String.Empty;
+
             BWT.Properties.Settings.Default.searchString = this.txbSearch.Text;
             BWT.Properties.Settings.Default.errorsAllowed= (int)this.nupErrorsAllowed.Value;
             BWT.Properties.Settings.Default.Save();
 
+            Stopwatch sw = new Stopwatch();
+            sw.Start();
             var results = InexactSearch.GetIndex(this.txbSearch.Text, (int)this.nupErrorsAllowed.Value);
+            sw.Stop();
 
             #region Log message
             string[] indexedTableRows = 
@@ -328,16 +333,19 @@ namespace BWT
                                        "The query:{0}" +
                                        "\t'{2}' with {3} errors allowed{0}" +
                                        "The results:{0}" +
-                                       "\tIndexes: {4}{0}",
+                                       "\tIndexes: {4}{0}{0}" +
+                                       "Query took: {5}{0}"+
+                                       "({6} sec/char){0}",
                                        Environment.NewLine,
                                        indexedTable,
                                        results.StringToMatch,
                                        results.ErrorAllowed,
-                                       String.Join(",",results.Indexes));
-            this.txbIntermediates.Text = msg;
+                                       String.Join(",",results.Indexes),
+                                       sw.Elapsed.ToString(),
+                                       sw.Elapsed.TotalSeconds/results.StringToMatch.Length);
+            this.txbBwaResults.Text = msg;
 
             #endregion
-            this.tabControl1.SelectedTab = this.tpIntermediates;
         }
 
 

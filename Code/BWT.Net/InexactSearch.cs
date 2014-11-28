@@ -60,39 +60,45 @@ namespace BWT
             if (errorsAlloed < 0)
                 return new List<int>();
             if (i < 0)
-                return new List<int>() { lowerBound, upperBound };
+            {
+                int startIndex = lowerBound;
+                int count = Math.Max(0,upperBound - lowerBound + 1);
+                var range = Enumerable.Range(lowerBound,count).ToList();
+                return range;
+            }
            
             
 
             /*The bounds to retunr*/
             IEnumerable<int> I = new List<int>();
 
-            /*Find matches with less errors*/
-            var boundsWithLessErrors = InexactSearch.GetIndexRecursive(w_stringToMatch, i - 1, errorsAlloed - 1, lowerBound, upperBound).ToList();
-            I = I.Union(boundsWithLessErrors);//Remove?
+            /*Find matches with less errors (gaps?)*/
+            //var boundsWithLessErrors = InexactSearch.GetIndexRecursive(w_stringToMatch, i - 1, errorsAlloed - 1, lowerBound, upperBound).ToList();
+            //I = I.Union(boundsWithLessErrors);//Remove?
 
 
             foreach (var letter in InexactSearch.ALPHA_BET_LETTERS)
             {
                 
-                var letterAsString = letter.ToString();
-                var c_letter = InexactSearch.C(letter);
-                var temp_lowerBound = c_letter + InexactSearch.O(letter,lowerBound-1) + 1;
-                var temp_upperBound = c_letter + InexactSearch.O(letter, upperBound);
+                int c_index = InexactSearch.C(letter);
+                var temp_lowerBound = c_index + InexactSearch.O(letter, lowerBound - 1) + 1;
+                var temp_upperBound = c_index + InexactSearch.O(letter, upperBound);
 
                 bool isLegalBounds = lowerBound <= upperBound;
                 if (isLegalBounds)
                 {
+                    /*
                     var boundsInNewBoundeariesWithLessErrors =
                         InexactSearch.GetIndexRecursive(w_stringToMatch, i, errorsAlloed - 1, temp_lowerBound, temp_upperBound);
                     I = I.Union(boundsInNewBoundeariesWithLessErrors); //Remove?
-                    
+                    */
                     if (letter == w_stringToMatch[i])
                     {
                         //current leeter is a match, we go on into deeper recursion with same ampunt of eerrors allowes
                         var deepperRecursiveBoundaries =
                         InexactSearch.GetIndexRecursive(w_stringToMatch, i - 1, errorsAlloed, temp_lowerBound, temp_upperBound);
                         I = I.Union(deepperRecursiveBoundaries);
+                        var a = String.Join(",", I.ToList());
                     }
                     else 
                     {
