@@ -356,17 +356,15 @@ namespace BWT
         private void chbSpeedOverReports_CheckedChanged(object sender, EventArgs e)
         {
             this._logics.SpeedOverReports = this.chbSpeedOverReports.Checked;
-        } 
-        
+        }
 
-        
 
-        #endregion
 
         private void frmBwt_FormClosing(object sender, FormClosingEventArgs e)
         {
             this.SaveSettings();
         }
+
 
         private void btnStartMultipleBwa_Click(object sender, EventArgs e)
         {
@@ -378,6 +376,7 @@ namespace BWT
             this.txbMultiBwaResults.Clear();
         }
 
-       
+
+        #endregion
     }
 }

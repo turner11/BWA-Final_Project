@@ -175,7 +175,18 @@ namespace BWT
             {
                 this.txbReference.Text = this.txbReferenceMirror.Text;
             }
-        } 
+        }
+
+        /// <summary>
+        /// Handles the ValueChanged event of the nupReadLength control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+        private void nupReadLength_ValueChanged(object sender, EventArgs e)
+        {
+            int maxDiff = InexactSearch.GetCalculatedMaxError((int)this.nupReadLength.Value);
+            this.lblRecommendedMaxError.Text = String.Format("Calculated Max Error: {0}", maxDiff);
+        }
         #endregion
     }
 }

@@ -69,6 +69,7 @@ namespace BWT
             //TODO: Calculate array O'(·,·) from _bwtReverseResults.BwtString  (work that can be done in before run time)
 
         }
+        
         /// <summary>
         /// Get the index of the specified string using an inexact search
         /// </summary>
@@ -80,6 +81,7 @@ namespace BWT
             var sw = new System.Diagnostics.Stopwatch();
             sw.Start();
             this.D = this.CalculateD2(w_stringToMatch);
+            
             var indexes = GetIndexRecursive(w_stringToMatch, w_stringToMatch.Length - 1, errorsAlloed, 0, this.X_Reference.Length - 1).ToArray();
             sw.Stop();
             sw.Start();
@@ -359,5 +361,29 @@ namespace BWT
             }
         }
 
+        const decimal READ_ERRROR_AVERAGE = 0.02M;
+        const int MAX_ERROR_THRESHOLD = 4;
+        internal static int GetCalculatedMaxError(int maxReadLength)
+        {
+            return InexactSearch.GetCalculatedMaxError(maxReadLength, READ_ERRROR_AVERAGE, MAX_ERROR_THRESHOLD);
+        }
+
+        private static int GetCalculatedMaxError(int maxReadLength, decimal errorAvg, int threshold)
+        {
+            double elambda = Math.Exp((double)(-maxReadLength * errorAvg));
+            double sum = elambda;
+            decimal  y = 1;
+            int x = 1;
+            for (int k = 1; k < 1000; k++)
+            {
+                y *= maxReadLength * errorAvg;
+                x *= k;
+                sum += elambda * (double)y / x;
+                System.Diagnostics.Debug.WriteLine("Sum = "+ sum);
+                if(1.0-sum < threshold) 
+                    return k;
+            }
+            return 2;
+        }
     }
 }
