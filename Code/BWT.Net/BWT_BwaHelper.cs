@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
@@ -54,7 +55,9 @@ namespace BWT
         /// <returns>The alignment results</returns>
         private InexactSearch.Results PerformBwaAlignment()
         {
-            InexactSearch iSearch = new InexactSearch(this.txbReference.Text, this.chbFindGaps.Checked);
+            var bw= new BackgroundWorker();
+            bw.WorkerReportsProgress = true;
+            InexactSearch iSearch = new InexactSearch(this.txbReference.Text, this.chbFindGaps.Checked,bw);
             return PerformBwaAlignment(iSearch);
         }
 

@@ -4,11 +4,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Data;
+using System.ComponentModel;
+using System.Timers;
+using System.Diagnostics;
 
 namespace BWT
 {
     public class InexactSearch
     {
+        
+
         BwtLogics _bwtLogics;
         BwtLogics.BwtResults _bwtResults;
         BwtLogics.BwtResults _bwtReverseResults;
@@ -20,7 +25,7 @@ namespace BWT
         /// Determines weather this instance will try to find gap errors. 
         /// </summary>
         /// <remarks>
-        /// In general the algorithem should, but in order to get more ituitive and clear results for debugging, we might want to shut off this option.
+        /// In general the algorithm should, but in order to get more intuitive and clear results for debugging, we might want to shut off this option.
         /// </remarks>
         public readonly bool FindGapError;
 
@@ -28,7 +33,7 @@ namespace BWT
 
         public readonly IReadOnlyCollection<char> ALPHA_BET_LETTERS;
 
-        public InexactSearch(string reference, bool findGapErrors)
+        public InexactSearch(string reference, bool findGapErrors, BackgroundWorker bw)
         {
             this._bwtLogics = new BwtLogics();
             this.X_Reference = reference + BwtLogics.END_OF_FILE_CHAR;
@@ -36,15 +41,26 @@ namespace BWT
             this.FindGapError = findGapErrors;
 
             /*Get BWt for the reference*/
+            Stopwatch sw = new Stopwatch();
+            
+            bw.ReportProgress(0,"Starting Index");
+            sw.Start();
             this._bwtResults = this._bwtLogics.Bwt(X_Reference);
+            sw.Stop();
+            bw.ReportProgress(0, "Index Took: "+sw.Elapsed.ToString());
 
             /*Get Bwt for reverse reference*/
             char[] chars = this.X_Reference.Replace(BwtLogics.END_OF_FILE_CHAR.ToString(), String.Empty).ToCharArray();
             Array.Reverse(chars);
             string reverseReference = new String(chars);
+            sw.Reset();
+            bw.ReportProgress(0, "Starting Reverse index.");
+            sw.Start();
             this._bwtReverseResults = this._bwtLogics.Bwt(reverseReference);
+            sw.Stop();
+            bw.ReportProgress(0, "Reverse Index Took: " + sw.Elapsed.ToString());
 
-            /*Define the alphbet*/
+            /*Define the alphabet*/
             var letters = X_Reference.Substring(0, X_Reference.Length - 1).Distinct().ToList();
             letters.Sort(); //this is just for easier code comparing.
             this.ALPHA_BET_LETTERS = letters.AsReadOnly();//new List<char> { 'A', 'C', 'G', 'T' }.AsReadOnly();

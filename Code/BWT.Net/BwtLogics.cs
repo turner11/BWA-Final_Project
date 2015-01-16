@@ -4,6 +4,11 @@ using System.ComponentModel;
 using System.Data;
 using System.Linq;
 using System.Text;
+using System.Security.Cryptography;
+using System.IO;
+using System.Runtime.Serialization;
+using System.Runtime.Serialization.Formatters.Binary;
+using System.Runtime.Serialization.Formatters.Soap;
 
 namespace BWT
 {
@@ -16,6 +21,11 @@ namespace BWT
         public const char END_OF_FILE_CHAR = '$';
 
         /// <summary>
+        /// The number of elements to take for hash of cached results
+        /// </summary>
+        private const int NUMBER_OF_ELEMENTS_FOR_HASH = 500;
+
+        /// <summary>
         /// Gets or sets a value indicating whether speed is valued over reports during work.
         /// </summary>
         /// <value>
@@ -23,6 +33,9 @@ namespace BWT
         /// </value>
         public bool SpeedOverReports { get; set; } 
         #endregion
+
+        
+
        
         #region Public methods
         /// <summary>
@@ -31,9 +44,12 @@ namespace BWT
         /// <param name="input">The input to perform the transform on.</param>
         /// <returns>The text after the transform</returns>
         public BwtResults Bwt(string input)
-        {
+        {   
             this.ThrowExceptionIfInputNotValid(input);
+
             string sterileInput = this.SterilizeInput(input);
+
+
             var table = GetPopulatedBwtDataTable(sterileInput);
 
             int lastColumnIndex = table.Columns.Count - 1;
@@ -44,10 +60,14 @@ namespace BWT
             string[] outputChars = sortedTable.AsEnumerable().Select(row => row[lastColumnIndex].ToString()).ToArray();
             string output = String.Concat(outputChars);
 
-            BwtResults results = new BwtResults(input,table,sortedTable,output);
+            BwtResults results = new BwtResults(input, table, sortedTable, output);
+
+
             return results;
 
         }
+
+        
         /// <summary>
         /// Performs the reverse Burrows–Wheeler transform on the specified input.
         /// <remarks>
@@ -259,9 +279,11 @@ namespace BWT
         } 
         #endregion
 
+
         /// <summary>
         /// A wrapperclass for the BWT results
         /// </summary>
+        [Serializable]
         public class BwtResults
         {
             public readonly string OriginalText;

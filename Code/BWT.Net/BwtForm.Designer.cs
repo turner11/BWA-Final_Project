@@ -35,6 +35,7 @@
             this.rdvBwaBoth = new System.Windows.Forms.RadioButton();
             this.rdvBwaMultipleThread = new System.Windows.Forms.RadioButton();
             this.rdvBwaSingleThread = new System.Windows.Forms.RadioButton();
+            this.btnClearMultiple = new System.Windows.Forms.Button();
             this.btnStartMultipleBwa = new System.Windows.Forms.Button();
             this.nupNumberOfReads = new System.Windows.Forms.NumericUpDown();
             this.lblNumberOfReads = new System.Windows.Forms.Label();
@@ -113,6 +114,7 @@
             this.tpMultipleBwa.Controls.Add(this.rdvBwaBoth);
             this.tpMultipleBwa.Controls.Add(this.rdvBwaMultipleThread);
             this.tpMultipleBwa.Controls.Add(this.rdvBwaSingleThread);
+            this.tpMultipleBwa.Controls.Add(this.btnClearMultiple);
             this.tpMultipleBwa.Controls.Add(this.btnStartMultipleBwa);
             this.tpMultipleBwa.Controls.Add(this.nupNumberOfReads);
             this.tpMultipleBwa.Controls.Add(this.lblNumberOfReads);
@@ -174,6 +176,17 @@
             this.rdvBwaSingleThread.TabStop = true;
             this.rdvBwaSingleThread.Text = "Single Thread";
             this.rdvBwaSingleThread.UseVisualStyleBackColor = true;
+            // 
+            // btnClearMultiple
+            // 
+            this.btnClearMultiple.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnClearMultiple.Location = new System.Drawing.Point(689, 228);
+            this.btnClearMultiple.Name = "btnClearMultiple";
+            this.btnClearMultiple.Size = new System.Drawing.Size(163, 27);
+            this.btnClearMultiple.TabIndex = 18;
+            this.btnClearMultiple.Text = "Clear";
+            this.btnClearMultiple.UseVisualStyleBackColor = true;
+            this.btnClearMultiple.Click += new System.EventHandler(this.btnClearMultiple_Click);
             // 
             // btnStartMultipleBwa
             // 
@@ -253,6 +266,7 @@
             // 
             // nupErrorPercentage
             // 
+            this.nupErrorPercentage.DecimalPlaces = 3;
             this.nupErrorPercentage.Location = new System.Drawing.Point(131, 110);
             this.nupErrorPercentage.Name = "nupErrorPercentage";
             this.nupErrorPercentage.Size = new System.Drawing.Size(112, 22);
@@ -762,6 +776,7 @@
         private System.Windows.Forms.RadioButton rdvBwaMultipleThread;
         private System.Windows.Forms.RadioButton rdvBwaSingleThread;
         private System.Windows.Forms.TextBox txbMultiBwaResults;
+        private System.Windows.Forms.Button btnClearMultiple;
 
     }
 }
