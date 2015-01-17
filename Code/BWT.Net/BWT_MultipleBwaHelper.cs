@@ -28,7 +28,7 @@ namespace BWT
            InexactSearch iSearch = null;
            this.txbMultiBwaResults.Text = String.Empty;
 
-         
+          this.InitMultiBwaWorker();
            this._multipleBwaWorker.DoWork += (s, arg) =>
            {
                iSearch = new InexactSearch(this.txbReference.Text, this.chbFindGaps.Checked, this._multipleBwaWorker);
@@ -98,12 +98,17 @@ namespace BWT
        private void RunMultipleAlignments(List<string> reads, InexactSearch iSearch)
        {
 
-           Action<string> alignmentAction = (r) =>
+           int parrallelClosureCount = 0;
+           Action<int> alignmentAction = (i) =>
            {
-               this.txbSearch.Text = r;
-               var results = this.PerformBwaAlignment(iSearch);
+               var text = reads[i];
+               this.txbSearch.Text = text;
+               var results = this.PerformBwaAlignment(iSearch,text);
                string indexesStr = String.Join(",", results.Indexes);
-               this._multipleBwaWorker.ReportProgress(0, "results for read: " + indexesStr);
+
+
+               var percentage = ((parrallelClosureCount++  + 1.0) / reads.Count) * 100;
+               this._multipleBwaWorker.ReportProgress((int)percentage, "results for read: " + indexesStr);
            };
 
 
@@ -114,17 +119,22 @@ namespace BWT
                for (int i = 0; i < reads.Count; i++)
                {
                    var read = reads[i];
-                   this.txbSearch.Text = read;
-                   var results = this.PerformBwaAlignment(iSearch);
+                   var results = this.PerformBwaAlignment(iSearch, read);
                    string indexesStr = String.Join(",",results.Indexes);
-                   this._multipleBwaWorker.ReportProgress(0,"results for read #"+i+": "+indexesStr);
+
+                   var percentage = ((i + 1.0) / reads.Count) * 100;
+                   this._multipleBwaWorker.ReportProgress((int)percentage,"results for read #"+i+": "+indexesStr);
                }
            };
 
 
            Action multiThreadAction = () =>
            {
-               Parallel.ForEach(reads, alignmentAction);
+               Parallel.For(0, reads.Count, (i) =>
+                   {
+                       alignmentAction(i);
+                   });
+               //Parallel.ForEach(reads, alignmentAction);
            };
 
 

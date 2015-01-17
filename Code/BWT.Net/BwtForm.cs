@@ -42,16 +42,24 @@ namespace BWT
             linkBwa.LinkData = "http://www.math.pku.edu.cn/teachers/xirb/Courses/biostatistics2013/Bioinformatics-2009-Li-1754-60.pdf";
             this.lnkBwaPaper.Links.Add(linkBwa);
 
+            this.InitMultiBwaWorker();
+        }
+
+        private void InitMultiBwaWorker()
+        {
             this._multipleBwaWorker = new BackgroundWorker();
             this._multipleBwaWorker.WorkerReportsProgress = true;
             this._multipleBwaWorker.ProgressChanged += (s, arg) =>
             {
-                Action updateProg = ()=>
-                this.txbMultiBwaResults.Text += arg.UserState.ToString() + Environment.NewLine;
+                Action updateProg = () =>
+                    {
+                        this.txbMultiBwaResults.Text += arg.UserState.ToString() + Environment.NewLine;
+                        this.pbTransform.Value = Math.Min(Math.Max(0, arg.ProgressPercentage),100);
+                    };
 
-                if (this.txbMultiBwaResults.InvokeRequired)
+                if (this.InvokeRequired)
                 {
-                    this.txbMultiBwaResults.Invoke(updateProg,new object[0]);
+                    this.BeginInvoke(updateProg, new object[0]);                    
                 }
                 else
                 {

@@ -62,14 +62,28 @@ namespace BWT
         }
 
         /// <summary>
-        /// Performs the BWA alignment.
+        /// Performs the BWA alignment for the Text in <see cref="txbSearch"/>.
         /// </summary>
         /// <param name="iSearch">The InexactSearch instance - this is for avoiding creation of a new one which will result a new index.</param>
         /// <returns>The alignment results</returns>
         private InexactSearch.Results PerformBwaAlignment(InexactSearch iSearch)
         {
-            var results = iSearch.GetIndex(this.txbSearch.Text, (int)this.nupErrorsAllowed.Value);
-            return results;
+            var text = this.txbSearch.Text;
+            return this.PerformBwaAlignment(iSearch, text);
+        }
+
+        /// <summary>
+        /// Performs the BWA alignment for the Tspecified texr
+        /// </summary>
+        /// <param name="iSearch">The InexactSearch instance - this is for avoiding creation of a new one which will result a new index.</param>
+        /// <param name="text">The text.</param>
+        /// <returns>
+        /// The alignment results
+        /// </returns>
+        private InexactSearch.Results PerformBwaAlignment(InexactSearch iSearch, string text)
+        {
+            var results = iSearch.GetIndex(text, (int)this.nupErrorsAllowed.Value);
+            return results; 
         }
 
         /// <summary>
