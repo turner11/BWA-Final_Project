@@ -132,7 +132,7 @@ namespace BWT
 
                     if (letter == w_stringToMatch[i])
                     {
-                        //current leeter is a match, we go on into deeper recursion with same ampunt of eerrors allowes
+                        //current letter is a match, we go on into deeper recursion with same amount of errors allowed
                         var deepperRecursiveBoundaries =
                         this.GetIndexRecursive(w_stringToMatch, i - 1, errorsAlloed, temp_lowerBound, temp_upperBound);
                         I = I.Union(deepperRecursiveBoundaries);
