@@ -102,13 +102,13 @@ namespace BWT
            Action<int> alignmentAction = (i) =>
            {
                var text = reads[i];
-               this.txbSearch.Text = text;
+               //this.txbSearch.Text = text;
                var results = this.PerformBwaAlignment(iSearch,text);
                string indexesStr = String.Join(",", results.Indexes);
 
 
                var percentage = ((parrallelClosureCount++  + 1.0) / reads.Count) * 100;
-               this._multipleBwaWorker.ReportProgress((int)percentage, "results for read: " + indexesStr);
+               this._multipleBwaWorker.ReportProgress((int)percentage, "results for read #"+i+": " + indexesStr);
            };
 
 

@@ -31,6 +31,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmBwt));
             this.tcMain = new System.Windows.Forms.TabControl();
             this.tpMultipleBwa = new System.Windows.Forms.TabPage();
+            this.lblRecommendedMaxError = new System.Windows.Forms.Label();
             this.txbMultiBwaResults = new System.Windows.Forms.TextBox();
             this.rdvBwaBoth = new System.Windows.Forms.RadioButton();
             this.rdvBwaMultipleThread = new System.Windows.Forms.RadioButton();
@@ -76,7 +77,6 @@
             this.chbPerformReverseTransform = new System.Windows.Forms.CheckBox();
             this.scMain = new System.Windows.Forms.SplitContainer();
             this.pbTransform = new System.Windows.Forms.ProgressBar();
-            this.lblRecommendedMaxError = new System.Windows.Forms.Label();
             this.tcMain.SuspendLayout();
             this.tpMultipleBwa.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nupNumberOfReads)).BeginInit();
@@ -133,6 +133,15 @@
             this.tpMultipleBwa.TabIndex = 4;
             this.tpMultipleBwa.Text = "Multiple Bwa";
             this.tpMultipleBwa.UseVisualStyleBackColor = true;
+            // 
+            // lblRecommendedMaxError
+            // 
+            this.lblRecommendedMaxError.AutoSize = true;
+            this.lblRecommendedMaxError.Location = new System.Drawing.Point(268, 169);
+            this.lblRecommendedMaxError.Name = "lblRecommendedMaxError";
+            this.lblRecommendedMaxError.Size = new System.Drawing.Size(147, 17);
+            this.lblRecommendedMaxError.TabIndex = 21;
+            this.lblRecommendedMaxError.Text = "Calculated Max Error: ";
             // 
             // txbMultiBwaResults
             // 
@@ -278,7 +287,7 @@
             2,
             0,
             0,
-            131072});
+            0});
             // 
             // lblErrorPercentage
             // 
@@ -700,15 +709,6 @@
             this.pbTransform.Name = "pbTransform";
             this.pbTransform.Size = new System.Drawing.Size(868, 24);
             this.pbTransform.TabIndex = 0;
-            // 
-            // lblRecommendedMaxError
-            // 
-            this.lblRecommendedMaxError.AutoSize = true;
-            this.lblRecommendedMaxError.Location = new System.Drawing.Point(268, 169);
-            this.lblRecommendedMaxError.Name = "lblRecommendedMaxError";
-            this.lblRecommendedMaxError.Size = new System.Drawing.Size(147, 17);
-            this.lblRecommendedMaxError.TabIndex = 21;
-            this.lblRecommendedMaxError.Text = "Calculated Max Error: ";
             // 
             // frmBwt
             // 
