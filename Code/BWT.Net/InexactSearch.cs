@@ -69,28 +69,37 @@ namespace BWT
             //TODO: Calculate array O'(·,·) from _bwtReverseResults.BwtString  (work that can be done in before run time)
 
         }
-        
+
         /// <summary>
         /// Get the index of the specified string using an inexact search
         /// </summary>
-        /// <param name="w_stringToMatch"></param>
-        /// <param name="z"></param>
-        /// <returns></returns>
-        public Results GetIndex(string w_stringToMatch, int errorsAlloed)
+        /// <param name="w_stringToMatch">The string to match (e.g. DNA Sample).</param>
+        /// <param name="errorsAllowed">The maximum number of errors allowed per sample.</param>
+        /// <returns>The <see cref="Results"/> object containing full results for the inexact search</returns>
+        public Results GetIndex(string w_stringToMatch, int errorsAllowed)
         {
             var sw = new System.Diagnostics.Stopwatch();
             sw.Start();
             this.D = this.CalculateD2(w_stringToMatch);
             
-            var indexes = GetIndexRecursive(w_stringToMatch, w_stringToMatch.Length - 1, errorsAlloed, 0, this.X_Reference.Length - 1).ToArray();
+            var indexes = GetIndexRecursive(w_stringToMatch, w_stringToMatch.Length - 1, errorsAllowed, 0, this.X_Reference.Length - 1).ToArray();
             sw.Stop();
             sw.Start();
-            return new Results(indexes, this._bwtResults.SuffixTable, this._bwtResults.BwtString, w_stringToMatch, errorsAlloed, this.FindGapError, sw.Elapsed);
+            return new Results(indexes, this._bwtResults.SuffixTable, this._bwtResults.BwtString, w_stringToMatch, errorsAllowed, this.FindGapError, sw.Elapsed);
         }
 
-        private IEnumerable<int> GetIndexRecursive(string w_stringToMatch, int i, int errorsAlloed, int lowerBound, int upperBound)
+        /// <summary>
+        /// The recursive function for getting the index of the specified string using an inexact search.
+        /// </summary>
+        /// <param name="w_stringToMatch">The string to match (e.g. DNA Sample).</param>
+        /// <param name="i">The index in suffix array.</param>
+        /// <param name="errorsAllowed">The maximum number of errors allowed per sample.</param>
+        /// <param name="lowerBound">The lower bound.</param>
+        /// <param name="upperBound">The upper bound.</param>
+        /// <returns>The indexes that the <paramref name="w_stringToMatch"/> is located at, bounded to the number of errors allowed</returns>
+        private IEnumerable<int> GetIndexRecursive(string w_stringToMatch, int i, int errorsAllowed, int lowerBound, int upperBound)
         {
-            if (errorsAlloed < 0)
+            if (errorsAllowed < 0)
                 return new List<int>();
             if (i < 0)
             {
@@ -100,15 +109,13 @@ namespace BWT
                 return range;
             }
 
-
-
-            /*The bounds to retunr*/
+            /*The bounds to return*/
             IEnumerable<int> I = new List<int>();
 
             if (this.FindGapError)
             {
-                /*Find matches with less errors (gaps?)*/
-                var boundsWithLessErrors = this.GetIndexRecursive(w_stringToMatch, i - 1, errorsAlloed - 1, lowerBound, upperBound).ToList();
+                /*Find matches with gaps*/
+                var boundsWithLessErrors = this.GetIndexRecursive(w_stringToMatch, i - 1, errorsAllowed - 1, lowerBound, upperBound).ToList();
                 I = I.Union(boundsWithLessErrors);//Remove?
             }
 
@@ -126,7 +133,7 @@ namespace BWT
                     if (this.FindGapError)
                     {
                         var boundsInNewBoundeariesWithLessErrors =
-                            this.GetIndexRecursive(w_stringToMatch, i, errorsAlloed - 1, temp_lowerBound, temp_upperBound);
+                            this.GetIndexRecursive(w_stringToMatch, i, errorsAllowed - 1, temp_lowerBound, temp_upperBound);
                         I = I.Union(boundsInNewBoundeariesWithLessErrors);
                     }
 
@@ -134,7 +141,7 @@ namespace BWT
                     {
                         //current letter is a match, we go on into deeper recursion with same amount of errors allowed
                         var deepperRecursiveBoundaries =
-                        this.GetIndexRecursive(w_stringToMatch, i - 1, errorsAlloed, temp_lowerBound, temp_upperBound);
+                        this.GetIndexRecursive(w_stringToMatch, i - 1, errorsAllowed, temp_lowerBound, temp_upperBound);
                         I = I.Union(deepperRecursiveBoundaries);
                         var a = String.Join(",", I.ToList());
                     }
@@ -142,7 +149,7 @@ namespace BWT
                     {
                         //we found an error, we reduce the number of allowed errors in next iteration
                         var deepperRecursiveWithLessErrorsBoundaries =
-                       this.GetIndexRecursive(w_stringToMatch, i - 1, errorsAlloed - 1, temp_lowerBound, temp_upperBound).ToList();
+                       this.GetIndexRecursive(w_stringToMatch, i - 1, errorsAllowed - 1, temp_lowerBound, temp_upperBound).ToList();
                         I = I.Union(deepperRecursiveWithLessErrorsBoundaries);
                     }
                 }
