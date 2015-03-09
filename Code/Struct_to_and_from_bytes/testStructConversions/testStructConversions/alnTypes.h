@@ -23,31 +23,31 @@ typedef struct {
 } bwt_multi1_t;
 
 typedef struct {
-	char *name;
-	ubyte_t *seq, *rseq, *qual;
-	uint32_t len : 20, strand : 1, type : 2, dummy : 1, extra_flag : 8;
-	uint32_t n_mm : 8, n_gapo : 8, n_gape : 8, mapQ : 8;
-	int score;
-	int clip_len;
+	char *name;//Bytes 0-3
+	ubyte_t *seq, *rseq, *qual; //bytes 4-15
+	uint32_t len : 20, strand : 1, type : 2, dummy : 1, extra_flag : 8;//Bytes 16-19
+	uint32_t n_mm : 8, n_gapo : 8, n_gape : 8, mapQ : 8;//bytes 20 - 23
+	int score;//bytes 24-27
+	int clip_len;//bytes 28-31
 	// alignments in SA coordinates
-	int n_aln;
-	bwt_aln1_t *aln;
+	int n_aln;//bytes 32-35
+	bwt_aln1_t *aln; //bytes 36-39
 	// multiple hits
-	int n_multi;
-	bwt_multi1_t *multi;
+	int n_multi;//bytes 40-43
+	bwt_multi1_t *multi; //bytes 44-47
 	// alignment information
-	bwtint_t sa, pos;
-	uint64_t c1 : 28, c2 : 28, seQ : 8; // number of top1 and top2 hits; single-end mapQ
-	int ref_shift;
-	int n_cigar;
-	bwa_cigar_t *cigar;
+	bwtint_t sa, pos; //bytes 48 - 63
+	uint64_t c1 : 28, c2 : 28, seQ : 8; // number of top1 and top2 hits; single-end mapQ //bytes 64 - 71
+	int ref_shift;//bytes 72-75
+	int n_cigar;//bytes 76-79
+	bwa_cigar_t *cigar;//bytes 80-83
 	// for multi-threading only
-	int tid;
+	int tid;//bytes 84-87
 	// barcode
-	char bc[BWA_MAX_BCLEN + 1]; // null terminated; up to BWA_MAX_BCLEN bases
+	char bc[BWA_MAX_BCLEN + 1]; // null terminated; up to BWA_MAX_BCLEN bases //bytes 88-151
 	// NM and MD tags
-	uint32_t full_len : 20, nm : 12;
-	char *md;
+	uint32_t full_len : 20, nm : 12;//bytes 152-155
+	char *md;//bytes 155-159
 	
 	/*Added Functions for byte conversions*/
 	ubyte_t *ToBytes(int *bytesLength);
