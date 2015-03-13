@@ -1,0 +1,599 @@
+desc: (none)
+cmd: ./bwa aln /home/avi/workspace/bwa-0.7.10/fasta/human_g1k_v37.fasta /home/avi/workspace/bwa-0.7.10/fasta/short_read.fq
+time_unit: i
+#-----------
+snapshot=0
+#-----------
+time=0
+mem_heap_B=0
+mem_heap_extra_B=0
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=1
+#-----------
+time=207328
+mem_heap_B=64
+mem_heap_extra_B=8
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=2
+#-----------
+time=216920
+mem_heap_B=320
+mem_heap_extra_B=16
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=3
+#-----------
+time=302803
+mem_heap_B=384
+mem_heap_extra_B=24
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=4
+#-----------
+time=321375
+mem_heap_B=3101823777
+mem_heap_extra_B=1879
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=5
+#-----------
+time=489296
+mem_heap_B=3101823777
+mem_heap_extra_B=1879
+mem_stacks_B=0
+heap_tree=detailed
+n2: 3101823777 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n2: 3101806222 0x457E04: wrap_calloc (malloc_wrap.c:13)
+  n1: 3101804804 0x43AB05: bwt_restore_bwt (bwt.c:420)
+   n1: 3101804804 0x40F002: bwa_aln_core (bwtaln.c:172)
+    n1: 3101804804 0x40FCC5: bwa_aln (bwtaln.c:317)
+     n0: 3101804804 0x43011B: main (main.c:76)
+  n0: 1418 in 6 places, all below massif's threshold (01.00%)
+ n0: 17555 in 5 places, all below massif's threshold (01.00%)
+#-----------
+snapshot=6
+#-----------
+time=528975
+mem_heap_B=3101823143
+mem_heap_extra_B=1841
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=7
+#-----------
+time=553894
+mem_heap_B=3154284609
+mem_heap_extra_B=6055
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=8
+#-----------
+time=600056
+mem_heap_B=3154285841
+mem_heap_extra_B=6391
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=9
+#-----------
+time=639484
+mem_heap_B=3154286891
+mem_heap_extra_B=6685
+mem_stacks_B=0
+heap_tree=detailed
+n2: 3154286891 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n3: 3154236296 0x457E04: wrap_calloc (malloc_wrap.c:13)
+  n1: 3101804804 0x43AB05: bwt_restore_bwt (bwt.c:420)
+   n1: 3101804804 0x40F002: bwa_aln_core (bwtaln.c:172)
+    n1: 3101804804 0x40FCC5: bwa_aln (bwtaln.c:317)
+     n0: 3101804804 0x43011B: main (main.c:76)
+  n1: 52428800 0x40C777: bwa_read_seq (bwaseqio.c:164)
+   n1: 52428800 0x40F48E: bwa_aln_core (bwtaln.c:179)
+    n1: 52428800 0x40FCC5: bwa_aln (bwtaln.c:317)
+     n0: 52428800 0x43011B: main (main.c:76)
+  n0: 2692 in 8 places, all below massif's threshold (01.00%)
+ n0: 50595 in 9 places, all below massif's threshold (01.00%)
+#-----------
+snapshot=10
+#-----------
+time=692440
+mem_heap_B=3154288304
+mem_heap_extra_B=7064
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=11
+#-----------
+time=725505
+mem_heap_B=3154289185
+mem_heap_extra_B=7303
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=12
+#-----------
+time=771360
+mem_heap_B=3154290403
+mem_heap_extra_B=7653
+mem_stacks_B=0
+heap_tree=detailed
+n2: 3154290403 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n3: 3154238082 0x457E04: wrap_calloc (malloc_wrap.c:13)
+  n1: 3101804804 0x43AB05: bwt_restore_bwt (bwt.c:420)
+   n1: 3101804804 0x40F002: bwa_aln_core (bwtaln.c:172)
+    n1: 3101804804 0x40FCC5: bwa_aln (bwtaln.c:317)
+     n0: 3101804804 0x43011B: main (main.c:76)
+  n1: 52428800 0x40C777: bwa_read_seq (bwaseqio.c:164)
+   n1: 52428800 0x40F48E: bwa_aln_core (bwtaln.c:179)
+    n1: 52428800 0x40FCC5: bwa_aln (bwtaln.c:317)
+     n0: 52428800 0x43011B: main (main.c:76)
+  n0: 4478 in 8 places, all below massif's threshold (01.00%)
+ n0: 52321 in 9 places, all below massif's threshold (01.00%)
+#-----------
+snapshot=13
+#-----------
+time=812938
+mem_heap_B=3154293683
+mem_heap_extra_B=7981
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=14
+#-----------
+time=845563
+mem_heap_B=3154293779
+mem_heap_extra_B=7989
+mem_stacks_B=0
+heap_tree=peak
+n2: 3154293779 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n3: 3154240252 0x457E04: wrap_calloc (malloc_wrap.c:13)
+  n1: 3101804804 0x43AB05: bwt_restore_bwt (bwt.c:420)
+   n1: 3101804804 0x40F002: bwa_aln_core (bwtaln.c:172)
+    n1: 3101804804 0x40FCC5: bwa_aln (bwtaln.c:317)
+     n0: 3101804804 0x43011B: main (main.c:76)
+  n1: 52428800 0x40C777: bwa_read_seq (bwaseqio.c:164)
+   n1: 52428800 0x40F48E: bwa_aln_core (bwtaln.c:179)
+    n1: 52428800 0x40FCC5: bwa_aln (bwtaln.c:317)
+     n0: 52428800 0x43011B: main (main.c:76)
+  n0: 6648 in 12 places, all below massif's threshold (01.00%)
+ n0: 53527 in 9 places, all below massif's threshold (01.00%)
+#-----------
+snapshot=15
+#-----------
+time=877317
+mem_heap_B=3154293698
+mem_heap_extra_B=7950
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=16
+#-----------
+time=908796
+mem_heap_B=3154293617
+mem_heap_extra_B=7911
+mem_stacks_B=0
+heap_tree=detailed
+n2: 3154293617 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n3: 3154240264 0x457E04: wrap_calloc (malloc_wrap.c:13)
+  n1: 3101804804 0x43AB05: bwt_restore_bwt (bwt.c:420)
+   n1: 3101804804 0x40F002: bwa_aln_core (bwtaln.c:172)
+    n1: 3101804804 0x40FCC5: bwa_aln (bwtaln.c:317)
+     n0: 3101804804 0x43011B: main (main.c:76)
+  n1: 52428800 0x40C777: bwa_read_seq (bwaseqio.c:164)
+   n1: 52428800 0x40F48E: bwa_aln_core (bwtaln.c:179)
+    n1: 52428800 0x40FCC5: bwa_aln (bwtaln.c:317)
+     n0: 52428800 0x43011B: main (main.c:76)
+  n0: 6660 in 12 places, all below massif's threshold (01.00%)
+ n0: 53353 in 9 places, all below massif's threshold (01.00%)
+#-----------
+snapshot=17
+#-----------
+time=969100
+mem_heap_B=3154293284
+mem_heap_extra_B=7780
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=18
+#-----------
+time=999926
+mem_heap_B=3154293203
+mem_heap_extra_B=7741
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=19
+#-----------
+time=1031915
+mem_heap_B=3154293299
+mem_heap_extra_B=7749
+mem_stacks_B=0
+heap_tree=detailed
+n2: 3154293299 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n3: 3154240292 0x457E04: wrap_calloc (malloc_wrap.c:13)
+  n1: 3101804804 0x43AB05: bwt_restore_bwt (bwt.c:420)
+   n1: 3101804804 0x40F002: bwa_aln_core (bwtaln.c:172)
+    n1: 3101804804 0x40FCC5: bwa_aln (bwtaln.c:317)
+     n0: 3101804804 0x43011B: main (main.c:76)
+  n1: 52428800 0x40C777: bwa_read_seq (bwaseqio.c:164)
+   n1: 52428800 0x40F48E: bwa_aln_core (bwtaln.c:179)
+    n1: 52428800 0x40FCC5: bwa_aln (bwtaln.c:317)
+     n0: 52428800 0x43011B: main (main.c:76)
+  n0: 6688 in 12 places, all below massif's threshold (01.00%)
+ n0: 53007 in 9 places, all below massif's threshold (01.00%)
+#-----------
+snapshot=20
+#-----------
+time=1089692
+mem_heap_B=3154292961
+mem_heap_extra_B=7623
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=21
+#-----------
+time=1121187
+mem_heap_B=3154292887
+mem_heap_extra_B=7577
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=22
+#-----------
+time=1153038
+mem_heap_B=3154292807
+mem_heap_extra_B=7537
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=23
+#-----------
+time=1186481
+mem_heap_B=3154292903
+mem_heap_extra_B=7545
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=24
+#-----------
+time=1217421
+mem_heap_B=3154292646
+mem_heap_extra_B=7458
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=25
+#-----------
+time=1248607
+mem_heap_B=3154292568
+mem_heap_extra_B=7416
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=26
+#-----------
+time=1280161
+mem_heap_B=3154292664
+mem_heap_extra_B=7424
+mem_stacks_B=0
+heap_tree=detailed
+n2: 3154292664 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n3: 3154240346 0x457E04: wrap_calloc (malloc_wrap.c:13)
+  n1: 3101804804 0x43AB05: bwt_restore_bwt (bwt.c:420)
+   n1: 3101804804 0x40F002: bwa_aln_core (bwtaln.c:172)
+    n1: 3101804804 0x40FCC5: bwa_aln (bwtaln.c:317)
+     n0: 3101804804 0x43011B: main (main.c:76)
+  n1: 52428800 0x40C777: bwa_read_seq (bwaseqio.c:164)
+   n1: 52428800 0x40F48E: bwa_aln_core (bwtaln.c:179)
+    n1: 52428800 0x40FCC5: bwa_aln (bwtaln.c:317)
+     n0: 52428800 0x43011B: main (main.c:76)
+  n0: 6742 in 12 places, all below massif's threshold (01.00%)
+ n0: 52318 in 9 places, all below massif's threshold (01.00%)
+#-----------
+snapshot=27
+#-----------
+time=1312130
+mem_heap_B=3154292583
+mem_heap_extra_B=7385
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=28
+#-----------
+time=1343790
+mem_heap_B=3154292326
+mem_heap_extra_B=7298
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=29
+#-----------
+time=1405860
+mem_heap_B=3154292164
+mem_heap_extra_B=7220
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=30
+#-----------
+time=1438868
+mem_heap_B=3154292083
+mem_heap_extra_B=7181
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=31
+#-----------
+time=1471903
+mem_heap_B=3154292179
+mem_heap_extra_B=7189
+mem_stacks_B=0
+heap_tree=detailed
+n2: 3154292179 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n3: 3154240382 0x457E04: wrap_calloc (malloc_wrap.c:13)
+  n1: 3101804804 0x43AB05: bwt_restore_bwt (bwt.c:420)
+   n1: 3101804804 0x40F002: bwa_aln_core (bwtaln.c:172)
+    n1: 3101804804 0x40FCC5: bwa_aln (bwtaln.c:317)
+     n0: 3101804804 0x43011B: main (main.c:76)
+  n1: 52428800 0x40C777: bwa_read_seq (bwaseqio.c:164)
+   n1: 52428800 0x40F48E: bwa_aln_core (bwtaln.c:179)
+    n1: 52428800 0x40FCC5: bwa_aln (bwtaln.c:317)
+     n0: 52428800 0x43011B: main (main.c:76)
+  n0: 6778 in 12 places, all below massif's threshold (01.00%)
+ n0: 51797 in 9 places, all below massif's threshold (01.00%)
+#-----------
+snapshot=32
+#-----------
+time=1504991
+mem_heap_B=3154292098
+mem_heap_extra_B=7150
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=33
+#-----------
+time=1566952
+mem_heap_B=3154291761
+mem_heap_extra_B=7023
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=34
+#-----------
+time=1599935
+mem_heap_B=3154291857
+mem_heap_extra_B=7031
+mem_stacks_B=0
+heap_tree=detailed
+n2: 3154291857 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n3: 3154240406 0x457E04: wrap_calloc (malloc_wrap.c:13)
+  n1: 3101804804 0x43AB05: bwt_restore_bwt (bwt.c:420)
+   n1: 3101804804 0x40F002: bwa_aln_core (bwtaln.c:172)
+    n1: 3101804804 0x40FCC5: bwa_aln (bwtaln.c:317)
+     n0: 3101804804 0x43011B: main (main.c:76)
+  n1: 52428800 0x40C777: bwa_read_seq (bwaseqio.c:164)
+   n1: 52428800 0x40F48E: bwa_aln_core (bwtaln.c:179)
+    n1: 52428800 0x40FCC5: bwa_aln (bwtaln.c:317)
+     n0: 52428800 0x43011B: main (main.c:76)
+  n0: 6802 in 12 places, all below massif's threshold (01.00%)
+ n0: 51451 in 9 places, all below massif's threshold (01.00%)
+#-----------
+snapshot=35
+#-----------
+time=1633473
+mem_heap_B=3154291776
+mem_heap_extra_B=6992
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=36
+#-----------
+time=1666449
+mem_heap_B=3154291695
+mem_heap_extra_B=6953
+mem_stacks_B=0
+heap_tree=detailed
+n2: 3154291695 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n3: 3154240418 0x457E04: wrap_calloc (malloc_wrap.c:13)
+  n1: 3101804804 0x43AB05: bwt_restore_bwt (bwt.c:420)
+   n1: 3101804804 0x40F002: bwa_aln_core (bwtaln.c:172)
+    n1: 3101804804 0x40FCC5: bwa_aln (bwtaln.c:317)
+     n0: 3101804804 0x43011B: main (main.c:76)
+  n1: 52428800 0x40C777: bwa_read_seq (bwaseqio.c:164)
+   n1: 52428800 0x40F48E: bwa_aln_core (bwtaln.c:179)
+    n1: 52428800 0x40FCC5: bwa_aln (bwtaln.c:317)
+     n0: 52428800 0x43011B: main (main.c:76)
+  n0: 6814 in 12 places, all below massif's threshold (01.00%)
+ n0: 51277 in 9 places, all below massif's threshold (01.00%)
+#-----------
+snapshot=37
+#-----------
+time=1699652
+mem_heap_B=3154291441
+mem_heap_extra_B=6863
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=38
+#-----------
+time=1732310
+mem_heap_B=3154291537
+mem_heap_extra_B=6871
+mem_stacks_B=0
+heap_tree=detailed
+n2: 3154291537 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n3: 3154240432 0x457E04: wrap_calloc (malloc_wrap.c:13)
+  n1: 3101804804 0x43AB05: bwt_restore_bwt (bwt.c:420)
+   n1: 3101804804 0x40F002: bwa_aln_core (bwtaln.c:172)
+    n1: 3101804804 0x40FCC5: bwa_aln (bwtaln.c:317)
+     n0: 3101804804 0x43011B: main (main.c:76)
+  n1: 52428800 0x40C777: bwa_read_seq (bwaseqio.c:164)
+   n1: 52428800 0x40F48E: bwa_aln_core (bwtaln.c:179)
+    n1: 52428800 0x40FCC5: bwa_aln (bwtaln.c:317)
+     n0: 52428800 0x43011B: main (main.c:76)
+  n0: 6828 in 12 places, all below massif's threshold (01.00%)
+ n0: 51105 in 9 places, all below massif's threshold (01.00%)
+#-----------
+snapshot=39
+#-----------
+time=1765390
+mem_heap_B=3154291286
+mem_heap_extra_B=6778
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=40
+#-----------
+time=1798465
+mem_heap_B=3154291209
+mem_heap_extra_B=6735
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=41
+#-----------
+time=1832859
+mem_heap_B=3154291305
+mem_heap_extra_B=6743
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=42
+#-----------
+time=1867379
+mem_heap_B=3154291227
+mem_heap_extra_B=6701
+mem_stacks_B=0
+heap_tree=detailed
+n2: 3154291227 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n3: 3154240464 0x457E04: wrap_calloc (malloc_wrap.c:13)
+  n1: 3101804804 0x43AB05: bwt_restore_bwt (bwt.c:420)
+   n1: 3101804804 0x40F002: bwa_aln_core (bwtaln.c:172)
+    n1: 3101804804 0x40FCC5: bwa_aln (bwtaln.c:317)
+     n0: 3101804804 0x43011B: main (main.c:76)
+  n1: 52428800 0x40C777: bwa_read_seq (bwaseqio.c:164)
+   n1: 52428800 0x40F48E: bwa_aln_core (bwtaln.c:179)
+    n1: 52428800 0x40FCC5: bwa_aln (bwtaln.c:317)
+     n0: 52428800 0x43011B: main (main.c:76)
+  n0: 6860 in 12 places, all below massif's threshold (01.00%)
+ n0: 50763 in 9 places, all below massif's threshold (01.00%)
+#-----------
+snapshot=43
+#-----------
+time=1901929
+mem_heap_B=3154291146
+mem_heap_extra_B=6662
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=44
+#-----------
+time=1935199
+mem_heap_B=3154291065
+mem_heap_extra_B=6623
+mem_stacks_B=0
+heap_tree=detailed
+n2: 3154291065 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n3: 3154240476 0x457E04: wrap_calloc (malloc_wrap.c:13)
+  n1: 3101804804 0x43AB05: bwt_restore_bwt (bwt.c:420)
+   n1: 3101804804 0x40F002: bwa_aln_core (bwtaln.c:172)
+    n1: 3101804804 0x40FCC5: bwa_aln (bwtaln.c:317)
+     n0: 3101804804 0x43011B: main (main.c:76)
+  n1: 52428800 0x40C777: bwa_read_seq (bwaseqio.c:164)
+   n1: 52428800 0x40F48E: bwa_aln_core (bwtaln.c:179)
+    n1: 52428800 0x40FCC5: bwa_aln (bwtaln.c:317)
+     n0: 52428800 0x43011B: main (main.c:76)
+  n0: 6872 in 12 places, all below massif's threshold (01.00%)
+ n0: 50589 in 9 places, all below massif's threshold (01.00%)
+#-----------
+snapshot=45
+#-----------
+time=1967186
+mem_heap_B=3154290814
+mem_heap_extra_B=6530
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=46
+#-----------
+time=1999694
+mem_heap_B=3154290736
+mem_heap_extra_B=6488
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=47
+#-----------
+time=2032894
+mem_heap_B=3154290832
+mem_heap_extra_B=6496
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=48
+#-----------
+time=2064569
+mem_heap_B=3154290587
+mem_heap_extra_B=6397
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=49
+#-----------
+time=2098853
+mem_heap_B=3154290506
+mem_heap_extra_B=6358
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=50
+#-----------
+time=2133769
+mem_heap_B=3154290602
+mem_heap_extra_B=6366
+mem_stacks_B=0
+heap_tree=detailed
+n2: 3154290602 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n3: 3154240526 0x457E04: wrap_calloc (malloc_wrap.c:13)
+  n1: 3101804804 0x43AB05: bwt_restore_bwt (bwt.c:420)
+   n1: 3101804804 0x40F002: bwa_aln_core (bwtaln.c:172)
+    n1: 3101804804 0x40FCC5: bwa_aln (bwtaln.c:317)
+     n0: 3101804804 0x43011B: main (main.c:76)
+  n1: 52428800 0x40C777: bwa_read_seq (bwaseqio.c:164)
+   n1: 52428800 0x40F48E: bwa_aln_core (bwtaln.c:179)
+    n1: 52428800 0x40FCC5: bwa_aln (bwtaln.c:317)
+     n0: 52428800 0x43011B: main (main.c:76)
+  n0: 6922 in 12 places, all below massif's threshold (01.00%)
+ n0: 50076 in 9 places, all below massif's threshold (01.00%)
+#-----------
+snapshot=51
+#-----------
+time=2147714
+mem_heap_B=3154288095
+mem_heap_extra_B=6281
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=52
+#-----------
+time=2159265
+mem_heap_B=42379
+mem_heap_extra_B=173
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=53
+#-----------
+time=2177444
+mem_heap_B=0
+mem_heap_extra_B=0
+mem_stacks_B=0
+heap_tree=empty

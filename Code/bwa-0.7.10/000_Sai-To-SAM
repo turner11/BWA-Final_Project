@@ -1,0 +1,3 @@
+bwa samse database.fasta aln_sa.sai short_read.fastq > aln.sam
+
+./bwa samse /home/avi/workspace/bwa-0.7.10/fasta/human_g1k_v37.fasta aln_sa.sai /home/avi/workspace/bwa-0.7.10/fasta/short_read.fq > aln_sa.sam
