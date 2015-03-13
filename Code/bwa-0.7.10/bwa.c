@@ -185,6 +185,7 @@ uint32_t *bwa_gen_cigar(const int8_t mat[25], int q, int r, int w_, int64_t l_pa
 
 char *bwa_idx_infer_prefix(const char *hint)
 {
+	printf("index location: [%s]\n", hint);
 	char *prefix;
 	int l_hint;
 	FILE *fp;

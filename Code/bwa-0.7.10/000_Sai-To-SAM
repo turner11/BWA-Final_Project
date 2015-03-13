@@ -1,3 +1,12 @@
-bwa samse database.fasta aln_sa.sai short_read.fastq > aln.sam
+index:
+index fasta/human_g1k_v37.fasta
 
-./bwa samse /home/avi/workspace/bwa-0.7.10/fasta/human_g1k_v37.fasta aln_sa.sai /home/avi/workspace/bwa-0.7.10/fasta/short_read.fq > aln_sa.sam
+
+aln commnand:
+aln /home/avi/workspace/Git/BWA-Final_Project/Code/bwa-0.7.10/fasta/human_g1k_v37.fasta /home/avi/workspace/Git/BWA-Final_Project/Code/bwa-0.7.10/fasta/short_read.fq > aln_sa.sai
+
+aln command (relative):
+aln fasta/human_g1k_v37.fasta fasta/short_read.fq > aln_sa.sai
+
+sai to sam:
+bwa samse database.fasta aln_sa.sai short_read.fastq > aln.sam
