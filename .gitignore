@@ -18,6 +18,11 @@ bld/
 [Bb]in/
 [Oo]bj/
 
+# Genome folders (large...)
+db/
+fasta/
+
+
 # Roslyn cache directories
 *.ide/
 
