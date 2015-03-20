@@ -326,7 +326,10 @@ void bwa_cal_sa_reg_gap(int tid, bwt_t *const bwt, int n_seqs, bwa_seq_t *seqs, 
 		p->aln = bwt_match_gap(bwt, p->len, p->seq, w, p->len <= opt->seed_len? 0 : seed_w, &local_opt, &p->n_aln, stack);
 		//fprintf(stderr, "mm=%lld,ins=%lld,del=%lld,gapo=%lld\n", p->aln->n_mm, p->aln->n_ins, p->aln->n_del, p->aln->n_gapo);
 		// clean up the unused data in the record
-		free(p->name); free(p->seq); free(p->rseq); free(p->qual);
+		free(p->name);
+		free(p->seq);
+		free(p->rseq);
+		free(p->qual);
 		p->name = 0; p->seq = p->rseq = p->qual = 0;
 	}
 	free(seed_w); free(w);
@@ -389,13 +392,26 @@ void bwa_aln_core(const char *prefix, const char *fn_fa, const gap_opt_t *opt)
 
 
 
-		/*int bytesLength1;
+		int bytesLength1;
 		ubyte_t *bytes1 = ToBytes(seqs, &bytesLength1);
 		bwa_seq_t* clone = (bwa_seq_t* )FromBytes(bytes1);
 		int bytesLength2;
 		ubyte_t *bytes2 = ToBytes(clone,&bytesLength2);
 		int isEqual = IsEqual(bytes1, bytes2, bytesLength1, bytesLength2);
-		seqs =clone;*/
+
+		bwa_seq_t* doubleClone = (bwa_seq_t* )FromBytes(bytes2);
+		int bytesLength3;
+		ubyte_t *bytes3 = ToBytes(doubleClone ,&bytesLength3);
+		int isEqual2 = IsEqual(bytes2, bytes3, bytesLength2, bytesLength3);
+		isEqual2 = isEqual && isEqual2;
+		/*-------------------------*/
+		FILE * pFile;
+
+		  pFile = fopen ("myfile.bin", "wb");
+		  fwrite (bytes1 , sizeof(char), bytesLength1, pFile);
+		  fclose (pFile);
+		/*-------------------------*/
+		seqs =clone;
 
 		t = clock();
 
