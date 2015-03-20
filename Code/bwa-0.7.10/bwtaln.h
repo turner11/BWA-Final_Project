@@ -91,6 +91,7 @@ typedef struct {
 	char *md;
 } bwa_seq_t;
 
+
 #define BWA_MODE_GAPE       0x01
 #define BWA_MODE_COMPREAD   0x02
 #define BWA_MODE_LOGGAP     0x04
