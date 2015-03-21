@@ -206,11 +206,11 @@ int IsEqual(ubyte_t* bytes1, ubyte_t* bytes2,int l1, int l2)
 	size_t idx ;
 	for (idx = 0; idx < l1 && isMatch; idx++)
 	{
-		if ((idx >=0 && idx <=15)
-			|| (idx >= 36 && idx <=39)
-			|| (idx >= 44 && idx <= 47)
-			|| (idx >= 80 && idx <= 89)
-			|| (idx >=155 && idx <=159))
+		if ((idx >=0 && idx <=31)
+			|| (idx >= 52 && idx <= 59)
+			|| (idx >= 64 && idx <= 71)
+			|| (idx >= 104 && idx <= 111)
+			|| (idx >=184 && idx <=191))
 		{
 			//pointer index don't bother comparing...
 			continue;

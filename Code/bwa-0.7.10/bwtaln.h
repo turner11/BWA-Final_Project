@@ -64,31 +64,31 @@ typedef struct {
 } bwt_multi1_t;
 
 typedef struct {
-	char *name;
-	ubyte_t *seq, *rseq, *qual;
-	uint32_t len:20, strand:1, type:2, dummy:1, extra_flag:8;
-	uint32_t n_mm:8, n_gapo:8, n_gape:8, mapQ:8;
-	int score;
-	int clip_len;
+	char *name;//0-7
+	ubyte_t *seq, *rseq, *qual; //8-31
+	uint32_t len:20, strand:1, type:2, dummy:1, extra_flag:8; //32-35
+	uint32_t n_mm:8, n_gapo:8, n_gape:8, mapQ:8;//36-39
+	int score;//40-43
+	int clip_len;//44-47
 	// alignments in SA coordinates
-	int n_aln;
-	bwt_aln1_t *aln;
+	int n_aln;//48-51
+	bwt_aln1_t *aln;//52-59
 	// multiple hits
-	int n_multi;
-	bwt_multi1_t *multi;
+	int n_multi;//60-63
+	bwt_multi1_t *multi;//64-71
 	// alignment information
-	bwtint_t sa, pos;
-	uint64_t c1:28, c2:28, seQ:8; // number of top1 and top2 hits; single-end mapQ
-	int ref_shift;
-	int n_cigar;
-	bwa_cigar_t *cigar;
+	bwtint_t sa, pos;//72-87
+	uint64_t c1:28, c2:28, seQ:8; // number of top1 and top2 hits; single-end mapQ //88-95
+	int ref_shift;//96-99
+	int n_cigar;//100-103
+	bwa_cigar_t *cigar;//104-111
 	// for multi-threading only
-	int tid;
+	int tid;//112-115
 	// barcode
-	char bc[BWA_MAX_BCLEN+1]; // null terminated; up to BWA_MAX_BCLEN bases
+	char bc[BWA_MAX_BCLEN+1]; // null terminated; up to BWA_MAX_BCLEN bases //116-179
 	// NM and MD tags
-	uint32_t full_len:20, nm:12;
-	char *md;
+	uint32_t full_len:20, nm:12;//180-183
+	char *md;//184-191
 } bwa_seq_t;
 
 
