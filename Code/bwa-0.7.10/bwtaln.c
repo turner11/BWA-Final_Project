@@ -23,6 +23,16 @@
 #endif
 
 
+int IsEmptyBytes(ubyte_t* bytes, size_t length)
+{
+	int foundNonZero = 0;
+	size_t i;
+	for (i = 0; i < length && !foundNonZero; ++i) {
+		ubyte_t currByte = *(bytes+i);
+		foundNonZero = currByte != 0;
+	}
+	return !foundNonZero;
+}
 
 ubyte_t *ToBytes(bwa_seq_t *this, int *bytesLength)
 {
@@ -76,13 +86,13 @@ ubyte_t *ToBytes(bwa_seq_t *this, int *bytesLength)
 	memcpy(offsettedBytes, this->name, nameCharSize);
 	offsettedBytes += nameCharSize;
 	//bwt_aln1_t
-	bwt_aln1_t dummyAln;
+	bwt_aln1_t dummyAln = {}; //make sure all data members are zeros
 	bwt_aln1_t *alnObj = (isAlnNull == 1)?&dummyAln:this->aln;
 	memcpy(offsettedBytes, alnObj , sizeOf_bwt_aln1_t);
 	offsettedBytes += sizeOf_bwt_aln1_t;
 	//bwt_multi1_t
 	int isMultiAlnNull = this->multi == '\0';
-	bwt_multi1_t dummyMultiAln;
+	bwt_multi1_t dummyMultiAln= {}; //make sure all data members are zeros
 	bwt_multi1_t *alnMultiObj = (isMultiAlnNull  == 1)?&dummyMultiAln:this->multi;
 	memcpy(offsettedBytes, alnMultiObj, sizeOf_bwt_bwt_multi1_t);
 	offsettedBytes += sizeOf_bwt_bwt_multi1_t;
@@ -96,7 +106,7 @@ ubyte_t *ToBytes(bwa_seq_t *this, int *bytesLength)
 	memcpy(offsettedBytes, this->qual, sizeOf_qual);
 	offsettedBytes += sizeOf_qual;
 	//cigar
-	bwa_cigar_t dummyCiagar;
+	bwa_cigar_t dummyCiagar = 0;
 	bwa_cigar_t *cigarObj = this->cigar == '\0'? &dummyCiagar:this->cigar;
 	memcpy(offsettedBytes, cigarObj , sizeOf_cigar);
 	offsettedBytes += sizeOf_cigar;
@@ -157,19 +167,20 @@ bwa_seq_t* FromBytes(ubyte_t* bytes)
 	/*-----------------------*/
 	//seq
 	size_t sizeOf_seq = sizeof(ubyte_t);
-	instance->seq = (ubyte_t*)malloc(sizeOf_seq);
+	instance->seq = (ubyte_t*)malloc(sizeOf_seq  );
 	memcpy(instance->seq, offsettedBytes, sizeOf_seq);
 	offsettedBytes += sizeOf_seq;
 	//rseq
 	size_t sizeOf_rseq = sizeof(ubyte_t);
-	instance->rseq = (ubyte_t*)malloc(sizeOf_rseq);
+	instance->rseq = (ubyte_t*)malloc(sizeOf_rseq  );
 	memcpy(instance->rseq, offsettedBytes, sizeOf_rseq);
 	offsettedBytes += sizeOf_rseq;
 	//qual
 	size_t sizeOf_qual = sizeof(ubyte_t);
-	instance->qual = (ubyte_t*)malloc(sizeOf_qual);
+	instance->qual = (ubyte_t*)malloc(sizeOf_qual  );
 	memcpy(instance->qual, offsettedBytes, sizeOf_qual);
 	offsettedBytes += sizeOf_qual;
+
 	//cigar
 	size_t sizeOf_cigar = sizeof(bwa_cigar_t);
 	instance->cigar = (bwa_cigar_t*)malloc(sizeOf_cigar);
@@ -189,6 +200,25 @@ bwa_seq_t* FromBytes(ubyte_t* bytes)
 		offsettedBytes += sizeOf_md;
 	}else {
 		instance->md = '\0';
+	}
+
+	//restore null pointers ----------------------------------------------
+	if(IsEmptyBytes((ubyte_t*)instance->aln, sizeof(bwt_aln1_t)))
+	{
+		free(instance->aln);
+		instance->aln = NULL;
+	}
+
+	if(IsEmptyBytes((ubyte_t*)instance->multi, sizeof(bwt_multi1_t)))
+	{
+		free(instance->multi);
+		instance->multi = NULL;
+	}
+
+	if(IsEmptyBytes((ubyte_t*)instance->cigar, sizeof(bwa_cigar_t)))
+	{
+		free(instance->cigar);
+		instance->cigar = NULL;
 	}
 
 	return instance;
@@ -228,6 +258,8 @@ int IsEqual(ubyte_t* bytes1, ubyte_t* bytes2,int l1, int l2)
 	return n != 0;*/
 	return isMatch;
 }
+
+
 
 gap_opt_t *gap_init_opt()
 {
@@ -306,6 +338,36 @@ void bwa_cal_sa_reg_gap(int tid, bwt_t *const bwt, int n_seqs, bwa_seq_t *seqs, 
 	w = 0;
 	for (i = 0; i != n_seqs; ++i) {
 		bwa_seq_t *p = seqs + i;
+
+		//--------------------------------------------------------------
+
+		int bytesLength1;
+				ubyte_t *bytes1 = ToBytes(p, &bytesLength1);
+				bwa_seq_t* clone = (bwa_seq_t* )FromBytes(bytes1);
+				int bytesLength2;
+				ubyte_t *bytes2 = ToBytes(clone,&bytesLength2);
+				int isEqual = IsEqual(bytes1, bytes2, bytesLength1, bytesLength2);
+				isEqual  = isEqual &&isEqual ;
+				/*bwa_seq_t* doubleClone = (bwa_seq_t* )FromBytes(bytes2);
+				int bytesLength3;
+				ubyte_t *bytes3 = ToBytes(doubleClone ,&bytesLength3);
+				int isEqual2 = IsEqual(bytes2, bytes3, bytesLength2, bytesLength3);
+				isEqual2 = isEqual && isEqual2;*/
+
+
+				p = clone;
+				/*-------------------------
+				FILE * pFile;
+
+				  pFile = fopen ("myfile.bin", "wb");
+				  fwrite (bytes1 , sizeof(char), bytesLength1, pFile);
+				  fclose (pFile);
+				-------------------------*/
+
+		//--------------------------------------------------------------
+
+
+
 #ifdef HAVE_PTHREAD
 		if (i % opt->n_threads != tid) continue;
 #endif
@@ -389,29 +451,6 @@ void bwa_aln_core(const char *prefix, const char *fn_fa, const gap_opt_t *opt)
 	err_fwrite(opt, sizeof(gap_opt_t), 1, stdout);
 	while ((seqs = bwa_read_seq(ks, 0x40000, &n_seqs, opt->mode, opt->trim_qual)) != 0) {
 		tot_seqs += n_seqs;
-
-
-
-		int bytesLength1;
-		ubyte_t *bytes1 = ToBytes(seqs, &bytesLength1);
-		bwa_seq_t* clone = (bwa_seq_t* )FromBytes(bytes1);
-		int bytesLength2;
-		ubyte_t *bytes2 = ToBytes(clone,&bytesLength2);
-		int isEqual = IsEqual(bytes1, bytes2, bytesLength1, bytesLength2);
-
-		bwa_seq_t* doubleClone = (bwa_seq_t* )FromBytes(bytes2);
-		int bytesLength3;
-		ubyte_t *bytes3 = ToBytes(doubleClone ,&bytesLength3);
-		int isEqual2 = IsEqual(bytes2, bytes3, bytesLength2, bytesLength3);
-		isEqual2 = isEqual && isEqual2;
-		/*-------------------------*/
-		FILE * pFile;
-
-		  pFile = fopen ("myfile.bin", "wb");
-		  fwrite (bytes1 , sizeof(char), bytesLength1, pFile);
-		  fclose (pFile);
-		/*-------------------------*/
-		seqs =clone;
 
 		t = clock();
 
