@@ -367,6 +367,7 @@ void bwa_cal_sa_reg_gap(int tid, bwt_t *const bwt, int n_seqs, bwa_seq_t *seqs, 
 
 		p = clone;
 
+
 		/*-------------------------
 		FILE * pFile;
 
