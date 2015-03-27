@@ -368,13 +368,13 @@ void bwa_cal_sa_reg_gap(int tid, bwt_t *const bwt, int n_seqs, bwa_seq_t *seqs, 
 		p = clone;
 
 
-		/*-------------------------
+		//-------------------------
 		FILE * pFile;
 
-		  pFile = fopen ("myfile.bin", "wb");
+		  pFile = fopen ("my_pre_file.bin", "wb");
 		  fwrite (bytes1 , sizeof(char), bytesLength1, pFile);
 		  fclose (pFile);
-		-------------------------*/
+		//-------------------------
 
 		//--------------------------------------------------------------
 
@@ -399,6 +399,23 @@ void bwa_cal_sa_reg_gap(int tid, bwt_t *const bwt, int n_seqs, bwa_seq_t *seqs, 
 			p->seq[j] = p->seq[j] > 3? 4 : 3 - p->seq[j];  //Avi: Building the reverse complement of the input read
 		p->aln = bwt_match_gap(bwt, p->len, p->seq, w, p->len <= opt->seed_len? 0 : seed_w, &local_opt, &p->n_aln, stack);
 		//fprintf(stderr, "mm=%lld,ins=%lld,del=%lld,gapo=%lld\n", p->aln->n_mm, p->aln->n_ins, p->aln->n_del, p->aln->n_gapo);
+
+
+
+		bytes1 = ToBytes(p, &bytesLength1);
+		bwa_seq_t* clone2 = (bwa_seq_t* )FromBytes(bytes1);
+		bytes2 = ToBytes(clone2,&bytesLength2);
+		isEqual = IsEqual(bytes1, bytes2, bytesLength1, bytesLength2);
+		isEqual  = isEqual &&isEqual ;
+		FILE * pPostFile;
+
+		pPostFile = fopen ("my_Post_file.bin", "wb");
+		  fwrite (bytes1 , sizeof(char), bytesLength1, pPostFile);
+		  fclose (pPostFile);
+		//-------------------------
+
+
+
 		// clean up the unused data in the record
 		free(p->name);
 		free(p->seq);
