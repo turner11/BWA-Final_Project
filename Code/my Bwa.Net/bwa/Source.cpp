@@ -46,7 +46,7 @@ char* GetBinaryFileName(int idx)
 
 char* GetBwtFileName()
 {
-	char * fileName = "\\human_g1k_v37.fasta.bwt";
+	char * fileName = "\\chr18.fa.bwt";// "\\human_g1k_v37.fasta.bwt";
 	char* out = GetPathOfLocalFile(fileName);
 
 	return out;
