@@ -1,0 +1,5 @@
+aln /home/avi/workspace/Git/BWA-Final_Project/Code/bwa-0.7.10/fasta/human_g1k_v37.fasta fasta/short_read.fq > aln_sa.sai
+
+OR
+
+aln /home/avi/workspace/Git/BWA-Final_Project/Code/bwa-0.7.10/fasta/human_g1k_v37.fasta fasta/short_read.fq -f aln_sa.sai
