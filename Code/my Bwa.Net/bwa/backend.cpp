@@ -576,7 +576,7 @@ bwt_t *bwt_restore_bwt(const char *fn)
 	//err_fseek(fp, 0, SEEK_END);
 	//bwtint_t size = (err_ftell(fp) - sizeof(bwtint_t) * 5) >> 2;
 	//bwt->bwt_size = size;
-	bwt->bwt_size = 775451201;
+	bwt->bwt_size = 19519320;// 775451201;
 
 	bwt->bwt = (uint32_t*)calloc(bwt->bwt_size, 4);
 	err_fseek(fp, 0, SEEK_SET);

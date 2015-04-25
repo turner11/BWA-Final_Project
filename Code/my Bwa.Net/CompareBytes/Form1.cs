@@ -18,6 +18,11 @@ namespace CompareBytes
         {
             InitializeComponent();
             this._fDialog = new FolderBrowserDialog();
+            DirectoryInfo dir = new DirectoryInfo(Environment.CurrentDirectory).Parent.Parent.Parent.Parent;
+            this._fDialog.SelectedPath = dir.FullName;
+            1.ToString();
+            //chr18.fa.bwt //19519320
+
         }
 
         
