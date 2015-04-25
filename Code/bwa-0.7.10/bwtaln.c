@@ -370,10 +370,12 @@ void bwa_cal_sa_reg_gap(int tid, bwt_t *const bwt, int n_seqs, bwa_seq_t *seqs, 
 
 		//-------------------------
 		FILE * pFile;
+		char fNname[50];
+		sprintf(fNname,"my_pre_file_%d.bin",i);
 
-		  pFile = fopen ("my_pre_file.bin", "wb");
-		  fwrite (bytes1 , sizeof(char), bytesLength1, pFile);
-		  fclose (pFile);
+		pFile = fopen (fNname, "wb");
+		fwrite (bytes1 , sizeof(char), bytesLength1, pFile);
+		fclose (pFile);
 		//-------------------------
 
 		//--------------------------------------------------------------
@@ -409,7 +411,9 @@ void bwa_cal_sa_reg_gap(int tid, bwt_t *const bwt, int n_seqs, bwa_seq_t *seqs, 
 		isEqual  = isEqual &&isEqual ;
 		FILE * pPostFile;
 
-		pPostFile = fopen ("my_Post_file.bin", "wb");
+		char postFileName[1024];
+		sprintf(postFileName,"sequence_post (%d).bin",i+1);
+		pPostFile = fopen (postFileName, "wb");
 		  fwrite (bytes1 , sizeof(char), bytesLength1, pPostFile);
 		  fclose (pPostFile);
 		//-------------------------
