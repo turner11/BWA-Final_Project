@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "bwa", "bwa\bwa.vcxproj", "{95329527-28BC-40BC-8D5E-09A16D6A2042}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Debug|x64 = Debug|x64
+		Release|Win32 = Release|Win32
+		Release|x64 = Release|x64
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{95329527-28BC-40BC-8D5E-09A16D6A2042}.Debug|Win32.ActiveCfg = Debug|Win32
+		{95329527-28BC-40BC-8D5E-09A16D6A2042}.Debug|Win32.Build.0 = Debug|Win32
+		{95329527-28BC-40BC-8D5E-09A16D6A2042}.Debug|x64.ActiveCfg = Debug|x64
+		{95329527-28BC-40BC-8D5E-09A16D6A2042}.Debug|x64.Build.0 = Debug|x64
+		{95329527-28BC-40BC-8D5E-09A16D6A2042}.Release|Win32.ActiveCfg = Release|Win32
+		{95329527-28BC-40BC-8D5E-09A16D6A2042}.Release|Win32.Build.0 = Release|Win32
+		{95329527-28BC-40BC-8D5E-09A16D6A2042}.Release|x64.ActiveCfg = Release|x64
+		{95329527-28BC-40BC-8D5E-09A16D6A2042}.Release|x64.Build.0 = Release|x64
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
