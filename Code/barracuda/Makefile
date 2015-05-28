@@ -90,8 +90,8 @@ ROOTOBJDIR ?=
 
 # Compilers
 NVCC       := $(CUDA_INSTALL_PATH)/bin/nvcc 
-CXX        := g++
-CC         := gcc
+CXX        := g++ -g3
+CC         := gcc -g3
 LINK       := g++ -fPIC
 
 # Includes
