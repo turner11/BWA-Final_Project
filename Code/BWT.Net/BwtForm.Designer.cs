@@ -422,6 +422,7 @@
             this.txbReference.TabIndex = 8;
             this.txbReference.Text = "google";
             this.txbReference.TextChanged += new System.EventHandler(this.txbReference_TextChanged);
+            this.txbReference.DoubleClick += new System.EventHandler(this.txbReference_DoubleClick);
             this.txbReference.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txbReference_KeyDown);
             // 
             // txbSearch
@@ -432,6 +433,7 @@
             this.txbSearch.TabIndex = 8;
             this.txbSearch.Text = "lol";
             this.txbSearch.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txbSearch_KeyPress);
+            this.txbSearch.TextChanged += new System.EventHandler(this.txbSearch_TextChanged);
             // 
             // btnInexactSearch
             // 

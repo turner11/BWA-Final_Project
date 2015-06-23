@@ -83,11 +83,9 @@ namespace BWT
         /// </summary>
         private void RestoreValuesFromSettings()
         {
-
-            this.txbSearch.Text = BWT.Properties.Settings.Default.searchString;
-            this.nupErrorsAllowed.Value = BWT.Properties.Settings.Default.errorsAllowed;
-
             string settingsReference = BWT.Properties.Settings.Default.referecne;
+           
+          
             if (String.IsNullOrWhiteSpace(settingsReference))
             {
                 BWT.Properties.Settings.Default.referecne = DEFAULT_REFERENCE;
@@ -95,6 +93,10 @@ namespace BWT
             }
 
             this.txbReference.Text = BWT.Properties.Settings.Default.referecne;
+
+            this.txbSearch.Text = BWT.Properties.Settings.Default.searchString;
+            this.nupErrorsAllowed.Value = BWT.Properties.Settings.Default.errorsAllowed;
+
 
             this.nupErrorPercentage.Value = BWT.Properties.Settings.Default.errorPercentage;
             this.nupNumberOfReads.Value = BWT.Properties.Settings.Default.numberOfReads;
@@ -159,7 +161,7 @@ namespace BWT
 
                 if (thrownException == null && bwtResult != null)
                 {
-                    this.txbOutPut.Text = bwtResult.OriginalText;
+                    this.txbOutPut.Text = bwtResult.BwtString;
                     if (this.chbPerformReverseTransform.Checked)
                     {
                         this.PerformReverseBwt(bwtResult.BwtString);
@@ -413,6 +415,19 @@ namespace BWT
             this._seqLogics.FindGapgs = this.chbFindGaps.Checked;
         }
         #endregion
+
+        private void txbReference_DoubleClick(object sender, EventArgs e)
+        {
+            if (this._seqLogics.iSearch != null)
+            {
+                var sa = this._seqLogics.iSearch.GetIndexedSuffixArray();
+                var txtWindow = new TextWindow();
+                txtWindow.txb.WordWrap = false;// for performance
+                txtWindow.Show(this);
+                txtWindow.TextContent = sa;
+                
+            }
+        }
 
       
     }

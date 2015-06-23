@@ -77,7 +77,8 @@ namespace BWT
         {
 
             // Check for a naughty character in the KeyDown event.
-            if (!this.ReferenceLetters.Contains(e.KeyChar) && e.KeyChar != '\b')
+            //22 = paste...
+            if (e.KeyChar != 22 && !this.ReferenceLetters.Contains(e.KeyChar) && e.KeyChar != '\b')
             {
                 // Stop the character from being entered into the control since it is illegal.
                 e.Handled = true;
@@ -87,6 +88,7 @@ namespace BWT
                 e.Handled = false;
             }
         }
+
 
         /// <summary>
         /// Handles the TextChanged event of the txbReference control.
@@ -113,11 +115,14 @@ namespace BWT
         {
             Func<char, bool> filterFunc = c => !this.ReferenceLetters.Contains(c);
             var illigalLetters = this.txbSearch.Text.Where(filterFunc).ToList();
-            if (illigalLetters.Count > 0)
+            if (this.txbReference.Text.Length >0 && illigalLetters.Count > 0)
             {
                 MessageBox.Show("The letters '" + String.Join(",", illigalLetters) + "' Do not appear in reference and are not valid");
             }
-            this.txbSearch.Text = String.Join(String.Empty, this.txbSearch.Text.Where(filterFunc).ToList());
+            this.txbSearch.Text = String.Join(String.Empty, this.txbSearch.Text.Where(c=> !filterFunc(c)).ToList());
+
+            this.lblSearch.Text = String.Format("String to search ({0})", this.txbSearch.Text.Length);
+            
         }
 
         /// <summary>

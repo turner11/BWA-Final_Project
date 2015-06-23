@@ -283,7 +283,7 @@ namespace BWT
         }
 
 
-
+        
 
 
 
@@ -346,14 +346,9 @@ namespace BWT
             /// <returns></returns>
             public string GetSummaryMessage()
             {
-                string[] indexedTableRows =
-                    this.SuffixArray.GetJoinedTable().Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
 
-                for (int i = 0; i < indexedTableRows.Length; i++)
-                {
-                    indexedTableRows[i] = "[" + (i) + "] " + indexedTableRows[i];
-                }
-                string indexedTable = String.Join(Environment.NewLine, indexedTableRows);
+
+                string indexedTable = InexactSearch.GetIndexedSuffixArray(this.SuffixArray); 
 
                 string msg = String.Format("The query:{0}" +
                                            "\t'{1}' with {2} errors allowed ({3}){0} " +
@@ -400,6 +395,8 @@ namespace BWT
             }
             return 2;
         }
+
+       
 
         public string Serialize()
         {
@@ -452,6 +449,22 @@ namespace BWT
         }
 
 
+         public string GetIndexedSuffixArray()
+        {
+            return InexactSearch.GetIndexedSuffixArray(this._bwtResults.SuffixTable);
+        }
 
+        internal static string GetIndexedSuffixArray(DataTable suffixArray)
+        {
+            string[] indexedTableRows =
+                     suffixArray.GetJoinedTable().Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
+
+            for (int i = 0; i < indexedTableRows.Length; i++)
+            {
+                indexedTableRows[i] = "[" + (i) + "] " + indexedTableRows[i];
+            }
+            string indexedTable = String.Join(Environment.NewLine, indexedTableRows);
+            return indexedTable;
+        }
     }
 }
