@@ -12,6 +12,7 @@ using System.Runtime.Serialization.Formatters.Soap;
 
 namespace BWT
 {
+    [Serializable]
     internal class BwtLogics
     {
         #region Data members

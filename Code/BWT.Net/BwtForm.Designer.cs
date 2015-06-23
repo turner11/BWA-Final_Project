@@ -347,24 +347,25 @@
             this.chbFindGaps.AutoSize = true;
             this.chbFindGaps.Checked = true;
             this.chbFindGaps.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chbFindGaps.Location = new System.Drawing.Point(11, 69);
+            this.chbFindGaps.Location = new System.Drawing.Point(11, 88);
             this.chbFindGaps.Name = "chbFindGaps";
             this.chbFindGaps.Size = new System.Drawing.Size(127, 21);
             this.chbFindGaps.TabIndex = 13;
             this.chbFindGaps.Text = "Find gap errors";
             this.chbFindGaps.UseVisualStyleBackColor = true;
+            this.chbFindGaps.CheckedChanged += new System.EventHandler(this.chbFindGaps_CheckedChanged);
             // 
             // txbBwaResults
             // 
             this.txbBwaResults.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txbBwaResults.Location = new System.Drawing.Point(8, 98);
+            this.txbBwaResults.Location = new System.Drawing.Point(8, 117);
             this.txbBwaResults.Multiline = true;
             this.txbBwaResults.Name = "txbBwaResults";
             this.txbBwaResults.ReadOnly = true;
             this.txbBwaResults.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.txbBwaResults.Size = new System.Drawing.Size(844, 393);
+            this.txbBwaResults.Size = new System.Drawing.Size(844, 374);
             this.txbBwaResults.TabIndex = 12;
             this.txbBwaResults.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txbBwaResults_KeyDown);
             // 
@@ -394,7 +395,7 @@
             this.lblReference.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lblReference.AutoSize = true;
-            this.lblReference.Location = new System.Drawing.Point(272, 5);
+            this.lblReference.Location = new System.Drawing.Point(271, 30);
             this.lblReference.Name = "lblReference";
             this.lblReference.Size = new System.Drawing.Size(74, 17);
             this.lblReference.TabIndex = 10;
@@ -413,11 +414,11 @@
             // 
             this.txbReference.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txbReference.Location = new System.Drawing.Point(352, 5);
+            this.txbReference.Location = new System.Drawing.Point(352, 30);
             this.txbReference.Multiline = true;
             this.txbReference.Name = "txbReference";
             this.txbReference.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.txbReference.Size = new System.Drawing.Size(500, 83);
+            this.txbReference.Size = new System.Drawing.Size(500, 77);
             this.txbReference.TabIndex = 8;
             this.txbReference.Text = "google";
             this.txbReference.TextChanged += new System.EventHandler(this.txbReference_TextChanged);
@@ -427,14 +428,14 @@
             // 
             this.txbSearch.Location = new System.Drawing.Point(181, 5);
             this.txbSearch.Name = "txbSearch";
-            this.txbSearch.Size = new System.Drawing.Size(85, 22);
+            this.txbSearch.Size = new System.Drawing.Size(671, 22);
             this.txbSearch.TabIndex = 8;
             this.txbSearch.Text = "lol";
             this.txbSearch.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txbSearch_KeyPress);
             // 
             // btnInexactSearch
             // 
-            this.btnInexactSearch.Location = new System.Drawing.Point(181, 66);
+            this.btnInexactSearch.Location = new System.Drawing.Point(181, 85);
             this.btnInexactSearch.Margin = new System.Windows.Forms.Padding(4);
             this.btnInexactSearch.Name = "btnInexactSearch";
             this.btnInexactSearch.Size = new System.Drawing.Size(164, 25);

@@ -94,5 +94,17 @@ namespace BWT.Properties {
                 this["readLength"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string serializedIsearch {
+            get {
+                return ((string)(this["serializedIsearch"]));
+            }
+            set {
+                this["serializedIsearch"] = value;
+            }
+        }
     }
 }

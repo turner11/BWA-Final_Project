@@ -564,6 +564,8 @@ void bwt_gen_cnt_table(bwt_t *bwt)
 	}
 }
 
+
+
 bwt_t *bwt_restore_bwt(const char *fn)
 {
 	bwt_t *bwt;

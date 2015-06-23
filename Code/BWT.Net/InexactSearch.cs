@@ -7,10 +7,13 @@ using System.Data;
 using System.ComponentModel;
 using System.Timers;
 using System.Diagnostics;
+using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
 
 namespace BWT
 {
-    public class InexactSearch
+    [Serializable]
+    public class InexactSearch 
     {
         
 
@@ -20,19 +23,24 @@ namespace BWT
         /// <summary>
         /// The reference
         /// </summary>
-        readonly string X_Reference;
+        public readonly string X_Reference;
         /// <summary>
         /// Determines weather this instance will try to find gap errors. 
         /// </summary>
         /// <remarks>
         /// In general the algorithm should, but in order to get more intuitive and clear results for debugging, we might want to shut off this option.
         /// </remarks>
-        public readonly bool FindGapError;
+        public bool FindGapError;
 
         int[] D;
 
         public readonly IReadOnlyCollection<char> ALPHA_BET_LETTERS;
 
+        //do not use! this is just for serialization
+        private InexactSearch()
+        {
+
+        }
         public InexactSearch(string reference, bool findGapErrors, BackgroundWorker bw)
         {
             this._bwtLogics = new BwtLogics();
@@ -392,5 +400,58 @@ namespace BWT
             }
             return 2;
         }
+
+        public string Serialize()
+        {
+            string  ret = null;
+            try
+            {
+                using (var stream = new MemoryStream())
+                {
+                    var formatter = new BinaryFormatter();
+                    formatter.Serialize(stream, this);
+                    byte[] bArr = stream.ToArray();
+                    ret = System.Convert.ToBase64String(bArr);
+                    
+                }
+                
+            }
+            catch (Exception)
+            {
+
+                ret = null;
+            }
+            return ret;
+            
+        }
+
+
+        public static InexactSearch DeSerialize(string strSerialized)
+        {
+            byte[] serialized = System.Convert.FromBase64String(strSerialized);
+        
+            InexactSearch ret = null;
+            try
+            {
+                var formatter = new BinaryFormatter();
+                using (var stream = new MemoryStream(serialized))
+                {
+                    stream.Seek(0, SeekOrigin.Begin);
+                    ret = formatter.Deserialize(stream) as InexactSearch;
+                }
+                
+                    
+            }
+            catch (Exception)
+            {
+
+                ret = null;
+            }
+            return ret;
+
+        }
+
+
+
     }
 }

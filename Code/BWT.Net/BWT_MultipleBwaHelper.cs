@@ -11,8 +11,8 @@ namespace BWT
 {
    public partial class frmBwt
    {
-       Random _rnd = new Random(0);
        BackgroundWorker _multipleBwaWorker;
+       SequenceLogics _seqLogics;
 
        /// <summary>
        /// Handles the Click event of the btnStartMultipleBwa control.
@@ -24,15 +24,27 @@ namespace BWT
 
            this.SaveSettings();
 
-           List<string> reads = GetRandomReads();
-           InexactSearch iSearch = null;
+           List<string> reads = this.GetRandomReads();
+         
            this.txbMultiBwaResults.Text = String.Empty;
-
+           
           this.InitMultiBwaWorker();
            this._multipleBwaWorker.DoWork += (s, arg) =>
            {
-               iSearch = new InexactSearch(this.txbReference.Text, this.chbFindGaps.Checked, this._multipleBwaWorker);
-               this.RunMultipleAlignments(reads, iSearch);
+              // var sw = Stopwatch.StartNew();
+              
+
+               //var e1 = sw.Elapsed;
+               //sw.Restart();
+               //var serialized = iSearch.Serialize();
+               //InexactSearch deserialized = InexactSearch.DeSerialize(serialized);
+               //var e2 = sw.Elapsed;
+               //sw.Stop();
+               SequenceLogics.AlignMode alignMode = 0;
+               if (this.rdvBwaSingleThread.Checked) alignMode = SequenceLogics.AlignMode.SingleThread;
+               if (this.rdvBwaMultipleThread.Checked) alignMode = SequenceLogics.AlignMode.MultiThread;
+               if (this.rdvBwaBoth.Checked) alignMode = SequenceLogics.AlignMode.SingleThread | SequenceLogics.AlignMode.MultiThread;
+               this._seqLogics.RunMultipleAlignments(reads, (int)this.nupErrorsAllowed.Value,this._multipleBwaWorker, alignMode);
            };
 
            this._multipleBwaWorker.RunWorkerCompleted += (s, arg) =>
@@ -48,134 +60,16 @@ namespace BWT
 
        private List<string> GetRandomReads()
        {
-           //StringBuilder sba = new StringBuilder();
-           //var a = new char[] { 'A', 'C', 'G', 'T' };
-           //for (int i = 0; i < 2000; i++)
-           //{
-           //    var idx = (int)Math.Round(this._rnd.NextDouble() * 3, MidpointRounding.AwayFromZero); ;
-           //    var nextchar = a[idx];
-           //    sba.Append(nextchar);
-           //}
-           //var s = sba.ToString();
+       
            int refLength = this.txbReferenceMirror.Text.Length;
            int readLength = (int)Math.Min(this.nupReadLength.Value, refLength);
            int readCount = (int)this.nupNumberOfReads.Value;
            double errorPercentage = (double)(this.nupErrorPercentage.Value / 100);
 
-           List<int> startIndexes = new List<int>();
-           int lastSampleLocation = refLength - readLength;
-           for (int i = 0; i < readCount; i++)
-           {
-               int currStartIndex = (int)(this._rnd.NextDouble() * lastSampleLocation);
-               startIndexes.Add(currStartIndex);
-           }
-           startIndexes.Sort();
-           //This is for easier debugging
-           startIndexes[0] = 0;
-
-           List<string> reads = new List<string>();
-
-           StringBuilder sb = new StringBuilder();
-           foreach (int index in startIndexes)
-           {
-               sb.Clear();
-               string originalString = this.txbReferenceMirror.Text.Substring(index, readLength);
-               for (int i = 0; i < originalString.Length - 1; i++)
-               {
-
-                   bool error = this._rnd.NextDouble() < errorPercentage;
-                   var nextchar = error ?
-                       this.ReferenceLetters[i % this.ReferenceLetters.Count] : originalString[i];
-                   sb.Append(nextchar);
-               }
-               var read = sb.ToString();
-               reads.Add(read);
-
-           }
-           return reads;
+           return this._seqLogics.GetRandomReads(readCount, readLength, errorPercentage);
        }
 
-       private void RunMultipleAlignments(List<string> reads, InexactSearch iSearch)
-       {
-
-           int parrallelClosureCount = 0;
-           Action<int> alignmentAction = (i) =>
-           {
-               var text = reads[i];
-               //this.txbSearch.Text = text;
-               var results = this.PerformBwaAlignment(iSearch,text);
-               string indexesStr = String.Join(",", results.Indexes);
-
-
-               var percentage = ((parrallelClosureCount++  + 1.0) / reads.Count) * 100;
-               this._multipleBwaWorker.ReportProgress((int)percentage, "results for read #"+i+": " + indexesStr);
-           };
-
-
-
-
-           Action singleThreadAction = () =>
-           {
-               for (int i = 0; i < reads.Count; i++)
-               {
-                   var read = reads[i];
-                   var results = this.PerformBwaAlignment(iSearch, read);
-                   string indexesStr = String.Join(",",results.Indexes);
-
-                   var percentage = ((i + 1.0) / reads.Count) * 100;
-                   this._multipleBwaWorker.ReportProgress((int)percentage,"results for read #"+i+": "+indexesStr);
-               }
-           };
-
-
-           Action multiThreadAction = () =>
-           {
-               Parallel.For(0, reads.Count, (i) =>
-                   {
-                       alignmentAction(i);
-                   });
-               //Parallel.ForEach(reads, alignmentAction);
-           };
-
-
-           Stopwatch sw = new Stopwatch();
-           sw.Start();
-
-           if (this.rdvBwaSingleThread.Checked)
-           {
-               singleThreadAction();
-           }
-           else if (this.rdvBwaMultipleThread.Checked)
-           {
-               multiThreadAction();
-           }
-           sw.Stop();
-
-           this._multipleBwaWorker.ReportProgress(0, Environment.NewLine + String.Format("BWA Elapsed time: {0}", sw.Elapsed.ToString()) + Environment.NewLine);
-
-           if (this.rdvBwaBoth.Checked)
-           {
-               sw.Reset();
-               sw.Start();
-               singleThreadAction();
-               sw.Stop();
-
-               this._multipleBwaWorker.ReportProgress(0,
-                   Environment.NewLine + String.Format("Elapsed time (single Thread): {0}{1}{1}", sw.Elapsed.ToString(), Environment.NewLine) + Environment.NewLine
-               );
-               sw.Reset();
-               sw.Start();
-
-               multiThreadAction();
-
-               sw.Stop();
-               this._multipleBwaWorker.ReportProgress(0,
-                    Environment.NewLine+
-                   String.Format("Elapsed time (multi Thread): {0}", sw.Elapsed.ToString())
-                   + Environment.NewLine
-                   );
-           }
-       }
+       
 
       
    }

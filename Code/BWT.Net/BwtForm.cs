@@ -32,12 +32,15 @@ namespace BWT
              
             InitializeComponent();
             this._logics.SpeedOverReports = this.chbSpeedOverReports.Checked;
-
+            
+            this._seqLogics = new SequenceLogics();
+            this._seqLogics.PreAlignmnet += seqLogics_PreAlignmnet;
 #if DEBUG
             this.txbInput.Text ="^BANANA";
 #endif
 
             this.RestoreValuesFromSettings();
+            this._seqLogics.FindGapgs = this.chbFindGaps.Checked;
 
             LinkLabel.Link linkBwt = new LinkLabel.Link();
             linkBwt.LinkData = "http://en.wikipedia.org/wiki/Burrows%E2%80%93Wheeler_transform";
@@ -49,6 +52,8 @@ namespace BWT
 
             this.InitMultiBwaWorker();
         }
+
+       
 
         private void InitMultiBwaWorker()
         {
@@ -398,7 +403,17 @@ namespace BWT
             this.txbMultiBwaResults.Clear();
         }
 
+        private void chbFindGaps_CheckedChanged(object sender, EventArgs e)
+        {
+            this._seqLogics.FindGapgs = this.chbFindGaps.Checked;
+        }
 
+        void seqLogics_PreAlignmnet(object sender, EventArgs e)
+        {
+            this._seqLogics.FindGapgs = this.chbFindGaps.Checked;
+        }
         #endregion
+
+      
     }
 }

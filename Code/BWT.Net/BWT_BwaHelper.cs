@@ -11,21 +11,15 @@ namespace BWT
 {
     public partial class frmBwt
     {
-
-
         /// <summary>
         /// The letters 
         /// </summary>
-        List<char> _referenceLetters;
+       
         List<char> ReferenceLetters
         {
             get
             {
-                if(this._referenceLetters == null || this._referenceLetters.FirstOrDefault() == 0)
-                {
-                    this._referenceLetters = this.txbReference.Text.Distinct().ToList();
-                }
-                return this._referenceLetters;
+                return this._seqLogics.ReferenceLetters;
             }
         }
                 
@@ -50,26 +44,14 @@ namespace BWT
         }
 
         /// <summary>
-        /// Performs the BWA alignment.
-        /// </summary>
-        /// <returns>The alignment results</returns>
-        private InexactSearch.Results PerformBwaAlignment()
-        {
-            var bw= new BackgroundWorker();
-            bw.WorkerReportsProgress = true;
-            InexactSearch iSearch = new InexactSearch(this.txbReference.Text, this.chbFindGaps.Checked,bw);
-            return PerformBwaAlignment(iSearch);
-        }
-
-        /// <summary>
         /// Performs the BWA alignment for the Text in <see cref="txbSearch"/>.
         /// </summary>
         /// <param name="iSearch">The InexactSearch instance - this is for avoiding creation of a new one which will result a new index.</param>
         /// <returns>The alignment results</returns>
-        private InexactSearch.Results PerformBwaAlignment(InexactSearch iSearch)
+        private InexactSearch.Results PerformBwaAlignment()
         {
             var text = this.txbSearch.Text;
-            return this.PerformBwaAlignment(iSearch, text);
+            return this.PerformBwaAlignment(text);
         }
 
         /// <summary>
@@ -80,10 +62,10 @@ namespace BWT
         /// <returns>
         /// The alignment results
         /// </returns>
-        private InexactSearch.Results PerformBwaAlignment(InexactSearch iSearch, string text)
+        private InexactSearch.Results PerformBwaAlignment( string text)
         {
-            var results = iSearch.GetIndex(text, (int)this.nupErrorsAllowed.Value);
-            return results; 
+            return this._seqLogics.PerformBwaAlignment(text, (int)this.nupErrorsAllowed.Value);
+           
         }
 
         /// <summary>
@@ -112,8 +94,8 @@ namespace BWT
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void txbReference_TextChanged(object sender, EventArgs e)
-        {
-            this._referenceLetters = null;
+        {            
+            this._seqLogics.Reference = this.txbReference.Text;
 
             if (this.txbReferenceMirror.Text != this.txbReference.Text)
             {
