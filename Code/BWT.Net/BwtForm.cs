@@ -1,4 +1,5 @@
-﻿using Microsoft.SqlServer.MessageBox;
+﻿using ChartVisualizer;
+using Microsoft.SqlServer.MessageBox;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -7,6 +8,7 @@ using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -14,11 +16,12 @@ namespace BWT
 {
     public partial class tplBwaReference : Form
     {
-
+        
         const int EXPANDED_REFERENCE_HEIGHT = 200;
         const int COMPACT_REFERENCE_HEIGHT = 75;
 
         TextWindow _frmSequencies;
+        ChartForm _chartForm;
         /// <summary>
         /// The logics for all BWT manners
         /// </summary>
@@ -72,6 +75,7 @@ namespace BWT
 
 
             this._frmSequencies = new TextWindow() ;
+            this._chartForm = new ChartForm();
             this.InitMultiBwaWorker();
         }
 
@@ -673,6 +677,93 @@ namespace BWT
             this.nupMaxDegreeOfParallelism.Value = Environment.ProcessorCount - 1;
         }
         #endregion
+
+        private void btnlblBenchmarkVariantLength_Click(object sender, EventArgs e)
+        {
+            var args = this.txbBenchmarkLengthVaryVariables.Text.Split(new char[]{','}, StringSplitOptions.RemoveEmptyEntries);
+
+            try
+            {
+                var range = args[0].Split(new char[] { '-' });
+                int lengthMin = int.Parse(range[0]);
+                int lengthMax = int.Parse(range[1]);
+                int interval = int.Parse(args[1]);
+                int seqCount = int.Parse(args[2]);
+                int errorPercentage = int.Parse(args[3]);
+
+                var legths = new List<int>();
+                var benchmarks = new List<double>();
+
+
+
+                this._chartForm.Clear();                
+                var series_multi = this._chartForm.AddSeries("Time over Seq length (parallel)",Color.Green);
+                var series_signle = this._chartForm.AddSeries("Time over Seq length (sequential)", Color.Red);
+                var series_ration = this._chartForm.AddSeries("Time over Seq length (sequential / parallel)", Color.Blue);
+
+                series_multi.IsValueShownAsLabel = true;
+                series_signle.IsValueShownAsLabel = true;
+                series_ration.IsValueShownAsLabel = true;
+
+                this._chartForm.Show();
+                
+                var restEvent = new AutoResetEvent(true);
+
+
+                var loops = (lengthMax - lengthMin) / interval;
+                for (int i = 0; i <= loops; i++)
+                {
+                    restEvent.Reset();
+                    var currLength = lengthMin + i * interval;
+                    var bw = new BackgroundWorker() { WorkerReportsProgress = true };
+                    Stopwatch sw = null;
+                    TimeSpan elapsedMulti = TimeSpan.Zero;
+                    TimeSpan elapsedSingle = TimeSpan.Zero;
+                    var reads = this._seqLogics.GetRandomReads(seqCount, currLength, errorPercentage);
+                    bw.DoWork += (s, arg) =>
+                        {
+                            
+                            sw = Stopwatch.StartNew();
+                            this._seqLogics.RunMultipleAlignments(reads, (int)this.nupErrorsAllowed.Value, bw, SequenceLogics.AlignMode.MultiThread);
+                            elapsedMulti = sw.Elapsed;
+                            sw.Restart();
+                            this._seqLogics.RunMultipleAlignments(reads, (int)this.nupErrorsAllowed.Value, bw, SequenceLogics.AlignMode.SingleThread);
+                            elapsedSingle = sw.Elapsed;
+                            sw.Stop();
+                        };
+                    bw.ProgressChanged += (s, arg) =>
+                        {                            
+                            this.pbTransform.Value = Math.Min(Math.Max(0, arg.ProgressPercentage), 100);
+                        };
+                    bw.RunWorkerCompleted += (s, arg) =>
+                        {
+                            bw.Dispose();
+
+                            series_multi.Points.AddXY(currLength, elapsedMulti.TotalSeconds);
+                            series_signle.Points.AddXY(currLength, elapsedSingle.TotalSeconds);
+                            series_ration.Points.AddXY(currLength, elapsedSingle.TotalSeconds / elapsedMulti.TotalSeconds);
+                            this._chartForm.Refresh();
+                            this.txbBenchmarkLog.Text = String.Format("Aligned {0} length sequences ({1} seconds)",currLength,sw.Elapsed.TotalSeconds);
+                            restEvent.Set();
+
+                        };
+
+                    bw.RunWorkerAsync();
+                   
+                }
+              
+                
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show("Failed to parse test arguments. View tooltip for more details.");
+                return;
+                
+            }
+            
+
+        }
 
        
 
