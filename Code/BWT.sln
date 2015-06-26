@@ -25,7 +25,8 @@ Global
 		{D56211F3-C611-419D-9096-CC6C3541B0D4}.Release|Any CPU.Build.0 = Release|Any CPU
 		{D56211F3-C611-419D-9096-CC6C3541B0D4}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{D56211F3-C611-419D-9096-CC6C3541B0D4}.Release|Mixed Platforms.Build.0 = Release|Any CPU
-		{D56211F3-C611-419D-9096-CC6C3541B0D4}.Release|x86.ActiveCfg = Release|Any CPU
+		{D56211F3-C611-419D-9096-CC6C3541B0D4}.Release|x86.ActiveCfg = Release|x86
+		{D56211F3-C611-419D-9096-CC6C3541B0D4}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

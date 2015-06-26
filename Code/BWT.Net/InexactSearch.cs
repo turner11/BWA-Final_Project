@@ -1,4 +1,5 @@
-﻿using System;
+﻿#define NO_OPT
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -36,6 +37,8 @@ namespace BWT
 
         public readonly IReadOnlyCollection<char> ALPHA_BET_LETTERS;
 
+        readonly int MIN_CACH_INDEX ;
+
         //do not use! this is just for serialization
         private InexactSearch()
         {
@@ -55,6 +58,13 @@ namespace BWT
             sw.Start();
             this._bwtResults = this._bwtLogics.Bwt(X_Reference);
             sw.Stop();
+
+            this._o_cache = new Dictionary<Tuple<int, char>, int>(O_CACHE_SIZE);
+            this._oT_cache = new Dictionary<Tuple<int, char>, int>(O_CACHE_SIZE);
+            MIN_CACH_INDEX = (int)Math.Sqrt(this._bwtResults.BwtString.Length);
+
+
+
             bw.ReportProgress(0, "Index Took: "+sw.Elapsed.ToString());
 
             /*Get Bwt for reverse reference*/
@@ -232,7 +242,7 @@ namespace BWT
             return c;
         }
 
-
+        Dictionary<Tuple<int, char>, int> _o_cache;
         /// <summary>
         /// Gets the number of occurrences of a in B[0,i]
         /// </summary>
@@ -240,10 +250,32 @@ namespace BWT
         /// <returns>the number of occurrences of a in B[0,i]</returns>
         private int O(char a, int i)
         {
-            string str = this._bwtResults.BwtString;
-            return O_Base(a, i, str);
-        }
+#if NO_OPT
+            string str1 = this._bwtResults.BwtString;
+            return O_Base(a, i, str1);
 
+#else
+
+
+            var key = new Tuple<int,char>(i,a);
+            if (_o_cache.ContainsKey(key ))
+            {
+                return _o_cache[key];
+            }
+            else
+            {
+                string str = this._bwtResults.BwtString;
+                var val =  O_Base(a, i, str);
+                if (_o_cache.Keys.Count < O_CACHE_SIZE && i > MIN_CACH_INDEX)
+                {
+                    return _o_cache[key] = val;
+                }
+                return val;
+            }
+#endif
+        }
+        const int O_CACHE_SIZE = 100;
+        Dictionary<Tuple<int, char>, int> _oT_cache ;
         /// <summary>
         /// Gets the number of occurrences of a in BT[0,i]
         /// </summary>
@@ -251,9 +283,32 @@ namespace BWT
         /// <returns>the number of occurrences of a in B[0,i]</returns>
         private int OT(char a, int i)
         {
-            string str = this._bwtReverseResults.BwtString;
-            return O_Base(a, i, str);
+#if NO_OPT
+            string str1 = this._bwtReverseResults.BwtString;
+            return  O_Base(a, i, str1);
+#else 
+
+            var key = new Tuple<int, char>(i, a);
+            if (_oT_cache.ContainsKey(key))
+            {
+                return _oT_cache[key];
+            }
+            else
+            {
+                string str = this._bwtReverseResults.BwtString;
+                var val = O_Base(a, i, str);
+                if (_oT_cache.Keys.Count < O_CACHE_SIZE && i > MIN_CACH_INDEX)
+                {
+                    return _oT_cache[key] = val;
+                }
+                return val;
+            }
+            
+#endif
         }
+
+        
+
         /// <summary>
         /// Gets the number of occurrences of a in specified string
         /// </summary>

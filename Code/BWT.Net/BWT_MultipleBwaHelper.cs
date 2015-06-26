@@ -14,6 +14,8 @@ namespace BWT
        BackgroundWorker _multipleBwaWorker;
        SequenceLogics _seqLogics;
 
+       
+
        /// <summary>
        /// Handles the Click event of the btnStartMultipleBwa control.
        /// </summary>
@@ -24,7 +26,7 @@ namespace BWT
 
            this.SaveSettings();
 
-           List<string> reads = this.GetRandomReads();
+           IList<string> reads = this.chbUseGeneratedSequencies.Checked? this.txbSequencies.Text.Split(new string[]{Environment.NewLine},StringSplitOptions.RemoveEmptyEntries) : (IList<string>)this.GetRandomReads();
          
            this.txbMultiBwaResults.Text = String.Empty;
            
@@ -49,7 +51,7 @@ namespace BWT
 
            this._multipleBwaWorker.RunWorkerCompleted += (s, arg) =>
                {
-                   this.txbMultiBwaResults.Text +=  Environment.NewLine+ "Alignment Complete" + Environment.NewLine;
+                   this.txbMultiBwaResults.AppendText(Environment.NewLine+ "Alignment Complete" + Environment.NewLine);
                    
                };
 

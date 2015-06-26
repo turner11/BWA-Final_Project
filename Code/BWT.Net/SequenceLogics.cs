@@ -12,9 +12,11 @@ namespace BWT
     {
         public event EventHandler PreAlignmnet;
         #region Data Members
-        Random _rnd = new Random(0);
+       
         BackgroundWorker worker;
         public InexactSearch iSearch { get; private set; }
+
+        public int DegreeOfParallelism { get; set; }
 
         /// <summary>
         /// Gets or sets the reference.
@@ -56,7 +58,7 @@ namespace BWT
             {
                 if (this._referenceLetters == null || this._referenceLetters.FirstOrDefault() == 0)
                 {
-                    this._referenceLetters = (this.Reference ?? "").Distinct().ToList();
+                    this._referenceLetters = (this.Reference ?? "").Where(c=> c!= BwtLogics.END_OF_FILE_CHAR).Distinct().ToList();
 
                 }
                 return this._referenceLetters;
@@ -111,33 +113,38 @@ namespace BWT
         /// <returns>the list of reads</returns>
         public List<string> GetRandomReads(int readCount, int readLength, double errorPercentage)
         {
+            //var reference = this.Reference.TakeWhile(c=> c != BwtLogics.END_OF_FILE_CHAR).ToArray; //ommit the end of word char
+            var rnd = new Random();
+
             List<int> startIndexes = new List<int>();
-            int lastSampleLocation = this.ReferenceLength - readLength;
+            int lastSampleLocation = this.ReferenceLength - readLength -1; //-1 will omit the "end of file char"
             for (int i = 0; i < readCount; i++)
             {
-                int currStartIndex = (int)(this._rnd.NextDouble() * lastSampleLocation);
+                int currStartIndex = (int)(rnd.NextDouble() * lastSampleLocation);
                 startIndexes.Add(currStartIndex);
             }
             startIndexes.Sort();
             //This is for easier debugging
             startIndexes[0] = 0;
 
-            List<string> reads = new List<string>();
+            var reads = new List<string>();
 
             StringBuilder sb = new StringBuilder();
             foreach (int index in startIndexes)
             {
                 sb.Clear();
+                
+                //string originalString = new String(this.Reference.Skip(index).Take(readLength + 1).Where(c=> c!= BwtLogics.END_OF_FILE_CHAR).Take(readLength).ToArray());
                 string originalString = this.Reference.Substring(index, readLength);
-                for (int i = 0; i < originalString.Length - 1; i++)
+                for (int i = 0; i < originalString.Length; i++)
                 {
-
-                    bool error = this._rnd.NextDouble() < errorPercentage;
+                    var rndVal = rnd.NextDouble()*100;
+                    bool error = rndVal < errorPercentage;
                     var nextchar = error ?
                         this.ReferenceLetters[i % this.ReferenceLetters.Count] : originalString[i];
                     sb.Append(nextchar);
                 }
-                var read = sb.ToString();
+                var read = sb.ToString();             
                 reads.Add(read);
 
             }
@@ -150,7 +157,7 @@ namespace BWT
             this.RunMultipleAlignments(reads, errorsAllowed, bwReporter, alignMode);
         }
 
-        public void RunMultipleAlignments(List<string> reads, int errorsAllowed, BackgroundWorker bwReporter,AlignMode alignMode)
+        public void RunMultipleAlignments(IList<string> reads, int errorsAllowed, BackgroundWorker bwReporter,AlignMode alignMode)
         {
             bwReporter = bwReporter ?? new BackgroundWorker() { WorkerReportsProgress = true };            
 
@@ -183,10 +190,11 @@ namespace BWT
                 }
             };
 
-
+             
             Action multiThreadAction = () =>
             {
-                Parallel.For(0, reads.Count, (i) =>
+                var po = new ParallelOptions { MaxDegreeOfParallelism = this.DegreeOfParallelism };
+                Parallel.For(0, reads.Count,po, (i) =>
                 {
                     alignmentAction(i);
                 });

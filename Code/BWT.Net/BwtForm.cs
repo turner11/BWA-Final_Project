@@ -16,9 +16,9 @@ namespace BWT
     {
 
         const int EXPANDED_REFERENCE_HEIGHT = 200;
-        const int COMPACT_REFERENCE_HEIGHT = 50;
+        const int COMPACT_REFERENCE_HEIGHT = 75;
 
-
+        TextWindow _frmSequencies;
         /// <summary>
         /// The logics for all BWT manners
         /// </summary>
@@ -28,8 +28,6 @@ namespace BWT
         #region DefaultReference
  "TAGAGCTCCAGGGTAGCGGTGGATTGAGCTCTGCGACAGGTCGGGGGCCACGCGGCCCTGGGCAGCCAGGAGGTGCTGGGCCACGCGGCCCGGCTGGCCTCCTCCGGTGCTATAGTCGACAGTTGAAGTCGGAAGTTTACATACACTTAGGTTGGAGTGGGCAGCCAGGAGGTGCTGGGCCACGCGGCCCGGCTGGCCTCCTCCGGTATCCATCGATCCAAGATGGCGGCGCTGAGCAGCGGCAGCAGCGCCCATAACCCACCATCAATATATTTAGAGGCCTATGAGGAGTACACCAGCGGGATCACTCTCGGCATGGACGAGCTGTACAAGTAAGTCGACGTCGACTCGATCATCATAATTCTGTCTCATTCCTCTTTGCACTCGGATCGTACGCTATTCTATGATTACACGGTTGCGATCCATAATCTCCCTTGGGGAATATACACGCTGGCTTACTCGAATTTGACTCCGTACGGTACTCGCCATCCGAACTAGATAACCCTTATAGAAATATACACGCTTGTGAAACATAATCCGGCTGCAACGTTTAACACTCCTAATTAGGACATAACTCTTGACACTTACTTAGAGAACTCTCCGCTCATAGGAGATAATTTACTAAAGATGACGGTTTCTTTTGACTCGAAGCATTTACCGCCCCTAGATCCATCATATGATGCCGTTGACTCCAGCGTAGATATCAGCTGGCCCTCGCATGATATCTGCGCGATGCGGGTCGATCCATATGCCTATCGGCAAGCGGATGATATCGGCGCTGCCTGCATGGATGATATCGGCTCACCAGATGGCCTATCGGCTTCCGTGGCTACAACGTTGTAGCCACGGAAGCCGATAGCTATCGGCCGTCGTGGCTACAACGTTGTAGCCACGACGGCCGATAGGATAGTCGACGCCGAGGAAACGCGCGGAATTCGATGGATTTCCCTCGGATAGTCGACCAGGGTAGCGGTGGATTGTCGACTGCGACAGGTCGGGATAGTCGACACCTCCATCTGCGATACCATTTCGTACTGCGACAGGTCGGCGGGCGATAGTCGACCGCAGCCACTCCCGATGCTTGCTTGGATAGTCGACCGCAGCCACCTCCGATGCTTGTCCGGACATGACAGGGATAGTCGACCGCAGCCACCTCCGATGCTCCCTTGGACATGACAGGGATAGTCGACCGCAGCCACCTCTCCTGCTTGCTTTCCCATGACAGGTCGCTATCGGCGGTCGTGGCTACAACGTTGTAGCCACGACCGCCGATAGCTATCGGCATACGTGGCTACAACGTTGTAGCCACGTATGCCGATAGGCCGCCTTTCGGCAAGCGCGCTTGCCGAAAGGCGGCGCCGCCTGATGGCAAGCGCGCTTGCCATCAGGCGGCGATCGTCGACTTGTAGGGAGGTCTCAATGAGCTCCGCAGCCACCTCCGATGATAGAGCTCGCCGAGGAAACGGATCGTCGACATGGATTTCCCTCGATAGAGCTCCAGGGTAGCGGTGGATTGAGCTCTGCGACAGGTCGGGGGCCACGCGGCCCCCTATCGGCAAGCGGATGATATCGGCGCTGCCTGCATGGATGATATCGGCTCACCAGATGGCCTATCGGCTTCCGTGGCTACAACGTTGTAGCCACGGAAGCCGATAGCTATCGGCCGTCGTGGCTACAACGTTGTAGCCACGACGGCCGATAGGATAGTCGACGCCGAGGAAACGCGCGGAATTCGATGGATTTCCCTCGGATAGTCGACCAGGGTAGCGGTGGATTGTCGACTGCGACAGGTCGGGATAGTCGACACCTCCATCTGCGATACCATTTCGTACTGCGACAGGTCGGCGGGCGATAGTCGACCGCAGCCACTCCCGATGCTTGCTTGGATAGTCGACCGCAGCCACCTCCGATGCTTGTCCGGACATGACAGGGATAGTCGACCGCAGCCACCTCCGATGCTCCCTTGGACATGACAGGGATAGTCGACCGCAGCCACCTCT";
         #endregion
-
-        
 
         public tplBwaReference()
         {
@@ -47,12 +45,19 @@ namespace BWT
 
             this.nupCountGeneratedStrings_Single.DoubleClick += nupCountGeneratedStrings_DoubleClick;
             this.nupCountGeneratedStrings_Multi.DoubleClick += nupCountGeneratedStrings_DoubleClick;
+
+           
             
-            this._seqLogics = new SequenceLogics();
+            
+            this._seqLogics = new SequenceLogics();            
             this._seqLogics.PreAlignmnet += seqLogics_PreAlignmnet;
-#if DEBUG
+
+            //this.nupMaxDegreeOfParallelism.Maximum = Environment.ProcessorCount;
+            this.nupMaxDegreeOfParallelism.Value = Environment.ProcessorCount - 1;
+
+//#if DEBUG
             this.txbInput.Text ="^BANANA";
-#endif
+//#endif
 
             this.RestoreValuesFromSettings();
             this._seqLogics.FindGapgs = this.chbFindGaps.Checked;
@@ -65,18 +70,9 @@ namespace BWT
             linkBwa.LinkData = "http://www.math.pku.edu.cn/teachers/xirb/Courses/biostatistics2013/Bioinformatics-2009-Li-1754-60.pdf";
             this.lnkBwaPaper.Links.Add(linkBwa);
 
-            this.InitMultiBwaWorker();
-        }
 
-        void nupCountGeneratedStrings_DoubleClick(object sender, EventArgs e)
-        {
-            var nup = sender as NumericUpDown;
-            if (nup != null)
-            {
-                var p = nup.PointToScreen(nup.Location);
-                this._tt.Show(nup.Value.ToString("N0"), this, p, 5000);
-            }
-           
+            this._frmSequencies = new TextWindow() ;
+            this.InitMultiBwaWorker();
         }
 
        
@@ -89,7 +85,7 @@ namespace BWT
             {
                 Action updateProg = () =>
                     {
-                        this.txbMultiBwaResults.Text += arg.UserState.ToString() + Environment.NewLine;
+                        this.txbMultiBwaResults.AppendText(arg.UserState.ToString() + Environment.NewLine);
                         this.pbTransform.Value = Math.Min(Math.Max(0, arg.ProgressPercentage),100);
                     };
 
@@ -340,41 +336,6 @@ namespace BWT
         }
 
         /// <summary>
-        /// Handles the TextChanged event of the TreanformTextBox control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        private void TreanformTextBox_TextChanged(object sender, EventArgs e)
-        {
-            var led_ok = BWT.Properties.Resources.green_led;
-            var led_intermidiate = BWT.Properties.Resources.orange_led;
-            var led_error = BWT.Properties.Resources.red_led;
-
-            bool inputhasText = !String.IsNullOrWhiteSpace(this.txbInput.Text);
-            bool reverseHasText = !String.IsNullOrWhiteSpace(this.txbReversedOutput.Text);
-
-            this.pbLed.Visible = inputhasText || reverseHasText;
-
-            Bitmap image;
-            if (inputhasText ^ reverseHasText)
-            {
-                image = led_intermidiate;
-            }
-            else if (this.txbInput.Text.Equals(this.txbReversedOutput.Text, StringComparison.Ordinal))
-            {
-                image = led_ok;
-            }
-            else
-            {
-                image = led_error;
-            }
-
-            this.pbLed.Image = image;
-
-
-        }
-
-        /// <summary>
         /// Handles the TextChanged event of the txbInput control.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
@@ -483,7 +444,6 @@ namespace BWT
             bool isExpanded = this.scBwa.SplitterDistance >= EXPANDED_REFERENCE_HEIGHT;
             this.scBwa.SplitterDistance = isExpanded ? COMPACT_REFERENCE_HEIGHT : EXPANDED_REFERENCE_HEIGHT;
         }
-        #endregion
 
         private async void nupErrorsAllowed_ValueChanged(object sender, EventArgs e)
         {
@@ -492,14 +452,221 @@ namespace BWT
 
         private async void nupErrorPercentage_ValueChanged(object sender, EventArgs e)
         {
-              await this.SetNumberOfStrignsToSearch();
+            await this.SetNumberOfStrignsToSearch();
         }
 
         private async void nupNumberOfReads_ValueChanged(object sender, EventArgs e)
         {
-               await this.SetNumberOfStrignsToSearch();
+            await this.SetNumberOfStrignsToSearch();
         }
 
+        void nupCountGeneratedStrings_DoubleClick(object sender, EventArgs e)
+        {
+            var nup = sender as NumericUpDown;
+            if (nup != null)
+            {
+                var p = nup.PointToScreen(nup.Location);
+                this._tt.Show(nup.Value.ToString("N0"), this, p, 5000);
+            }
+
+        }
+
+        /// <summary>
+        /// Handles the TextChanged event of the TreanformTextBox control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+        private void TreanformTextBox_TextChanged(object sender, EventArgs e)
+        {
+            var led_ok = BWT.Properties.Resources.green_led;
+            var led_intermidiate = BWT.Properties.Resources.orange_led;
+            var led_error = BWT.Properties.Resources.red_led;
+
+            bool inputhasText = !String.IsNullOrWhiteSpace(this.txbInput.Text);
+            bool reverseHasText = !String.IsNullOrWhiteSpace(this.txbReversedOutput.Text);
+
+            this.pbLed.Visible = inputhasText || reverseHasText;
+
+            Bitmap image;
+            if (inputhasText ^ reverseHasText)
+            {
+                image = led_intermidiate;
+            }
+            else if (this.txbInput.Text.Equals(this.txbReversedOutput.Text, StringComparison.Ordinal))
+            {
+                image = led_ok;
+            }
+            else
+            {
+                image = led_error;
+            }
+
+            this.pbLed.Image = image;
+
+
+        }
+
+        /// <summary>
+        /// Handles the Click event of the btnInexactSearch control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+        private async void btnInexactSearch_Click(object sender, EventArgs e)
+        {
+            this.CollapseReferenceTextBox();
+            //clear history
+            this.txbBwaResults.Text = String.Empty;
+            this.SaveSettings();
+
+
+
+            var results = await this.PerformBwaAlignment();
+
+            this.txbBwaResults.Text = results.GetSummaryMessage();
+
+        }
+
+        /// <summary>
+        /// Handles the KeyPress event of the txbSearch control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="KeyPressEventArgs" /> instance containing the event data.</param>
+        private void txbSearch_KeyPress(object sender, KeyPressEventArgs e)
+        {
+
+            // Check for a naughty character in the KeyDown event.
+            //22 = paste...
+            if (e.KeyChar != 22 && !this.ReferenceLetters.Contains(e.KeyChar) && e.KeyChar != '\b')
+            {
+                // Stop the character from being entered into the control since it is illegal.
+                e.Handled = true;
+            }
+            else
+            {
+                e.Handled = false;
+            }
+        }
+        /// <summary>
+        /// Handles the TextChanged event of the txbSearch control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+        private async void txbSearch_TextChanged(object sender, EventArgs e)
+        {
+            Func<char, bool> filterFunc = c => !this.ReferenceLetters.Contains(c);
+            var illigalLetters = this.txbSearch.Text.Where(filterFunc).ToList();
+            if (this.txbReference.Text.Length > 0 && illigalLetters.Count > 0)
+            {
+                MessageBox.Show("The letters '" + String.Join(",", illigalLetters) + "' Do not appear in reference and are not valid");
+            }
+            this.txbSearch.Text = String.Join(String.Empty, this.txbSearch.Text.Where(c => !filterFunc(c)).ToList());
+
+            this.lblSearch.Text = String.Format("String to search ({0})", this.txbSearch.Text.Length);
+            await this.SetNumberOfStrignsToSearch();
+        }
+
+        /// <summary>
+        /// Handles the KeyDown event of the txbReference control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="KeyEventArgs"/> instance containing the event data.</param>
+        private void txbReference_KeyDown(object sender, KeyEventArgs e)
+        {
+            this.HandleTextBoxKeyDown(sender, e);
+        }
+
+        /// <summary>
+        /// Handles the text box key down.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="KeyEventArgs"/> instance containing the event data.</param>
+        private void HandleTextBoxKeyDown(object sender, KeyEventArgs e)
+        {
+            var txb = sender as TextBox;
+            if (txb == null)
+            {
+                return;
+            }
+            if (e.Control && (e.KeyCode == Keys.A))
+            {
+                if (sender != null)
+                    ((TextBox)sender).SelectAll();
+                e.Handled = true;
+            }
+        }
+
+        /// <summary>
+        /// Handles the KeyDown event of the txbBwaResults control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="KeyEventArgs"/> instance containing the event data.</param>
+        private void txbBwaResults_KeyDown(object sender, KeyEventArgs e)
+        {
+            this.HandleTextBoxKeyDown(sender, e);
+        }
+
+
+
+        /// <summary>
+        /// Handles the ValueChanged event of the nupReadLength control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+        private async void nupReadLength_ValueChanged(object sender, EventArgs e)
+        {
+            int maxDiff = InexactSearch.GetCalculatedMaxError((int)this.nupReadLength.Value);
+            this.lblRecommendedMaxError.Text = String.Format("Calculated Max Error: {0}", maxDiff);
+            await this.SetNumberOfStrignsToSearch();
+        }
+
+        /// <summary>
+        /// Handles the TextChanged event of the txbReference control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+        private void txbReference_TextChanged(object sender, EventArgs e)
+        {
+            this._seqLogics.Reference = this.txbReference.Text;
+        }
+        private void nupMaxDegreeOfParallelism_ValueChanged(object sender, EventArgs e)
+        {
+            this._seqLogics.DegreeOfParallelism = (int)this.nupMaxDegreeOfParallelism.Value;
+        }
+        #endregion
+
+        private void btnGenerateSequencies_Click(object sender, EventArgs e)
+        {
+            var seqs = this._seqLogics.GetRandomReads((int)this.nupNumberOfReads.Value,
+                                                    (int)this.nupReadLength.Value,
+                                                    (double)this.nupErrorPercentage.Value);
+
+            this.txbSequencies.Lines = seqs.ToArray();
+            
+        }
+
+        private void btnClearSequencies_Click(object sender, EventArgs e)
+        {
+
+            this.txbSequencies.Clear();
+        }
+
+        private void btnSortSequencies_Click(object sender, EventArgs e)
+        {
+
+            var lines = this.txbSequencies.Lines.ToArray();
+            Array.Sort(lines);            
+            this.txbSequencies.Lines = lines;
+            
+        }
+
+        private void txbSequencies_TextChanged(object sender, EventArgs e)
+        {
+            this.chbUseGeneratedSequencies.Checked = this.txbSequencies.Text.Length > 0;
+        }
+
+       
+
+  
       
 
         
