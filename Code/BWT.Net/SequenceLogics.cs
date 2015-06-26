@@ -233,6 +233,17 @@ namespace BWT
             }
         }
 
+        public long GetNumberOfStringsTosearch(int seqLength, int alphbetSize, bool handleGap, int errorsAllowd)
+        {
+            var potentialErrorLocations = PermutationsAndCombinations.nCr(seqLength, errorsAllowd);
+            //we relate to a gap as another option to mistake, just outside of the alphabet... 2 is because a letter can be added / omitted
+            // -1 is because there is the option that we got the right value...
+            var errorOptions = alphbetSize - 1 + (handleGap ? 2:0); 
+
+            var numberOfStringsToSearch = errorOptions * potentialErrorLocations;
+            return numberOfStringsToSearch +1;// +1 for the original string...
+        }
+
 
         internal InexactSearch.Results PerformBwaAlignment(string text, int errorsAllowed)
         {
@@ -251,6 +262,34 @@ namespace BWT
             MultiThread = 2
         }
 
-        
+        private static class PermutationsAndCombinations
+        {
+            public static long nCr(int n, int r)
+            {
+                // naive: return Factorial(n) / Factorial(r) * Factorial(n - r);
+                return nPr(n, r) / Factorial(r);
+            }
+
+            public static long nPr(int n, int r)
+            {
+                // naive: return Factorial(n) / Factorial(n - r);
+                return FactorialDivision(n, n - r);
+            }
+
+            private static long FactorialDivision(int topFactorial, int divisorFactorial)
+            {
+                long result = 1;
+                for (int i = topFactorial; i > divisorFactorial; i--)
+                    result *= i;
+                return result;
+            }
+
+            private static long Factorial(int i)
+            {
+                if (i <= 1)
+                    return 1;
+                return i * Factorial(i - 1);
+            }
+        }
     }
 }

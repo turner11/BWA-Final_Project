@@ -14,7 +14,7 @@
     <Setting Name="errorPercentage" Type="System.Decimal" Scope="User">
       <Value Profile="(Default)">3</Value>
     </Setting>
-    <Setting Name="numberOfReads" Type="System.Int32" Scope="User">
+    <Setting Name="numberOfReads" Type="System.Int64" Scope="User">
       <Value Profile="(Default)">1000</Value>
     </Setting>
     <Setting Name="readLength" Type="System.Int32" Scope="User">

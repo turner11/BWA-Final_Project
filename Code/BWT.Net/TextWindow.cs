@@ -33,5 +33,10 @@ namespace BWT
             this.txb.Text = txt;
             this.txb.Select(0, 0);
         }
+
+        private void txb_TextChanged(object sender, EventArgs e)
+        {
+            this.Text = "Text Length: " + this.txb.Text.Length.ToString("N");
+        }
     }
 }

@@ -355,17 +355,14 @@ namespace BWT
                                            "The results:{0}" +
                                             "\tIndexes: {4}{0}{0}" +
                                            "\tQuery took: {5}{0}" +
-                                           "\t({6} sec/char){0}" +
-                                           "The suffix array: {0}{0}" +
-                                           "{7}{0}{0}",
+                                           "\t({6} sec/char){0}",
                                            Environment.NewLine,
                                            this.StringToMatch,
                                            this.ErrorAllowed,
                                            (this.HandleGapError ? "With" : "NO") + " Gap handling",
                                            String.Join(",", this.Indexes),
                                            this.TimeElapsed.ToString(),
-                                           this.SecondsPerCharachtar,
-                                           indexedTable);
+                                           this.SecondsPerCharachtar);
 
                 return msg;
             }

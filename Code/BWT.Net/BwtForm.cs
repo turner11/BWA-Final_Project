@@ -12,8 +12,13 @@ using System.Windows.Forms;
 
 namespace BWT
 {
-    public partial class frmBwt : Form
+    public partial class tplBwaReference : Form
     {
+
+        const int EXPANDED_REFERENCE_HEIGHT = 200;
+        const int COMPACT_REFERENCE_HEIGHT = 50;
+
+
         /// <summary>
         /// The logics for all BWT manners
         /// </summary>
@@ -26,12 +31,22 @@ namespace BWT
 
         
 
-        public frmBwt()
+        public tplBwaReference()
         {
             this._logics = new BwtLogics();
              
             InitializeComponent();
+
+            this.scBwa.SplitterDistance = COMPACT_REFERENCE_HEIGHT ;
+
             this._logics.SpeedOverReports = this.chbSpeedOverReports.Checked;
+
+            this.nupCountGeneratedStrings_Multi.Maximum = decimal.MaxValue;
+            this.nupCountGeneratedStrings_Single.Maximum = decimal.MaxValue;
+
+
+            this.nupCountGeneratedStrings_Single.DoubleClick += nupCountGeneratedStrings_DoubleClick;
+            this.nupCountGeneratedStrings_Multi.DoubleClick += nupCountGeneratedStrings_DoubleClick;
             
             this._seqLogics = new SequenceLogics();
             this._seqLogics.PreAlignmnet += seqLogics_PreAlignmnet;
@@ -53,8 +68,19 @@ namespace BWT
             this.InitMultiBwaWorker();
         }
 
-       
+        void nupCountGeneratedStrings_DoubleClick(object sender, EventArgs e)
+        {
+            var nup = sender as NumericUpDown;
+            if (nup != null)
+            {
+                var p = nup.PointToScreen(nup.Location);
+                this._tt.Show(nup.Value.ToString("N0"), this, p, 5000);
+            }
+           
+        }
 
+       
+        
         private void InitMultiBwaWorker()
         {
             this._multipleBwaWorker = new BackgroundWorker();
@@ -109,7 +135,7 @@ namespace BWT
         private void SaveSettings()
         {
             BWT.Properties.Settings.Default.errorPercentage = this.nupErrorPercentage.Value;
-            BWT.Properties.Settings.Default.numberOfReads = (int)this.nupNumberOfReads.Value;
+            BWT.Properties.Settings.Default.numberOfReads = (long)this.nupNumberOfReads.Value;
             BWT.Properties.Settings.Default.readLength = (int)this.nupReadLength.Value;
             BWT.Properties.Settings.Default.referecne = this.txbReference.Text;
 
@@ -290,6 +316,12 @@ namespace BWT
             this.bchBwt.Reset();
         }
 
+
+        private void CollapseReferenceTextBox()
+        {
+            this.scBwa.SplitterDistance = COMPACT_REFERENCE_HEIGHT;
+        }
+
         #region Event Handlers
         /// <summary>
         /// Handles the Click event of the btnExecute control.
@@ -298,6 +330,7 @@ namespace BWT
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void btnExecute_Click(object sender, EventArgs e)
         {
+            
             string input = this.txbInput.Text;
             this.PerformBwt(input);
 
@@ -405,34 +438,77 @@ namespace BWT
             this.txbMultiBwaResults.Clear();
         }
 
-        private void chbFindGaps_CheckedChanged(object sender, EventArgs e)
+        private async void chbFindGaps_CheckedChanged(object sender, EventArgs e)
         {
             this._seqLogics.FindGapgs = this.chbFindGaps.Checked;
+            await this.SetNumberOfStrignsToSearch();
         }
 
         void seqLogics_PreAlignmnet(object sender, EventArgs e)
         {
             this._seqLogics.FindGapgs = this.chbFindGaps.Checked;
         }
-        #endregion
 
-        private void txbReference_DoubleClick(object sender, EventArgs e)
+        private async void txbReference_DoubleClick(object sender, EventArgs e)
         {
             if (this._seqLogics.iSearch != null)
             {
-                var sa = this._seqLogics.iSearch.GetIndexedSuffixArray();
+                string sa = null;
+                await Task.Run(() =>
+                    {
+                        sa = this._seqLogics.iSearch.GetIndexedSuffixArray();
+                        
+                    });
+
                 var txtWindow = new TextWindow();
-                txtWindow.txb.WordWrap = false;// for performance
-                txtWindow.Show(this);
-                txtWindow.TextContent = sa;
-                
+                //txtWindow.txb.WordWrap = false;// for performance
+               txtWindow.Show(this);
+               txtWindow.TextContent = "Loading...";
+               txtWindow.Refresh();
+               txtWindow.TextContent = sa;
+
+               
+
             }
         }
 
-        private void nupReadLength_ValueChanged(object sender, EventArgs e)
+
+        private void txbMultiBwaResults_TextChanged(object sender, EventArgs e)
         {
 
         }
+
+        private void lblReference_DoubleClick(object sender, EventArgs e)
+        {
+            bool isExpanded = this.scBwa.SplitterDistance >= EXPANDED_REFERENCE_HEIGHT;
+            this.scBwa.SplitterDistance = isExpanded ? COMPACT_REFERENCE_HEIGHT : EXPANDED_REFERENCE_HEIGHT;
+        }
+        #endregion
+
+        private async void nupErrorsAllowed_ValueChanged(object sender, EventArgs e)
+        {
+            await this.SetNumberOfStrignsToSearch();
+        }
+
+        private async void nupErrorPercentage_ValueChanged(object sender, EventArgs e)
+        {
+              await this.SetNumberOfStrignsToSearch();
+        }
+
+        private async void nupNumberOfReads_ValueChanged(object sender, EventArgs e)
+        {
+               await this.SetNumberOfStrignsToSearch();
+        }
+
+      
+
+        
+
+      
+
+      
+
+       
 
       
     }

@@ -74,9 +74,9 @@ namespace BWT.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("1000")]
-        public int numberOfReads {
+        public long numberOfReads {
             get {
-                return ((int)(this["numberOfReads"]));
+                return ((long)(this["numberOfReads"]));
             }
             set {
                 this["numberOfReads"] = value;

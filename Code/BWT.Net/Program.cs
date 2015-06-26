@@ -16,7 +16,7 @@ namespace BWT
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new frmBwt());
+            Application.Run(new tplBwaReference());
         }
     }
 }

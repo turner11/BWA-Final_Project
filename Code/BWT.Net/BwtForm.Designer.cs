@@ -1,6 +1,6 @@
 ﻿namespace BWT
 {
-    partial class frmBwt
+    partial class tplBwaReference
     {
         /// <summary>
         /// Required designer variable.
@@ -28,37 +28,48 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmBwt));
+            this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(tplBwaReference));
             this.tcMain = new System.Windows.Forms.TabControl();
-            this.tpMultipleBwa = new System.Windows.Forms.TabPage();
+            this.tpBwa = new System.Windows.Forms.TabPage();
+            this.scBwa = new System.Windows.Forms.SplitContainer();
+            this.tplReference = new System.Windows.Forms.TableLayoutPanel();
+            this.lblReference = new System.Windows.Forms.Label();
+            this.txbReference = new System.Windows.Forms.TextBox();
+            this.tcBwa = new System.Windows.Forms.TabControl();
+            this.tpBwaMultiSequence = new System.Windows.Forms.TabPage();
+            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.lblErrorPercentage = new System.Windows.Forms.Label();
             this.lblRecommendedMaxError = new System.Windows.Forms.Label();
-            this.txbMultiBwaResults = new System.Windows.Forms.TextBox();
             this.rdvBwaBoth = new System.Windows.Forms.RadioButton();
-            this.rdvBwaMultipleThread = new System.Windows.Forms.RadioButton();
-            this.rdvBwaSingleThread = new System.Windows.Forms.RadioButton();
-            this.btnClearMultiple = new System.Windows.Forms.Button();
+            this.nupErrorPercentage = new System.Windows.Forms.NumericUpDown();
             this.btnStartMultipleBwa = new System.Windows.Forms.Button();
+            this.rdvBwaMultipleThread = new System.Windows.Forms.RadioButton();
             this.nupNumberOfReads = new System.Windows.Forms.NumericUpDown();
+            this.rdvBwaSingleThread = new System.Windows.Forms.RadioButton();
             this.lblNumberOfReads = new System.Windows.Forms.Label();
+            this.txbMultiBwaResults = new System.Windows.Forms.TextBox();
             this.nupReadLength = new System.Windows.Forms.NumericUpDown();
             this.lblReadLength = new System.Windows.Forms.Label();
-            this.nupErrorPercentage = new System.Windows.Forms.NumericUpDown();
-            this.lblErrorPercentage = new System.Windows.Forms.Label();
-            this.tpBwa = new System.Windows.Forms.TabPage();
-            this.chbFindGaps = new System.Windows.Forms.CheckBox();
-            this.txbBwaResults = new System.Windows.Forms.TextBox();
-            this.nupErrorsAllowed = new System.Windows.Forms.NumericUpDown();
-            this.lblErrorsAllowed = new System.Windows.Forms.Label();
-            this.lblReference = new System.Windows.Forms.Label();
+            this.lblStringsToSearchFor_multi = new System.Windows.Forms.Label();
+            this.nupCountGeneratedStrings_Multi = new System.Windows.Forms.NumericUpDown();
+            this.btnClearMultiple = new System.Windows.Forms.Button();
+            this.tpBwaSingleSequence = new System.Windows.Forms.TabPage();
+            this.tlpMultipleBwa = new System.Windows.Forms.TableLayoutPanel();
             this.lblSearch = new System.Windows.Forms.Label();
-            this.txbReference = new System.Windows.Forms.TextBox();
-            this.txbSearch = new System.Windows.Forms.TextBox();
+            this.lblErrorsAllowed = new System.Windows.Forms.Label();
+            this.txbBwaResults = new System.Windows.Forms.TextBox();
             this.btnInexactSearch = new System.Windows.Forms.Button();
+            this.chbFindGaps = new System.Windows.Forms.CheckBox();
+            this.txbSearch = new System.Windows.Forms.TextBox();
+            this.nupErrorsAllowed = new System.Windows.Forms.NumericUpDown();
+            this.lblStringsToSearchFor = new System.Windows.Forms.Label();
+            this.nupCountGeneratedStrings_Single = new System.Windows.Forms.NumericUpDown();
             this.tpBwt = new System.Windows.Forms.TabPage();
             this.bchReverse = new BWT.BwtBenchmarkingPanel();
             this.bchBwt = new BWT.BwtBenchmarkingPanel();
             this.pbLed = new System.Windows.Forms.PictureBox();
-            this.btnExecute = new System.Windows.Forms.Button();
+            this.btnExecuteBwt = new System.Windows.Forms.Button();
             this.lblSeparator = new System.Windows.Forms.Label();
             this.lblReversedOutput = new System.Windows.Forms.Label();
             this.lblOutPut = new System.Windows.Forms.Label();
@@ -75,17 +86,25 @@
             this.chbPerformReverseTransform = new System.Windows.Forms.CheckBox();
             this.scMain = new System.Windows.Forms.SplitContainer();
             this.pbTransform = new System.Windows.Forms.ProgressBar();
-            this.tcBwa = new System.Windows.Forms.TabControl();
-            this.tpBwaSingleSequence = new System.Windows.Forms.TabPage();
-            this.tpBwaMultiSequence = new System.Windows.Forms.TabPage();
-            this.scBwa = new System.Windows.Forms.SplitContainer();
+            this._tt = new System.Windows.Forms.ToolTip(this.components);
             this.tcMain.SuspendLayout();
-            this.tpMultipleBwa.SuspendLayout();
+            this.tpBwa.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.scBwa)).BeginInit();
+            this.scBwa.Panel1.SuspendLayout();
+            this.scBwa.Panel2.SuspendLayout();
+            this.scBwa.SuspendLayout();
+            this.tplReference.SuspendLayout();
+            this.tcBwa.SuspendLayout();
+            this.tpBwaMultiSequence.SuspendLayout();
+            this.tableLayoutPanel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nupErrorPercentage)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nupNumberOfReads)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nupReadLength)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nupErrorPercentage)).BeginInit();
-            this.tpBwa.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nupCountGeneratedStrings_Multi)).BeginInit();
+            this.tpBwaSingleSequence.SuspendLayout();
+            this.tlpMultipleBwa.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nupErrorsAllowed)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nupCountGeneratedStrings_Single)).BeginInit();
             this.tpBwt.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbLed)).BeginInit();
             this.tpIntermediates.SuspendLayout();
@@ -94,17 +113,10 @@
             this.scMain.Panel1.SuspendLayout();
             this.scMain.Panel2.SuspendLayout();
             this.scMain.SuspendLayout();
-            this.tcBwa.SuspendLayout();
-            this.tpBwaSingleSequence.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.scBwa)).BeginInit();
-            this.scBwa.Panel1.SuspendLayout();
-            this.scBwa.Panel2.SuspendLayout();
-            this.scBwa.SuspendLayout();
             this.SuspendLayout();
             // 
             // tcMain
             // 
-            this.tcMain.Controls.Add(this.tpMultipleBwa);
             this.tcMain.Controls.Add(this.tpBwa);
             this.tcMain.Controls.Add(this.tpBwt);
             this.tcMain.Controls.Add(this.tpIntermediates);
@@ -114,113 +126,209 @@
             this.tcMain.Margin = new System.Windows.Forms.Padding(4);
             this.tcMain.Name = "tcMain";
             this.tcMain.SelectedIndex = 0;
-            this.tcMain.Size = new System.Drawing.Size(867, 500);
+            this.tcMain.Size = new System.Drawing.Size(832, 495);
             this.tcMain.TabIndex = 0;
             // 
-            // tpMultipleBwa
+            // tpBwa
             // 
-            this.tpBwaMultiSequence.Controls.Add(this.lblRecommendedMaxError);
-            this.tpBwaMultiSequence.Controls.Add(this.txbMultiBwaResults);
-            this.tpBwaMultiSequence.Controls.Add(this.rdvBwaBoth);
-            this.tpBwaMultiSequence.Controls.Add(this.rdvBwaMultipleThread);
-            this.tpBwaMultiSequence.Controls.Add(this.rdvBwaSingleThread);
+            this.tpBwa.Controls.Add(this.scBwa);
+            this.tpBwa.Location = new System.Drawing.Point(4, 25);
+            this.tpBwa.Name = "tpBwa";
+            this.tpBwa.Size = new System.Drawing.Size(824, 466);
+            this.tpBwa.TabIndex = 3;
+            this.tpBwa.Text = "BWA";
+            this.tpBwa.UseVisualStyleBackColor = true;
+            // 
+            // scBwa
+            // 
+            this.scBwa.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.scBwa.Location = new System.Drawing.Point(0, 0);
+            this.scBwa.Name = "scBwa";
+            this.scBwa.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            // 
+            // scBwa.Panel1
+            // 
+            this.scBwa.Panel1.Controls.Add(this.tplReference);
+            // 
+            // scBwa.Panel2
+            // 
+            this.scBwa.Panel2.Controls.Add(this.tcBwa);
+            this.scBwa.Size = new System.Drawing.Size(824, 466);
+            this.scBwa.SplitterDistance = 134;
+            this.scBwa.TabIndex = 15;
+            // 
+            // tplReference
+            // 
+            this.tplReference.ColumnCount = 1;
+            this.tplReference.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tplReference.Controls.Add(this.lblReference, 0, 0);
+            this.tplReference.Controls.Add(this.txbReference, 0, 1);
+            this.tplReference.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tplReference.Location = new System.Drawing.Point(0, 0);
+            this.tplReference.Name = "tplReference";
+            this.tplReference.RowCount = 2;
+            this.tplReference.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tplReference.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tplReference.Size = new System.Drawing.Size(824, 134);
+            this.tplReference.TabIndex = 11;
+            // 
+            // lblReference
+            // 
+            this.lblReference.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblReference.AutoSize = true;
+            this.lblReference.Location = new System.Drawing.Point(3, 0);
+            this.lblReference.Name = "lblReference";
+            this.lblReference.Size = new System.Drawing.Size(818, 17);
+            this.lblReference.TabIndex = 10;
+            this.lblReference.Text = "Reference";
+            this.lblReference.DoubleClick += new System.EventHandler(this.lblReference_DoubleClick);
+            // 
+            // txbReference
+            // 
+            this.txbReference.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txbReference.Location = new System.Drawing.Point(3, 20);
+            this.txbReference.Multiline = true;
+            this.txbReference.Name = "txbReference";
+            this.txbReference.ScrollBars = System.Windows.Forms.ScrollBars.Both;
+            this.txbReference.Size = new System.Drawing.Size(818, 111);
+            this.txbReference.TabIndex = 8;
+            this.txbReference.Text = "google";
+            this.txbReference.TextChanged += new System.EventHandler(this.txbReference_TextChanged);
+            this.txbReference.DoubleClick += new System.EventHandler(this.txbReference_DoubleClick);
+            this.txbReference.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txbReference_KeyDown);
+            // 
+            // tcBwa
+            // 
+            this.tcBwa.Controls.Add(this.tpBwaMultiSequence);
+            this.tcBwa.Controls.Add(this.tpBwaSingleSequence);
+            this.tcBwa.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tcBwa.Location = new System.Drawing.Point(0, 0);
+            this.tcBwa.Name = "tcBwa";
+            this.tcBwa.SelectedIndex = 0;
+            this.tcBwa.Size = new System.Drawing.Size(824, 328);
+            this.tcBwa.TabIndex = 14;
+            // 
+            // tpBwaMultiSequence
+            // 
+            this.tpBwaMultiSequence.Controls.Add(this.tableLayoutPanel1);
             this.tpBwaMultiSequence.Controls.Add(this.btnClearMultiple);
-            this.tpBwaMultiSequence.Controls.Add(this.btnStartMultipleBwa);
-            this.tpBwaMultiSequence.Controls.Add(this.nupNumberOfReads);
-            this.tpBwaMultiSequence.Controls.Add(this.lblNumberOfReads);
-            this.tpBwaMultiSequence.Controls.Add(this.nupReadLength);
-            this.tpBwaMultiSequence.Controls.Add(this.lblReadLength);
-            this.tpBwaMultiSequence.Controls.Add(this.nupErrorPercentage);
-            this.tpBwaMultiSequence.Controls.Add(this.lblErrorPercentage);
-            this.tpMultipleBwa.Location = new System.Drawing.Point(4, 25);
-            this.tpMultipleBwa.Name = "tpMultipleBwa";
-            this.tpMultipleBwa.Padding = new System.Windows.Forms.Padding(3);
-            this.tpMultipleBwa.Size = new System.Drawing.Size(859, 471);
-            this.tpMultipleBwa.TabIndex = 4;
-            this.tpMultipleBwa.Text = "Multiple Bwa";
-            this.tpMultipleBwa.UseVisualStyleBackColor = true;
+            this.tpBwaMultiSequence.Location = new System.Drawing.Point(4, 25);
+            this.tpBwaMultiSequence.Name = "tpBwaMultiSequence";
+            this.tpBwaMultiSequence.Padding = new System.Windows.Forms.Padding(3);
+            this.tpBwaMultiSequence.Size = new System.Drawing.Size(816, 299);
+            this.tpBwaMultiSequence.TabIndex = 1;
+            this.tpBwaMultiSequence.Text = "Multiple Sequences";
+            this.tpBwaMultiSequence.UseVisualStyleBackColor = true;
+            // 
+            // tableLayoutPanel1
+            // 
+            this.tableLayoutPanel1.ColumnCount = 5;
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel1.Controls.Add(this.lblErrorPercentage, 0, 0);
+            this.tableLayoutPanel1.Controls.Add(this.lblRecommendedMaxError, 2, 3);
+            this.tableLayoutPanel1.Controls.Add(this.rdvBwaBoth, 4, 0);
+            this.tableLayoutPanel1.Controls.Add(this.nupErrorPercentage, 1, 0);
+            this.tableLayoutPanel1.Controls.Add(this.btnStartMultipleBwa, 4, 3);
+            this.tableLayoutPanel1.Controls.Add(this.rdvBwaMultipleThread, 3, 0);
+            this.tableLayoutPanel1.Controls.Add(this.nupNumberOfReads, 1, 1);
+            this.tableLayoutPanel1.Controls.Add(this.rdvBwaSingleThread, 2, 0);
+            this.tableLayoutPanel1.Controls.Add(this.lblNumberOfReads, 0, 1);
+            this.tableLayoutPanel1.Controls.Add(this.txbMultiBwaResults, 0, 4);
+            this.tableLayoutPanel1.Controls.Add(this.nupReadLength, 1, 2);
+            this.tableLayoutPanel1.Controls.Add(this.lblReadLength, 0, 2);
+            this.tableLayoutPanel1.Controls.Add(this.lblStringsToSearchFor_multi, 0, 3);
+            this.tableLayoutPanel1.Controls.Add(this.nupCountGeneratedStrings_Multi, 1, 3);
+            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(3, 3);
+            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
+            this.tableLayoutPanel1.RowCount = 5;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(810, 293);
+            this.tableLayoutPanel1.TabIndex = 22;
+            // 
+            // lblErrorPercentage
+            // 
+            this.lblErrorPercentage.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblErrorPercentage.AutoSize = true;
+            this.lblErrorPercentage.Location = new System.Drawing.Point(3, 0);
+            this.lblErrorPercentage.Name = "lblErrorPercentage";
+            this.lblErrorPercentage.Size = new System.Drawing.Size(189, 17);
+            this.lblErrorPercentage.TabIndex = 12;
+            this.lblErrorPercentage.Text = "Error Percentage";
             // 
             // lblRecommendedMaxError
             // 
             this.lblRecommendedMaxError.AutoSize = true;
-            this.lblRecommendedMaxError.Location = new System.Drawing.Point(277, 146);
+            this.lblRecommendedMaxError.Location = new System.Drawing.Point(316, 76);
             this.lblRecommendedMaxError.Name = "lblRecommendedMaxError";
             this.lblRecommendedMaxError.Size = new System.Drawing.Size(147, 17);
             this.lblRecommendedMaxError.TabIndex = 21;
             this.lblRecommendedMaxError.Text = "Calculated Max Error: ";
             // 
-            // txbMultiBwaResults
-            // 
-            this.txbMultiBwaResults.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.txbMultiBwaResults.Location = new System.Drawing.Point(17, 238);
-            this.txbMultiBwaResults.Multiline = true;
-            this.txbMultiBwaResults.Name = "txbMultiBwaResults";
-            this.txbMultiBwaResults.ReadOnly = true;
-            this.txbMultiBwaResults.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.txbMultiBwaResults.Size = new System.Drawing.Size(843, 204);
-            this.txbMultiBwaResults.TabIndex = 20;
-            // 
             // rdvBwaBoth
             // 
             this.rdvBwaBoth.AutoSize = true;
-            this.rdvBwaBoth.Location = new System.Drawing.Point(280, 178);
+            this.rdvBwaBoth.Location = new System.Drawing.Point(609, 3);
             this.rdvBwaBoth.Name = "rdvBwaBoth";
             this.rdvBwaBoth.Size = new System.Drawing.Size(58, 21);
             this.rdvBwaBoth.TabIndex = 19;
             this.rdvBwaBoth.Text = "Both";
             this.rdvBwaBoth.UseVisualStyleBackColor = true;
             // 
-            // rdvBwaMultipleThread
+            // nupErrorPercentage
             // 
-            this.rdvBwaMultipleThread.AutoSize = true;
-            this.rdvBwaMultipleThread.Location = new System.Drawing.Point(140, 178);
-            this.rdvBwaMultipleThread.Name = "rdvBwaMultipleThread";
-            this.rdvBwaMultipleThread.Size = new System.Drawing.Size(134, 21);
-            this.rdvBwaMultipleThread.TabIndex = 19;
-            this.rdvBwaMultipleThread.Text = "Multiple Threads";
-            this.rdvBwaMultipleThread.UseVisualStyleBackColor = true;
-            // 
-            // rdvBwaSingleThread
-            // 
-            this.rdvBwaSingleThread.AutoSize = true;
-            this.rdvBwaSingleThread.Checked = true;
-            this.rdvBwaSingleThread.Location = new System.Drawing.Point(20, 178);
-            this.rdvBwaSingleThread.Name = "rdvBwaSingleThread";
-            this.rdvBwaSingleThread.Size = new System.Drawing.Size(118, 21);
-            this.rdvBwaSingleThread.TabIndex = 19;
-            this.rdvBwaSingleThread.TabStop = true;
-            this.rdvBwaSingleThread.Text = "Single Thread";
-            this.rdvBwaSingleThread.UseVisualStyleBackColor = true;
-            // 
-            // btnClearMultiple
-            // 
-            this.btnClearMultiple.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnClearMultiple.Location = new System.Drawing.Point(697, 205);
-            this.btnClearMultiple.Name = "btnClearMultiple";
-            this.btnClearMultiple.Size = new System.Drawing.Size(163, 27);
-            this.btnClearMultiple.TabIndex = 18;
-            this.btnClearMultiple.Text = "Clear";
-            this.btnClearMultiple.UseVisualStyleBackColor = true;
-            this.btnClearMultiple.Click += new System.EventHandler(this.btnClearMultiple_Click);
+            this.nupErrorPercentage.DecimalPlaces = 3;
+            this.nupErrorPercentage.Location = new System.Drawing.Point(198, 3);
+            this.nupErrorPercentage.Name = "nupErrorPercentage";
+            this.nupErrorPercentage.Size = new System.Drawing.Size(112, 22);
+            this.nupErrorPercentage.TabIndex = 13;
+            this.nupErrorPercentage.Value = new decimal(new int[] {
+            2,
+            0,
+            0,
+            0});
+            this.nupErrorPercentage.ValueChanged += new System.EventHandler(this.nupErrorPercentage_ValueChanged);
             // 
             // btnStartMultipleBwa
             // 
-            this.btnStartMultipleBwa.Location = new System.Drawing.Point(19, 205);
+            this.btnStartMultipleBwa.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.btnStartMultipleBwa.Location = new System.Drawing.Point(697, 79);
+            this.btnStartMultipleBwa.MinimumSize = new System.Drawing.Size(68, 34);
             this.btnStartMultipleBwa.Name = "btnStartMultipleBwa";
-            this.btnStartMultipleBwa.Size = new System.Drawing.Size(163, 27);
+            this.btnStartMultipleBwa.Size = new System.Drawing.Size(110, 34);
             this.btnStartMultipleBwa.TabIndex = 18;
             this.btnStartMultipleBwa.Text = "Go!";
             this.btnStartMultipleBwa.UseVisualStyleBackColor = true;
             this.btnStartMultipleBwa.Click += new System.EventHandler(this.btnStartMultipleBwa_Click);
             // 
+            // rdvBwaMultipleThread
+            // 
+            this.rdvBwaMultipleThread.AutoSize = true;
+            this.rdvBwaMultipleThread.Checked = true;
+            this.rdvBwaMultipleThread.Location = new System.Drawing.Point(469, 3);
+            this.rdvBwaMultipleThread.Name = "rdvBwaMultipleThread";
+            this.rdvBwaMultipleThread.Size = new System.Drawing.Size(134, 21);
+            this.rdvBwaMultipleThread.TabIndex = 19;
+            this.rdvBwaMultipleThread.TabStop = true;
+            this.rdvBwaMultipleThread.Text = "Multiple Threads";
+            this.rdvBwaMultipleThread.UseVisualStyleBackColor = true;
+            // 
             // nupNumberOfReads
             // 
-            this.nupNumberOfReads.Location = new System.Drawing.Point(140, 116);
+            this.nupNumberOfReads.Location = new System.Drawing.Point(198, 31);
             this.nupNumberOfReads.Maximum = new decimal(new int[] {
-            10000,
-            0,
+            1410065408,
+            2,
             0,
             0});
             this.nupNumberOfReads.Minimum = new decimal(new int[] {
@@ -236,21 +344,46 @@
             0,
             0,
             0});
+            this.nupNumberOfReads.ValueChanged += new System.EventHandler(this.nupNumberOfReads_ValueChanged);
+            // 
+            // rdvBwaSingleThread
+            // 
+            this.rdvBwaSingleThread.AutoSize = true;
+            this.rdvBwaSingleThread.Location = new System.Drawing.Point(316, 3);
+            this.rdvBwaSingleThread.Name = "rdvBwaSingleThread";
+            this.rdvBwaSingleThread.Size = new System.Drawing.Size(118, 21);
+            this.rdvBwaSingleThread.TabIndex = 19;
+            this.rdvBwaSingleThread.Text = "Single Thread";
+            this.rdvBwaSingleThread.UseVisualStyleBackColor = true;
             // 
             // lblNumberOfReads
             // 
             this.lblNumberOfReads.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lblNumberOfReads.AutoSize = true;
-            this.lblNumberOfReads.Location = new System.Drawing.Point(17, 116);
+            this.lblNumberOfReads.Location = new System.Drawing.Point(3, 28);
             this.lblNumberOfReads.Name = "lblNumberOfReads";
-            this.lblNumberOfReads.Size = new System.Drawing.Size(119, 17);
+            this.lblNumberOfReads.Size = new System.Drawing.Size(189, 17);
             this.lblNumberOfReads.TabIndex = 16;
             this.lblNumberOfReads.Text = "Number of Reads";
             // 
+            // txbMultiBwaResults
+            // 
+            this.tableLayoutPanel1.SetColumnSpan(this.txbMultiBwaResults, 5);
+            this.txbMultiBwaResults.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txbMultiBwaResults.Location = new System.Drawing.Point(3, 119);
+            this.txbMultiBwaResults.Multiline = true;
+            this.txbMultiBwaResults.Name = "txbMultiBwaResults";
+            this.txbMultiBwaResults.ReadOnly = true;
+            this.txbMultiBwaResults.ScrollBars = System.Windows.Forms.ScrollBars.Both;
+            this.txbMultiBwaResults.Size = new System.Drawing.Size(804, 171);
+            this.txbMultiBwaResults.TabIndex = 20;
+            this.txbMultiBwaResults.TextChanged += new System.EventHandler(this.txbMultiBwaResults_TextChanged);
+            // 
             // nupReadLength
             // 
-            this.nupReadLength.Location = new System.Drawing.Point(140, 144);
+            this.nupReadLength.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.nupReadLength.Location = new System.Drawing.Point(198, 59);
             this.nupReadLength.Maximum = new decimal(new int[] {
             500,
             0,
@@ -273,142 +406,129 @@
             // 
             // lblReadLength
             // 
-            this.lblReadLength.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblReadLength.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.lblReadLength.AutoSize = true;
-            this.lblReadLength.Location = new System.Drawing.Point(17, 144);
+            this.lblReadLength.Location = new System.Drawing.Point(3, 57);
             this.lblReadLength.Name = "lblReadLength";
             this.lblReadLength.Size = new System.Drawing.Size(90, 17);
             this.lblReadLength.TabIndex = 14;
             this.lblReadLength.Text = "Read Length";
             // 
-            // nupErrorPercentage
+            // lblStringsToSearchFor_multi
             // 
-            this.nupErrorPercentage.DecimalPlaces = 3;
-            this.nupErrorPercentage.Location = new System.Drawing.Point(140, 87);
-            this.nupErrorPercentage.Name = "nupErrorPercentage";
-            this.nupErrorPercentage.Size = new System.Drawing.Size(112, 22);
-            this.nupErrorPercentage.TabIndex = 13;
-            this.nupErrorPercentage.Value = new decimal(new int[] {
-            2,
+            this.lblStringsToSearchFor_multi.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.lblStringsToSearchFor_multi.AutoSize = true;
+            this.lblStringsToSearchFor_multi.Location = new System.Drawing.Point(3, 87);
+            this.lblStringsToSearchFor_multi.Name = "lblStringsToSearchFor_multi";
+            this.lblStringsToSearchFor_multi.Size = new System.Drawing.Size(189, 17);
+            this.lblStringsToSearchFor_multi.TabIndex = 22;
+            this.lblStringsToSearchFor_multi.Text = "Number of generated strings";
+            // 
+            // nupCountGeneratedStrings_Multi
+            // 
+            this.nupCountGeneratedStrings_Multi.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.nupCountGeneratedStrings_Multi.Location = new System.Drawing.Point(198, 85);
+            this.nupCountGeneratedStrings_Multi.Minimum = new decimal(new int[] {
+            1,
             0,
             0,
-            0});
-            // 
-            // lblErrorPercentage
-            // 
-            this.lblErrorPercentage.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblErrorPercentage.AutoSize = true;
-            this.lblErrorPercentage.Location = new System.Drawing.Point(17, 87);
-            this.lblErrorPercentage.Name = "lblErrorPercentage";
-            this.lblErrorPercentage.Size = new System.Drawing.Size(117, 17);
-            this.lblErrorPercentage.TabIndex = 12;
-            this.lblErrorPercentage.Text = "Error Percentage";
-            // 
-            // tpBwa
-            // 
-            this.tpBwa.Controls.Add(this.scBwa);
-            this.tpBwa.Location = new System.Drawing.Point(4, 25);
-            this.tpBwa.Name = "tpBwa";
-            this.tpBwa.Size = new System.Drawing.Size(859, 471);
-            this.tpBwa.TabIndex = 3;
-            this.tpBwa.Text = "BWA";
-            this.tpBwa.UseVisualStyleBackColor = true;
-            // 
-            // chbFindGaps
-            // 
-            this.chbFindGaps.AutoSize = true;
-            this.chbFindGaps.Checked = true;
-            this.chbFindGaps.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chbFindGaps.Location = new System.Drawing.Point(21, 69);
-            this.chbFindGaps.Name = "chbFindGaps";
-            this.chbFindGaps.Size = new System.Drawing.Size(127, 21);
-            this.chbFindGaps.TabIndex = 13;
-            this.chbFindGaps.Text = "Find gap errors";
-            this.chbFindGaps.UseVisualStyleBackColor = true;
-            this.chbFindGaps.CheckedChanged += new System.EventHandler(this.chbFindGaps_CheckedChanged);
-            // 
-            // txbBwaResults
-            // 
-            this.txbBwaResults.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.txbBwaResults.Location = new System.Drawing.Point(3, 101);
-            this.txbBwaResults.Multiline = true;
-            this.txbBwaResults.Name = "txbBwaResults";
-            this.txbBwaResults.ReadOnly = true;
-            this.txbBwaResults.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.txbBwaResults.Size = new System.Drawing.Size(845, 191);
-            this.txbBwaResults.TabIndex = 12;
-            this.txbBwaResults.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txbBwaResults_KeyDown);
-            // 
-            // nupErrorsAllowed
-            // 
-            this.nupErrorsAllowed.Location = new System.Drawing.Point(190, 47);
-            this.nupErrorsAllowed.Name = "nupErrorsAllowed";
-            this.nupErrorsAllowed.Size = new System.Drawing.Size(85, 22);
-            this.nupErrorsAllowed.TabIndex = 11;
-            this.nupErrorsAllowed.Value = new decimal(new int[] {
+            -2147483648});
+            this.nupCountGeneratedStrings_Multi.Name = "nupCountGeneratedStrings_Multi";
+            this.nupCountGeneratedStrings_Multi.ReadOnly = true;
+            this.nupCountGeneratedStrings_Multi.Size = new System.Drawing.Size(112, 22);
+            this.nupCountGeneratedStrings_Multi.TabIndex = 23;
+            this.nupCountGeneratedStrings_Multi.Value = new decimal(new int[] {
             1,
             0,
             0,
             0});
             // 
-            // lblErrorsAllowed
+            // btnClearMultiple
             // 
-            this.lblErrorsAllowed.AutoSize = true;
-            this.lblErrorsAllowed.Location = new System.Drawing.Point(6, 49);
-            this.lblErrorsAllowed.Name = "lblErrorsAllowed";
-            this.lblErrorsAllowed.Size = new System.Drawing.Size(167, 17);
-            this.lblErrorsAllowed.TabIndex = 9;
-            this.lblErrorsAllowed.Text = "Number of errors allowed";
+            this.btnClearMultiple.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnClearMultiple.Location = new System.Drawing.Point(1310, 208);
+            this.btnClearMultiple.Name = "btnClearMultiple";
+            this.btnClearMultiple.Size = new System.Drawing.Size(163, 27);
+            this.btnClearMultiple.TabIndex = 18;
+            this.btnClearMultiple.Text = "Clear";
+            this.btnClearMultiple.UseVisualStyleBackColor = true;
+            this.btnClearMultiple.Click += new System.EventHandler(this.btnClearMultiple_Click);
             // 
-            // lblReference
+            // tpBwaSingleSequence
             // 
-            this.lblReference.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblReference.AutoSize = true;
-            this.lblReference.Location = new System.Drawing.Point(1, 0);
-            this.lblReference.Name = "lblReference";
-            this.lblReference.Size = new System.Drawing.Size(74, 17);
-            this.lblReference.TabIndex = 10;
-            this.lblReference.Text = "Reference";
+            this.tpBwaSingleSequence.Controls.Add(this.tlpMultipleBwa);
+            this.tpBwaSingleSequence.Location = new System.Drawing.Point(4, 25);
+            this.tpBwaSingleSequence.Name = "tpBwaSingleSequence";
+            this.tpBwaSingleSequence.Padding = new System.Windows.Forms.Padding(3);
+            this.tpBwaSingleSequence.Size = new System.Drawing.Size(816, 299);
+            this.tpBwaSingleSequence.TabIndex = 0;
+            this.tpBwaSingleSequence.Text = "Single Sequence";
+            this.tpBwaSingleSequence.UseVisualStyleBackColor = true;
+            // 
+            // tlpMultipleBwa
+            // 
+            this.tlpMultipleBwa.ColumnCount = 3;
+            this.tlpMultipleBwa.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.tlpMultipleBwa.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.tlpMultipleBwa.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tlpMultipleBwa.Controls.Add(this.lblSearch, 0, 0);
+            this.tlpMultipleBwa.Controls.Add(this.lblErrorsAllowed, 0, 1);
+            this.tlpMultipleBwa.Controls.Add(this.txbBwaResults, 0, 4);
+            this.tlpMultipleBwa.Controls.Add(this.btnInexactSearch, 2, 3);
+            this.tlpMultipleBwa.Controls.Add(this.chbFindGaps, 0, 2);
+            this.tlpMultipleBwa.Controls.Add(this.txbSearch, 1, 0);
+            this.tlpMultipleBwa.Controls.Add(this.nupErrorsAllowed, 1, 1);
+            this.tlpMultipleBwa.Controls.Add(this.lblStringsToSearchFor, 0, 3);
+            this.tlpMultipleBwa.Controls.Add(this.nupCountGeneratedStrings_Single, 1, 3);
+            this.tlpMultipleBwa.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tlpMultipleBwa.Location = new System.Drawing.Point(3, 3);
+            this.tlpMultipleBwa.Name = "tlpMultipleBwa";
+            this.tlpMultipleBwa.RowCount = 5;
+            this.tlpMultipleBwa.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tlpMultipleBwa.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tlpMultipleBwa.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
+            this.tlpMultipleBwa.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tlpMultipleBwa.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tlpMultipleBwa.Size = new System.Drawing.Size(810, 293);
+            this.tlpMultipleBwa.TabIndex = 14;
             // 
             // lblSearch
             // 
             this.lblSearch.AutoSize = true;
-            this.lblSearch.Location = new System.Drawing.Point(6, 6);
+            this.lblSearch.Location = new System.Drawing.Point(3, 0);
             this.lblSearch.Name = "lblSearch";
             this.lblSearch.Size = new System.Drawing.Size(108, 17);
             this.lblSearch.TabIndex = 10;
             this.lblSearch.Text = "String to search";
             // 
-            // txbReference
+            // lblErrorsAllowed
             // 
-            this.txbReference.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.txbReference.Location = new System.Drawing.Point(0, 24);
-            this.txbReference.Multiline = true;
-            this.txbReference.Name = "txbReference";
-            this.txbReference.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.txbReference.Size = new System.Drawing.Size(859, 119);
-            this.txbReference.TabIndex = 8;
-            this.txbReference.Text = "google";
-            this.txbReference.TextChanged += new System.EventHandler(this.txbReference_TextChanged);
-            this.txbReference.DoubleClick += new System.EventHandler(this.txbReference_DoubleClick);
-            this.txbReference.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txbReference_KeyDown);
+            this.lblErrorsAllowed.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.lblErrorsAllowed.AutoSize = true;
+            this.lblErrorsAllowed.Location = new System.Drawing.Point(3, 28);
+            this.lblErrorsAllowed.Name = "lblErrorsAllowed";
+            this.lblErrorsAllowed.Size = new System.Drawing.Size(167, 28);
+            this.lblErrorsAllowed.TabIndex = 9;
+            this.lblErrorsAllowed.Text = "Number of errors allowed";
             // 
-            // txbSearch
+            // txbBwaResults
             // 
-            this.txbSearch.Location = new System.Drawing.Point(213, 6);
-            this.txbSearch.Name = "txbSearch";
-            this.txbSearch.Size = new System.Drawing.Size(331, 22);
-            this.txbSearch.TabIndex = 8;
-            this.txbSearch.Text = "lol";
-            this.txbSearch.TextChanged += new System.EventHandler(this.txbSearch_TextChanged);
-            this.txbSearch.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txbSearch_KeyPress);
+            this.tlpMultipleBwa.SetColumnSpan(this.txbBwaResults, 3);
+            this.txbBwaResults.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txbBwaResults.Location = new System.Drawing.Point(3, 117);
+            this.txbBwaResults.Multiline = true;
+            this.txbBwaResults.Name = "txbBwaResults";
+            this.txbBwaResults.ReadOnly = true;
+            this.txbBwaResults.ScrollBars = System.Windows.Forms.ScrollBars.Both;
+            this.txbBwaResults.Size = new System.Drawing.Size(804, 173);
+            this.txbBwaResults.TabIndex = 12;
+            this.txbBwaResults.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txbBwaResults_KeyDown);
             // 
             // btnInexactSearch
             // 
-            this.btnInexactSearch.Location = new System.Drawing.Point(282, 49);
+            this.btnInexactSearch.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnInexactSearch.Location = new System.Drawing.Point(642, 85);
             this.btnInexactSearch.Margin = new System.Windows.Forms.Padding(4);
             this.btnInexactSearch.Name = "btnInexactSearch";
             this.btnInexactSearch.Size = new System.Drawing.Size(164, 25);
@@ -417,12 +537,86 @@
             this.btnInexactSearch.UseVisualStyleBackColor = true;
             this.btnInexactSearch.Click += new System.EventHandler(this.btnInexactSearch_Click);
             // 
+            // chbFindGaps
+            // 
+            this.chbFindGaps.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.chbFindGaps.AutoSize = true;
+            this.chbFindGaps.Checked = true;
+            this.chbFindGaps.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chbFindGaps.Location = new System.Drawing.Point(3, 59);
+            this.chbFindGaps.Name = "chbFindGaps";
+            this.chbFindGaps.Size = new System.Drawing.Size(127, 19);
+            this.chbFindGaps.TabIndex = 13;
+            this.chbFindGaps.Text = "Find gap errors";
+            this.chbFindGaps.UseVisualStyleBackColor = true;
+            this.chbFindGaps.CheckedChanged += new System.EventHandler(this.chbFindGaps_CheckedChanged);
+            // 
+            // txbSearch
+            // 
+            this.txbSearch.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tlpMultipleBwa.SetColumnSpan(this.txbSearch, 2);
+            this.txbSearch.Location = new System.Drawing.Point(198, 3);
+            this.txbSearch.Name = "txbSearch";
+            this.txbSearch.Size = new System.Drawing.Size(609, 22);
+            this.txbSearch.TabIndex = 8;
+            this.txbSearch.Text = "lol";
+            this.txbSearch.TextChanged += new System.EventHandler(this.txbSearch_TextChanged);
+            this.txbSearch.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txbSearch_KeyPress);
+            // 
+            // nupErrorsAllowed
+            // 
+            this.nupErrorsAllowed.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.nupErrorsAllowed.Location = new System.Drawing.Point(198, 31);
+            this.nupErrorsAllowed.Name = "nupErrorsAllowed";
+            this.nupErrorsAllowed.Size = new System.Drawing.Size(85, 22);
+            this.nupErrorsAllowed.TabIndex = 11;
+            this.nupErrorsAllowed.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.nupErrorsAllowed.ValueChanged += new System.EventHandler(this.nupErrorsAllowed_ValueChanged);
+            // 
+            // lblStringsToSearchFor
+            // 
+            this.lblStringsToSearchFor.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.lblStringsToSearchFor.AutoSize = true;
+            this.lblStringsToSearchFor.Location = new System.Drawing.Point(3, 81);
+            this.lblStringsToSearchFor.Name = "lblStringsToSearchFor";
+            this.lblStringsToSearchFor.Size = new System.Drawing.Size(189, 33);
+            this.lblStringsToSearchFor.TabIndex = 9;
+            this.lblStringsToSearchFor.Text = "Number of generated strings";
+            // 
+            // nupCountGeneratedStrings_Single
+            // 
+            this.nupCountGeneratedStrings_Single.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.nupCountGeneratedStrings_Single.Location = new System.Drawing.Point(198, 84);
+            this.nupCountGeneratedStrings_Single.Maximum = new decimal(new int[] {
+            1569325055,
+            23283064,
+            0,
+            0});
+            this.nupCountGeneratedStrings_Single.Name = "nupCountGeneratedStrings_Single";
+            this.nupCountGeneratedStrings_Single.ReadOnly = true;
+            this.nupCountGeneratedStrings_Single.Size = new System.Drawing.Size(85, 22);
+            this.nupCountGeneratedStrings_Single.TabIndex = 11;
+            this.nupCountGeneratedStrings_Single.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            // 
             // tpBwt
             // 
             this.tpBwt.Controls.Add(this.bchReverse);
             this.tpBwt.Controls.Add(this.bchBwt);
             this.tpBwt.Controls.Add(this.pbLed);
-            this.tpBwt.Controls.Add(this.btnExecute);
+            this.tpBwt.Controls.Add(this.btnExecuteBwt);
             this.tpBwt.Controls.Add(this.lblSeparator);
             this.tpBwt.Controls.Add(this.lblReversedOutput);
             this.tpBwt.Controls.Add(this.lblOutPut);
@@ -434,7 +628,7 @@
             this.tpBwt.Margin = new System.Windows.Forms.Padding(4);
             this.tpBwt.Name = "tpBwt";
             this.tpBwt.Padding = new System.Windows.Forms.Padding(4);
-            this.tpBwt.Size = new System.Drawing.Size(860, 494);
+            this.tpBwt.Size = new System.Drawing.Size(824, 466);
             this.tpBwt.TabIndex = 0;
             this.tpBwt.Text = "BWT";
             this.tpBwt.UseVisualStyleBackColor = true;
@@ -464,7 +658,7 @@
             this.pbLed.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.pbLed.ErrorImage = null;
             this.pbLed.Image = global::BWT.Properties.Resources.green_led;
-            this.pbLed.Location = new System.Drawing.Point(793, 511);
+            this.pbLed.Location = new System.Drawing.Point(757, 511);
             this.pbLed.Margin = new System.Windows.Forms.Padding(4);
             this.pbLed.Name = "pbLed";
             this.pbLed.Size = new System.Drawing.Size(27, 23);
@@ -473,16 +667,16 @@
             this.pbLed.TabStop = false;
             this.pbLed.Visible = false;
             // 
-            // btnExecute
+            // btnExecuteBwt
             // 
-            this.btnExecute.Location = new System.Drawing.Point(13, 219);
-            this.btnExecute.Margin = new System.Windows.Forms.Padding(4);
-            this.btnExecute.Name = "btnExecute";
-            this.btnExecute.Size = new System.Drawing.Size(129, 25);
-            this.btnExecute.TabIndex = 2;
-            this.btnExecute.Text = "Execute!";
-            this.btnExecute.UseVisualStyleBackColor = true;
-            this.btnExecute.Click += new System.EventHandler(this.btnExecute_Click);
+            this.btnExecuteBwt.Location = new System.Drawing.Point(13, 219);
+            this.btnExecuteBwt.Margin = new System.Windows.Forms.Padding(4);
+            this.btnExecuteBwt.Name = "btnExecuteBwt";
+            this.btnExecuteBwt.Size = new System.Drawing.Size(129, 25);
+            this.btnExecuteBwt.TabIndex = 2;
+            this.btnExecuteBwt.Text = "Execute!";
+            this.btnExecuteBwt.UseVisualStyleBackColor = true;
+            this.btnExecuteBwt.Click += new System.EventHandler(this.btnExecute_Click);
             // 
             // lblSeparator
             // 
@@ -492,7 +686,7 @@
             this.lblSeparator.Location = new System.Drawing.Point(11, 258);
             this.lblSeparator.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblSeparator.Name = "lblSeparator";
-            this.lblSeparator.Size = new System.Drawing.Size(838, 2);
+            this.lblSeparator.Size = new System.Drawing.Size(802, 2);
             this.lblSeparator.TabIndex = 1;
             // 
             // lblReversedOutput
@@ -534,7 +728,7 @@
             this.txbReversedOutput.Multiline = true;
             this.txbReversedOutput.Name = "txbReversedOutput";
             this.txbReversedOutput.ReadOnly = true;
-            this.txbReversedOutput.Size = new System.Drawing.Size(805, 158);
+            this.txbReversedOutput.Size = new System.Drawing.Size(769, 158);
             this.txbReversedOutput.TabIndex = 0;
             // 
             // txbOutPut
@@ -546,7 +740,7 @@
             this.txbOutPut.Multiline = true;
             this.txbOutPut.Name = "txbOutPut";
             this.txbOutPut.ReadOnly = true;
-            this.txbOutPut.Size = new System.Drawing.Size(805, 158);
+            this.txbOutPut.Size = new System.Drawing.Size(769, 158);
             this.txbOutPut.TabIndex = 0;
             // 
             // txbInput
@@ -557,7 +751,7 @@
             this.txbInput.Margin = new System.Windows.Forms.Padding(4);
             this.txbInput.Multiline = true;
             this.txbInput.Name = "txbInput";
-            this.txbInput.Size = new System.Drawing.Size(821, 171);
+            this.txbInput.Size = new System.Drawing.Size(785, 171);
             this.txbInput.TabIndex = 0;
             this.txbInput.TextChanged += new System.EventHandler(this.txbInput_TextChanged);
             this.txbInput.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txbInput_KeyDown);
@@ -569,7 +763,7 @@
             this.tpIntermediates.Margin = new System.Windows.Forms.Padding(4);
             this.tpIntermediates.Name = "tpIntermediates";
             this.tpIntermediates.Padding = new System.Windows.Forms.Padding(4);
-            this.tpIntermediates.Size = new System.Drawing.Size(860, 494);
+            this.tpIntermediates.Size = new System.Drawing.Size(824, 466);
             this.tpIntermediates.TabIndex = 2;
             this.tpIntermediates.Text = "Intermediate states";
             this.tpIntermediates.UseVisualStyleBackColor = true;
@@ -583,7 +777,7 @@
             this.txbIntermediates.Name = "txbIntermediates";
             this.txbIntermediates.ReadOnly = true;
             this.txbIntermediates.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.txbIntermediates.Size = new System.Drawing.Size(852, 486);
+            this.txbIntermediates.Size = new System.Drawing.Size(816, 458);
             this.txbIntermediates.TabIndex = 0;
             // 
             // tpSettings
@@ -596,7 +790,7 @@
             this.tpSettings.Margin = new System.Windows.Forms.Padding(4);
             this.tpSettings.Name = "tpSettings";
             this.tpSettings.Padding = new System.Windows.Forms.Padding(4);
-            this.tpSettings.Size = new System.Drawing.Size(860, 494);
+            this.tpSettings.Size = new System.Drawing.Size(824, 466);
             this.tpSettings.TabIndex = 1;
             this.tpSettings.Text = "Settings";
             this.tpSettings.UseVisualStyleBackColor = true;
@@ -664,15 +858,12 @@
             // scMain.Panel1
             // 
             this.scMain.Panel1.Controls.Add(this.tcMain);
-            this.scMain.Panel1MinSize = 500;
             // 
             // scMain.Panel2
             // 
             this.scMain.Panel2.Controls.Add(this.pbTransform);
-            this.scMain.Panel2MinSize = 10;
-            this.scMain.Size = new System.Drawing.Size(867, 519);
-            this.scMain.SplitterDistance = 500;
-            this.scMain.SplitterWidth = 5;
+            this.scMain.Size = new System.Drawing.Size(832, 525);
+            this.scMain.SplitterDistance = 495;
             this.scMain.TabIndex = 1;
             // 
             // pbTransform
@@ -681,85 +872,41 @@
             this.pbTransform.Location = new System.Drawing.Point(0, 0);
             this.pbTransform.Margin = new System.Windows.Forms.Padding(4);
             this.pbTransform.Name = "pbTransform";
-            this.pbTransform.Size = new System.Drawing.Size(867, 14);
+            this.pbTransform.Size = new System.Drawing.Size(832, 26);
             this.pbTransform.TabIndex = 0;
             // 
-            // tcBwa
-            // 
-            this.tcBwa.Controls.Add(this.tpBwaSingleSequence);
-            this.tcBwa.Controls.Add(this.tpBwaMultiSequence);
-            this.tcBwa.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tcBwa.Location = new System.Drawing.Point(0, 0);
-            this.tcBwa.Name = "tcBwa";
-            this.tcBwa.SelectedIndex = 0;
-            this.tcBwa.Size = new System.Drawing.Size(859, 324);
-            this.tcBwa.TabIndex = 14;
-            // 
-            // tpBwaSingleSequence
-            // 
-            this.tpBwaSingleSequence.Controls.Add(this.txbSearch);
-            this.tpBwaSingleSequence.Controls.Add(this.txbBwaResults);
-            this.tpBwaSingleSequence.Controls.Add(this.chbFindGaps);
-            this.tpBwaSingleSequence.Controls.Add(this.lblSearch);
-            this.tpBwaSingleSequence.Controls.Add(this.lblErrorsAllowed);
-            this.tpBwaSingleSequence.Controls.Add(this.btnInexactSearch);
-            this.tpBwaSingleSequence.Controls.Add(this.nupErrorsAllowed);
-            this.tpBwaSingleSequence.Location = new System.Drawing.Point(4, 25);
-            this.tpBwaSingleSequence.Name = "tpBwaSingleSequence";
-            this.tpBwaSingleSequence.Padding = new System.Windows.Forms.Padding(3);
-            this.tpBwaSingleSequence.Size = new System.Drawing.Size(851, 295);
-            this.tpBwaSingleSequence.TabIndex = 0;
-            this.tpBwaSingleSequence.Text = "Single Sequence";
-            this.tpBwaSingleSequence.UseVisualStyleBackColor = true;
-            // 
-            // tpBwaMultiSequence
-            // 
-            this.tpBwaMultiSequence.Location = new System.Drawing.Point(4, 25);
-            this.tpBwaMultiSequence.Name = "tpBwaMultiSequence";
-            this.tpBwaMultiSequence.Padding = new System.Windows.Forms.Padding(3);
-            this.tpBwaMultiSequence.Size = new System.Drawing.Size(851, 295);
-            this.tpBwaMultiSequence.TabIndex = 1;
-            this.tpBwaMultiSequence.Text = "Multiple Sequences";
-            this.tpBwaMultiSequence.UseVisualStyleBackColor = true;
-            // 
-            // scBwa
-            // 
-            this.scBwa.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.scBwa.Location = new System.Drawing.Point(0, 0);
-            this.scBwa.Name = "scBwa";
-            this.scBwa.Orientation = System.Windows.Forms.Orientation.Horizontal;
-            // 
-            // scBwa.Panel1
-            // 
-            this.scBwa.Panel1.Controls.Add(this.txbReference);
-            this.scBwa.Panel1.Controls.Add(this.lblReference);
-            // 
-            // scBwa.Panel2
-            // 
-            this.scBwa.Panel2.Controls.Add(this.tcBwa);
-            this.scBwa.Size = new System.Drawing.Size(859, 471);
-            this.scBwa.SplitterDistance = 143;
-            this.scBwa.TabIndex = 15;
-            // 
-            // frmBwt
+            // tplBwaReference
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(867, 519);
+            this.ClientSize = new System.Drawing.Size(832, 525);
             this.Controls.Add(this.scMain);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(4);
-            this.Name = "frmBwt";
+            this.Name = "tplBwaReference";
             this.Text = "Burrows–Wheeler transform";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmBwt_FormClosing);
             this.tcMain.ResumeLayout(false);
-            this.tpMultipleBwa.ResumeLayout(false);
-            this.tpMultipleBwa.PerformLayout();
+            this.tpBwa.ResumeLayout(false);
+            this.scBwa.Panel1.ResumeLayout(false);
+            this.scBwa.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.scBwa)).EndInit();
+            this.scBwa.ResumeLayout(false);
+            this.tplReference.ResumeLayout(false);
+            this.tplReference.PerformLayout();
+            this.tcBwa.ResumeLayout(false);
+            this.tpBwaMultiSequence.ResumeLayout(false);
+            this.tableLayoutPanel1.ResumeLayout(false);
+            this.tableLayoutPanel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nupErrorPercentage)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nupNumberOfReads)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nupReadLength)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nupErrorPercentage)).EndInit();
-            this.tpBwa.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.nupCountGeneratedStrings_Multi)).EndInit();
+            this.tpBwaSingleSequence.ResumeLayout(false);
+            this.tlpMultipleBwa.ResumeLayout(false);
+            this.tlpMultipleBwa.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nupErrorsAllowed)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nupCountGeneratedStrings_Single)).EndInit();
             this.tpBwt.ResumeLayout(false);
             this.tpBwt.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbLed)).EndInit();
@@ -771,14 +918,6 @@
             this.scMain.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.scMain)).EndInit();
             this.scMain.ResumeLayout(false);
-            this.tcBwa.ResumeLayout(false);
-            this.tpBwaSingleSequence.ResumeLayout(false);
-            this.tpBwaSingleSequence.PerformLayout();
-            this.scBwa.Panel1.ResumeLayout(false);
-            this.scBwa.Panel1.PerformLayout();
-            this.scBwa.Panel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.scBwa)).EndInit();
-            this.scBwa.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -795,7 +934,7 @@
         private System.Windows.Forms.TabPage tpSettings;
         private System.Windows.Forms.Label lblReversedOutput;
         private System.Windows.Forms.TextBox txbReversedOutput;
-        private System.Windows.Forms.Button btnExecute;
+        private System.Windows.Forms.Button btnExecuteBwt;
         private System.Windows.Forms.CheckBox chbPerformReverseTransform;
         private System.Windows.Forms.TabPage tpIntermediates;
         private System.Windows.Forms.TextBox txbIntermediates;
@@ -817,7 +956,6 @@
         private System.Windows.Forms.TextBox txbReference;
         private System.Windows.Forms.LinkLabel lnkBwaPaper;
         private System.Windows.Forms.CheckBox chbFindGaps;
-        private System.Windows.Forms.TabPage tpMultipleBwa;
         private System.Windows.Forms.NumericUpDown nupErrorPercentage;
         private System.Windows.Forms.Label lblErrorPercentage;
         private System.Windows.Forms.NumericUpDown nupNumberOfReads;
@@ -835,6 +973,14 @@
         private System.Windows.Forms.TabControl tcBwa;
         private System.Windows.Forms.TabPage tpBwaSingleSequence;
         private System.Windows.Forms.TabPage tpBwaMultiSequence;
+        private System.Windows.Forms.TableLayoutPanel tplReference;
+        private System.Windows.Forms.TableLayoutPanel tlpMultipleBwa;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
+        private System.Windows.Forms.Label lblStringsToSearchFor;
+        private System.Windows.Forms.NumericUpDown nupCountGeneratedStrings_Single;
+        private System.Windows.Forms.Label lblStringsToSearchFor_multi;
+        private System.Windows.Forms.NumericUpDown nupCountGeneratedStrings_Multi;
+        private System.Windows.Forms.ToolTip _tt;
 
 
     }

@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TextWindow));
             this.txb = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
@@ -41,7 +42,7 @@
             this.txb.ScrollBars = System.Windows.Forms.ScrollBars.Both;
             this.txb.Size = new System.Drawing.Size(636, 418);
             this.txb.TabIndex = 0;
-            this.txb.WordWrap = false;
+            this.txb.TextChanged += new System.EventHandler(this.txb_TextChanged);
             // 
             // TextWindow
             // 
@@ -49,7 +50,9 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(636, 418);
             this.Controls.Add(this.txb);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "TextWindow";
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -58,6 +61,11 @@
         #endregion
 
         public System.Windows.Forms.TextBox txb;
+
+
+
+
+
 
 
     }

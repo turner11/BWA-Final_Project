@@ -9,7 +9,7 @@ using System.Windows.Forms;
 
 namespace BWT
 {
-    public partial class frmBwt
+    public partial class tplBwaReference
     {
         /// <summary>
         /// The letters 
@@ -29,43 +29,49 @@ namespace BWT
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        private void btnInexactSearch_Click(object sender, EventArgs e)
+        private async void btnInexactSearch_Click(object sender, EventArgs e)
         {
+            this.CollapseReferenceTextBox();
             //clear history
             this.txbBwaResults.Text = String.Empty;
             this.SaveSettings();
-            
 
 
-            var results = this.PerformBwaAlignment();
+
+            var results = await this.PerformBwaAlignment();
            
-            this.txbBwaResults.Text = results.GetSummaryMessage();
+            this.txbBwaResults.Text =  results.GetSummaryMessage();
 
         }
+
 
         /// <summary>
         /// Performs the BWA alignment for the Text in <see cref="txbSearch"/>.
         /// </summary>
         /// <param name="iSearch">The InexactSearch instance - this is for avoiding creation of a new one which will result a new index.</param>
         /// <returns>The alignment results</returns>
-        private InexactSearch.Results PerformBwaAlignment()
+        private async Task<InexactSearch.Results> PerformBwaAlignment()
         {
             var text = this.txbSearch.Text;
-            return this.PerformBwaAlignment(text);
+            return await this.PerformBwaAlignment(text);
         }
 
         /// <summary>
-        /// Performs the BWA alignment for the Tspecified texr
+        /// Performs the BWA alignment for the specified text
         /// </summary>
         /// <param name="iSearch">The InexactSearch instance - this is for avoiding creation of a new one which will result a new index.</param>
         /// <param name="text">The text.</param>
         /// <returns>
         /// The alignment results
         /// </returns>
-        private InexactSearch.Results PerformBwaAlignment( string text)
+        private async Task<InexactSearch.Results> PerformBwaAlignment( string text)
         {
-            return this._seqLogics.PerformBwaAlignment(text, (int)this.nupErrorsAllowed.Value);
-           
+            InexactSearch.Results ret = null;
+            await Task.Run(() =>
+                {
+                    ret = this._seqLogics.PerformBwaAlignment(text, (int)this.nupErrorsAllowed.Value);
+                });
+            return ret;
         }
 
         /// <summary>
@@ -98,12 +104,6 @@ namespace BWT
         private void txbReference_TextChanged(object sender, EventArgs e)
         {            
             this._seqLogics.Reference = this.txbReference.Text;
-
-            if (this.txbReferenceMirror.Text != this.txbReference.Text)
-            {
-                this.txbReferenceMirror.Text = this.txbReference.Text;
-            }
-
         }
 
         /// <summary>
@@ -111,7 +111,7 @@ namespace BWT
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        private void txbSearch_TextChanged(object sender, EventArgs e)
+        private async void txbSearch_TextChanged(object sender, EventArgs e)
         {
             Func<char, bool> filterFunc = c => !this.ReferenceLetters.Contains(c);
             var illigalLetters = this.txbSearch.Text.Where(filterFunc).ToList();
@@ -122,7 +122,27 @@ namespace BWT
             this.txbSearch.Text = String.Join(String.Empty, this.txbSearch.Text.Where(c=> !filterFunc(c)).ToList());
 
             this.lblSearch.Text = String.Format("String to search ({0})", this.txbSearch.Text.Length);
-            
+            await this.SetNumberOfStrignsToSearch();
+        }
+
+        private async Task SetNumberOfStrignsToSearch()
+        {
+            long singleSearchCount = -1;
+            long multiSearchCount = -1;
+            await Task.Run(() =>
+                {
+                    var alphBetSize = this._seqLogics.iSearch.ALPHA_BET_LETTERS.Count;
+                    var handleGaps = this.chbFindGaps.Checked;
+                    singleSearchCount = this._seqLogics.GetNumberOfStringsTosearch(this.txbSearch.Text.Length, alphBetSize, handleGaps,(int)this.nupErrorsAllowed.Value);
+
+                    var errorAllowed_multi = (int)Math.Round(this.nupErrorPercentage.Value / 100M * this.nupReadLength.Value);
+                    multiSearchCount =
+                        this._seqLogics.GetNumberOfStringsTosearch((int)this.nupReadLength.Value, alphBetSize, handleGaps, errorAllowed_multi)
+                        * (long)this.nupNumberOfReads.Value;
+
+                });
+            this.nupCountGeneratedStrings_Single.Value = singleSearchCount;
+            this.nupCountGeneratedStrings_Multi.Value = multiSearchCount;
         }
 
         /// <summary>
@@ -165,28 +185,18 @@ namespace BWT
             this.HandleTextBoxKeyDown(sender, e);
         }
 
-        /// <summary>
-        /// Handles the TextChanged event of the txbReferenceMirror control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        private void txbReferenceMirror_TextChanged(object sender, EventArgs e)
-        {
-            if (this.txbReference.Text != this.txbReferenceMirror.Text)
-            {
-                this.txbReference.Text = this.txbReferenceMirror.Text;
-            }
-        }
+
 
         /// <summary>
         /// Handles the ValueChanged event of the nupReadLength control.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        private void nupReadLength_ValueChanged(object sender, EventArgs e)
+        private async void nupReadLength_ValueChanged(object sender, EventArgs e)
         {
             int maxDiff = InexactSearch.GetCalculatedMaxError((int)this.nupReadLength.Value);
             this.lblRecommendedMaxError.Text = String.Format("Calculated Max Error: {0}", maxDiff);
+            await this.SetNumberOfStrignsToSearch();
         }
         #endregion
     }

@@ -9,7 +9,7 @@ using System.Windows.Forms;
 
 namespace BWT
 {
-   public partial class frmBwt
+   public partial class tplBwaReference
    {
        BackgroundWorker _multipleBwaWorker;
        SequenceLogics _seqLogics;
@@ -61,7 +61,7 @@ namespace BWT
        private List<string> GetRandomReads()
        {
        
-           int refLength = this.txbReferenceMirror.Text.Length;
+           int refLength = this.txbReference.Text.Length;
            int readLength = (int)Math.Min(this.nupReadLength.Value, refLength);
            int readCount = (int)this.nupNumberOfReads.Value;
            double errorPercentage = (double)(this.nupErrorPercentage.Value / 100);
