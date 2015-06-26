@@ -16,7 +16,7 @@ namespace BWT
         BackgroundWorker worker;
         public InexactSearch iSearch { get; private set; }
 
-        public int DegreeOfParallelism { get; set; }
+        public int? DegreeOfParallelism { get; set; }
 
         /// <summary>
         /// Gets or sets the reference.
@@ -193,7 +193,9 @@ namespace BWT
              
             Action multiThreadAction = () =>
             {
-                var po = new ParallelOptions { MaxDegreeOfParallelism = this.DegreeOfParallelism };
+                var po =
+                this.DegreeOfParallelism.HasValue ? new ParallelOptions { MaxDegreeOfParallelism = this.DegreeOfParallelism.Value }
+                                                        :new ParallelOptions();
                 Parallel.For(0, reads.Count,po, (i) =>
                 {
                     alignmentAction(i);

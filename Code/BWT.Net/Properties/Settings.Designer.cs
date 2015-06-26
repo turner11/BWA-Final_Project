@@ -106,5 +106,17 @@ namespace BWT.Properties {
                 this["serializedIsearch"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int MaxDegreeOfParallelism {
+            get {
+                return ((int)(this["MaxDegreeOfParallelism"]));
+            }
+            set {
+                this["MaxDegreeOfParallelism"] = value;
+            }
+        }
     }
 }

@@ -52,8 +52,8 @@ namespace BWT
             this._seqLogics = new SequenceLogics();            
             this._seqLogics.PreAlignmnet += seqLogics_PreAlignmnet;
 
-            //this.nupMaxDegreeOfParallelism.Maximum = Environment.ProcessorCount;
-            this.nupMaxDegreeOfParallelism.Value = Environment.ProcessorCount - 1;
+            
+           
 
 //#if DEBUG
             this.txbInput.Text ="^BANANA";
@@ -123,6 +123,8 @@ namespace BWT
             this.nupErrorPercentage.Value = BWT.Properties.Settings.Default.errorPercentage;
             this.nupNumberOfReads.Value = BWT.Properties.Settings.Default.numberOfReads;
             this.nupReadLength.Value = BWT.Properties.Settings.Default.readLength;
+
+            this.nupMaxDegreeOfParallelism.Value = BWT.Properties.Settings.Default.MaxDegreeOfParallelism;
         }
 
         /// <summary>
@@ -137,6 +139,8 @@ namespace BWT
 
             BWT.Properties.Settings.Default.searchString = this.txbSearch.Text;
             BWT.Properties.Settings.Default.errorsAllowed = (int)this.nupErrorsAllowed.Value;
+            BWT.Properties.Settings.Default.MaxDegreeOfParallelism = (int)this.nupMaxDegreeOfParallelism.Value;
+            
 
             BWT.Properties.Settings.Default.Save();
         }
@@ -630,9 +634,9 @@ namespace BWT
         }
         private void nupMaxDegreeOfParallelism_ValueChanged(object sender, EventArgs e)
         {
-            this._seqLogics.DegreeOfParallelism = (int)this.nupMaxDegreeOfParallelism.Value;
+            var val = (int)this.nupMaxDegreeOfParallelism.Value;
+            this._seqLogics.DegreeOfParallelism = val > 1? (int?)val :null;
         }
-        #endregion
 
         private void btnGenerateSequencies_Click(object sender, EventArgs e)
         {
@@ -641,7 +645,7 @@ namespace BWT
                                                     (double)this.nupErrorPercentage.Value);
 
             this.txbSequencies.Lines = seqs.ToArray();
-            
+
         }
 
         private void btnClearSequencies_Click(object sender, EventArgs e)
@@ -654,15 +658,23 @@ namespace BWT
         {
 
             var lines = this.txbSequencies.Lines.ToArray();
-            Array.Sort(lines);            
+            Array.Sort(lines);
             this.txbSequencies.Lines = lines;
-            
+
         }
 
         private void txbSequencies_TextChanged(object sender, EventArgs e)
         {
             this.chbUseGeneratedSequencies.Checked = this.txbSequencies.Text.Length > 0;
         }
+
+        private void nupMaxDegreeOfParallelism_DoubleClick(object sender, EventArgs e)
+        {
+            this.nupMaxDegreeOfParallelism.Value = Environment.ProcessorCount - 1;
+        }
+        #endregion
+
+       
 
        
 

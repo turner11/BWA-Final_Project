@@ -496,11 +496,6 @@
             0,
             0,
             0});
-            this.nupMaxDegreeOfParallelism.Minimum = new decimal(new int[] {
-            2,
-            0,
-            0,
-            0});
             this.nupMaxDegreeOfParallelism.Name = "nupMaxDegreeOfParallelism";
             this.nupMaxDegreeOfParallelism.Size = new System.Drawing.Size(112, 22);
             this.nupMaxDegreeOfParallelism.TabIndex = 15;
@@ -510,6 +505,7 @@
             0,
             0});
             this.nupMaxDegreeOfParallelism.ValueChanged += new System.EventHandler(this.nupMaxDegreeOfParallelism_ValueChanged);
+            this.nupMaxDegreeOfParallelism.DoubleClick += new System.EventHandler(this.nupMaxDegreeOfParallelism_DoubleClick);
             // 
             // chbUseGeneratedSequencies
             // 
