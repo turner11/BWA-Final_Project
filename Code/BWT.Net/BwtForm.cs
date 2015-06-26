@@ -429,6 +429,11 @@ namespace BWT
             }
         }
 
+        private void nupReadLength_ValueChanged(object sender, EventArgs e)
+        {
+
+        }
+
       
     }
 }

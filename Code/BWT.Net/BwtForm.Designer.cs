@@ -44,8 +44,6 @@
             this.lblReadLength = new System.Windows.Forms.Label();
             this.nupErrorPercentage = new System.Windows.Forms.NumericUpDown();
             this.lblErrorPercentage = new System.Windows.Forms.Label();
-            this.lblReferenceMirror = new System.Windows.Forms.Label();
-            this.txbReferenceMirror = new System.Windows.Forms.TextBox();
             this.tpBwa = new System.Windows.Forms.TabPage();
             this.chbFindGaps = new System.Windows.Forms.CheckBox();
             this.txbBwaResults = new System.Windows.Forms.TextBox();
@@ -77,6 +75,10 @@
             this.chbPerformReverseTransform = new System.Windows.Forms.CheckBox();
             this.scMain = new System.Windows.Forms.SplitContainer();
             this.pbTransform = new System.Windows.Forms.ProgressBar();
+            this.tcBwa = new System.Windows.Forms.TabControl();
+            this.tpBwaSingleSequence = new System.Windows.Forms.TabPage();
+            this.tpBwaMultiSequence = new System.Windows.Forms.TabPage();
+            this.scBwa = new System.Windows.Forms.SplitContainer();
             this.tcMain.SuspendLayout();
             this.tpMultipleBwa.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nupNumberOfReads)).BeginInit();
@@ -92,6 +94,12 @@
             this.scMain.Panel1.SuspendLayout();
             this.scMain.Panel2.SuspendLayout();
             this.scMain.SuspendLayout();
+            this.tcBwa.SuspendLayout();
+            this.tpBwaSingleSequence.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.scBwa)).BeginInit();
+            this.scBwa.Panel1.SuspendLayout();
+            this.scBwa.Panel2.SuspendLayout();
+            this.scBwa.SuspendLayout();
             this.SuspendLayout();
             // 
             // tcMain
@@ -106,30 +114,28 @@
             this.tcMain.Margin = new System.Windows.Forms.Padding(4);
             this.tcMain.Name = "tcMain";
             this.tcMain.SelectedIndex = 0;
-            this.tcMain.Size = new System.Drawing.Size(868, 523);
+            this.tcMain.Size = new System.Drawing.Size(867, 500);
             this.tcMain.TabIndex = 0;
             // 
             // tpMultipleBwa
             // 
-            this.tpMultipleBwa.Controls.Add(this.lblRecommendedMaxError);
-            this.tpMultipleBwa.Controls.Add(this.txbMultiBwaResults);
-            this.tpMultipleBwa.Controls.Add(this.rdvBwaBoth);
-            this.tpMultipleBwa.Controls.Add(this.rdvBwaMultipleThread);
-            this.tpMultipleBwa.Controls.Add(this.rdvBwaSingleThread);
-            this.tpMultipleBwa.Controls.Add(this.btnClearMultiple);
-            this.tpMultipleBwa.Controls.Add(this.btnStartMultipleBwa);
-            this.tpMultipleBwa.Controls.Add(this.nupNumberOfReads);
-            this.tpMultipleBwa.Controls.Add(this.lblNumberOfReads);
-            this.tpMultipleBwa.Controls.Add(this.nupReadLength);
-            this.tpMultipleBwa.Controls.Add(this.lblReadLength);
-            this.tpMultipleBwa.Controls.Add(this.nupErrorPercentage);
-            this.tpMultipleBwa.Controls.Add(this.lblErrorPercentage);
-            this.tpMultipleBwa.Controls.Add(this.lblReferenceMirror);
-            this.tpMultipleBwa.Controls.Add(this.txbReferenceMirror);
+            this.tpBwaMultiSequence.Controls.Add(this.lblRecommendedMaxError);
+            this.tpBwaMultiSequence.Controls.Add(this.txbMultiBwaResults);
+            this.tpBwaMultiSequence.Controls.Add(this.rdvBwaBoth);
+            this.tpBwaMultiSequence.Controls.Add(this.rdvBwaMultipleThread);
+            this.tpBwaMultiSequence.Controls.Add(this.rdvBwaSingleThread);
+            this.tpBwaMultiSequence.Controls.Add(this.btnClearMultiple);
+            this.tpBwaMultiSequence.Controls.Add(this.btnStartMultipleBwa);
+            this.tpBwaMultiSequence.Controls.Add(this.nupNumberOfReads);
+            this.tpBwaMultiSequence.Controls.Add(this.lblNumberOfReads);
+            this.tpBwaMultiSequence.Controls.Add(this.nupReadLength);
+            this.tpBwaMultiSequence.Controls.Add(this.lblReadLength);
+            this.tpBwaMultiSequence.Controls.Add(this.nupErrorPercentage);
+            this.tpBwaMultiSequence.Controls.Add(this.lblErrorPercentage);
             this.tpMultipleBwa.Location = new System.Drawing.Point(4, 25);
             this.tpMultipleBwa.Name = "tpMultipleBwa";
             this.tpMultipleBwa.Padding = new System.Windows.Forms.Padding(3);
-            this.tpMultipleBwa.Size = new System.Drawing.Size(860, 494);
+            this.tpMultipleBwa.Size = new System.Drawing.Size(859, 471);
             this.tpMultipleBwa.TabIndex = 4;
             this.tpMultipleBwa.Text = "Multiple Bwa";
             this.tpMultipleBwa.UseVisualStyleBackColor = true;
@@ -137,7 +143,7 @@
             // lblRecommendedMaxError
             // 
             this.lblRecommendedMaxError.AutoSize = true;
-            this.lblRecommendedMaxError.Location = new System.Drawing.Point(268, 169);
+            this.lblRecommendedMaxError.Location = new System.Drawing.Point(277, 146);
             this.lblRecommendedMaxError.Name = "lblRecommendedMaxError";
             this.lblRecommendedMaxError.Size = new System.Drawing.Size(147, 17);
             this.lblRecommendedMaxError.TabIndex = 21;
@@ -148,18 +154,18 @@
             this.txbMultiBwaResults.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txbMultiBwaResults.Location = new System.Drawing.Point(8, 261);
+            this.txbMultiBwaResults.Location = new System.Drawing.Point(17, 238);
             this.txbMultiBwaResults.Multiline = true;
             this.txbMultiBwaResults.Name = "txbMultiBwaResults";
             this.txbMultiBwaResults.ReadOnly = true;
             this.txbMultiBwaResults.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.txbMultiBwaResults.Size = new System.Drawing.Size(844, 227);
+            this.txbMultiBwaResults.Size = new System.Drawing.Size(843, 204);
             this.txbMultiBwaResults.TabIndex = 20;
             // 
             // rdvBwaBoth
             // 
             this.rdvBwaBoth.AutoSize = true;
-            this.rdvBwaBoth.Location = new System.Drawing.Point(271, 201);
+            this.rdvBwaBoth.Location = new System.Drawing.Point(280, 178);
             this.rdvBwaBoth.Name = "rdvBwaBoth";
             this.rdvBwaBoth.Size = new System.Drawing.Size(58, 21);
             this.rdvBwaBoth.TabIndex = 19;
@@ -169,7 +175,7 @@
             // rdvBwaMultipleThread
             // 
             this.rdvBwaMultipleThread.AutoSize = true;
-            this.rdvBwaMultipleThread.Location = new System.Drawing.Point(131, 201);
+            this.rdvBwaMultipleThread.Location = new System.Drawing.Point(140, 178);
             this.rdvBwaMultipleThread.Name = "rdvBwaMultipleThread";
             this.rdvBwaMultipleThread.Size = new System.Drawing.Size(134, 21);
             this.rdvBwaMultipleThread.TabIndex = 19;
@@ -180,7 +186,7 @@
             // 
             this.rdvBwaSingleThread.AutoSize = true;
             this.rdvBwaSingleThread.Checked = true;
-            this.rdvBwaSingleThread.Location = new System.Drawing.Point(11, 201);
+            this.rdvBwaSingleThread.Location = new System.Drawing.Point(20, 178);
             this.rdvBwaSingleThread.Name = "rdvBwaSingleThread";
             this.rdvBwaSingleThread.Size = new System.Drawing.Size(118, 21);
             this.rdvBwaSingleThread.TabIndex = 19;
@@ -191,7 +197,7 @@
             // btnClearMultiple
             // 
             this.btnClearMultiple.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnClearMultiple.Location = new System.Drawing.Point(689, 228);
+            this.btnClearMultiple.Location = new System.Drawing.Point(697, 205);
             this.btnClearMultiple.Name = "btnClearMultiple";
             this.btnClearMultiple.Size = new System.Drawing.Size(163, 27);
             this.btnClearMultiple.TabIndex = 18;
@@ -201,7 +207,7 @@
             // 
             // btnStartMultipleBwa
             // 
-            this.btnStartMultipleBwa.Location = new System.Drawing.Point(10, 228);
+            this.btnStartMultipleBwa.Location = new System.Drawing.Point(19, 205);
             this.btnStartMultipleBwa.Name = "btnStartMultipleBwa";
             this.btnStartMultipleBwa.Size = new System.Drawing.Size(163, 27);
             this.btnStartMultipleBwa.TabIndex = 18;
@@ -211,7 +217,7 @@
             // 
             // nupNumberOfReads
             // 
-            this.nupNumberOfReads.Location = new System.Drawing.Point(131, 139);
+            this.nupNumberOfReads.Location = new System.Drawing.Point(140, 116);
             this.nupNumberOfReads.Maximum = new decimal(new int[] {
             10000,
             0,
@@ -236,7 +242,7 @@
             this.lblNumberOfReads.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lblNumberOfReads.AutoSize = true;
-            this.lblNumberOfReads.Location = new System.Drawing.Point(8, 139);
+            this.lblNumberOfReads.Location = new System.Drawing.Point(17, 116);
             this.lblNumberOfReads.Name = "lblNumberOfReads";
             this.lblNumberOfReads.Size = new System.Drawing.Size(119, 17);
             this.lblNumberOfReads.TabIndex = 16;
@@ -244,7 +250,7 @@
             // 
             // nupReadLength
             // 
-            this.nupReadLength.Location = new System.Drawing.Point(131, 167);
+            this.nupReadLength.Location = new System.Drawing.Point(140, 144);
             this.nupReadLength.Maximum = new decimal(new int[] {
             500,
             0,
@@ -270,7 +276,7 @@
             this.lblReadLength.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lblReadLength.AutoSize = true;
-            this.lblReadLength.Location = new System.Drawing.Point(8, 167);
+            this.lblReadLength.Location = new System.Drawing.Point(17, 144);
             this.lblReadLength.Name = "lblReadLength";
             this.lblReadLength.Size = new System.Drawing.Size(90, 17);
             this.lblReadLength.TabIndex = 14;
@@ -279,7 +285,7 @@
             // nupErrorPercentage
             // 
             this.nupErrorPercentage.DecimalPlaces = 3;
-            this.nupErrorPercentage.Location = new System.Drawing.Point(131, 110);
+            this.nupErrorPercentage.Location = new System.Drawing.Point(140, 87);
             this.nupErrorPercentage.Name = "nupErrorPercentage";
             this.nupErrorPercentage.Size = new System.Drawing.Size(112, 22);
             this.nupErrorPercentage.TabIndex = 13;
@@ -294,50 +300,18 @@
             this.lblErrorPercentage.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lblErrorPercentage.AutoSize = true;
-            this.lblErrorPercentage.Location = new System.Drawing.Point(8, 110);
+            this.lblErrorPercentage.Location = new System.Drawing.Point(17, 87);
             this.lblErrorPercentage.Name = "lblErrorPercentage";
             this.lblErrorPercentage.Size = new System.Drawing.Size(117, 17);
             this.lblErrorPercentage.TabIndex = 12;
             this.lblErrorPercentage.Text = "Error Percentage";
             // 
-            // lblReferenceMirror
-            // 
-            this.lblReferenceMirror.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblReferenceMirror.AutoSize = true;
-            this.lblReferenceMirror.Location = new System.Drawing.Point(7, 6);
-            this.lblReferenceMirror.Name = "lblReferenceMirror";
-            this.lblReferenceMirror.Size = new System.Drawing.Size(74, 17);
-            this.lblReferenceMirror.TabIndex = 12;
-            this.lblReferenceMirror.Text = "Reference";
-            // 
-            // txbReferenceMirror
-            // 
-            this.txbReferenceMirror.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.txbReferenceMirror.Location = new System.Drawing.Point(131, 6);
-            this.txbReferenceMirror.Multiline = true;
-            this.txbReferenceMirror.Name = "txbReferenceMirror";
-            this.txbReferenceMirror.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.txbReferenceMirror.Size = new System.Drawing.Size(721, 96);
-            this.txbReferenceMirror.TabIndex = 11;
-            this.txbReferenceMirror.Text = "google";
-            this.txbReferenceMirror.TextChanged += new System.EventHandler(this.txbReferenceMirror_TextChanged);
-            // 
             // tpBwa
             // 
-            this.tpBwa.Controls.Add(this.chbFindGaps);
-            this.tpBwa.Controls.Add(this.txbBwaResults);
-            this.tpBwa.Controls.Add(this.nupErrorsAllowed);
-            this.tpBwa.Controls.Add(this.lblErrorsAllowed);
-            this.tpBwa.Controls.Add(this.lblReference);
-            this.tpBwa.Controls.Add(this.lblSearch);
-            this.tpBwa.Controls.Add(this.txbReference);
-            this.tpBwa.Controls.Add(this.txbSearch);
-            this.tpBwa.Controls.Add(this.btnInexactSearch);
+            this.tpBwa.Controls.Add(this.scBwa);
             this.tpBwa.Location = new System.Drawing.Point(4, 25);
             this.tpBwa.Name = "tpBwa";
-            this.tpBwa.Size = new System.Drawing.Size(860, 494);
+            this.tpBwa.Size = new System.Drawing.Size(859, 471);
             this.tpBwa.TabIndex = 3;
             this.tpBwa.Text = "BWA";
             this.tpBwa.UseVisualStyleBackColor = true;
@@ -347,7 +321,7 @@
             this.chbFindGaps.AutoSize = true;
             this.chbFindGaps.Checked = true;
             this.chbFindGaps.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chbFindGaps.Location = new System.Drawing.Point(11, 88);
+            this.chbFindGaps.Location = new System.Drawing.Point(21, 69);
             this.chbFindGaps.Name = "chbFindGaps";
             this.chbFindGaps.Size = new System.Drawing.Size(127, 21);
             this.chbFindGaps.TabIndex = 13;
@@ -357,21 +331,19 @@
             // 
             // txbBwaResults
             // 
-            this.txbBwaResults.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.txbBwaResults.Location = new System.Drawing.Point(8, 117);
+            this.txbBwaResults.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.txbBwaResults.Location = new System.Drawing.Point(3, 101);
             this.txbBwaResults.Multiline = true;
             this.txbBwaResults.Name = "txbBwaResults";
             this.txbBwaResults.ReadOnly = true;
             this.txbBwaResults.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.txbBwaResults.Size = new System.Drawing.Size(844, 374);
+            this.txbBwaResults.Size = new System.Drawing.Size(845, 191);
             this.txbBwaResults.TabIndex = 12;
             this.txbBwaResults.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txbBwaResults_KeyDown);
             // 
             // nupErrorsAllowed
             // 
-            this.nupErrorsAllowed.Location = new System.Drawing.Point(181, 37);
+            this.nupErrorsAllowed.Location = new System.Drawing.Point(190, 47);
             this.nupErrorsAllowed.Name = "nupErrorsAllowed";
             this.nupErrorsAllowed.Size = new System.Drawing.Size(85, 22);
             this.nupErrorsAllowed.TabIndex = 11;
@@ -384,7 +356,7 @@
             // lblErrorsAllowed
             // 
             this.lblErrorsAllowed.AutoSize = true;
-            this.lblErrorsAllowed.Location = new System.Drawing.Point(8, 39);
+            this.lblErrorsAllowed.Location = new System.Drawing.Point(6, 49);
             this.lblErrorsAllowed.Name = "lblErrorsAllowed";
             this.lblErrorsAllowed.Size = new System.Drawing.Size(167, 17);
             this.lblErrorsAllowed.TabIndex = 9;
@@ -395,7 +367,7 @@
             this.lblReference.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lblReference.AutoSize = true;
-            this.lblReference.Location = new System.Drawing.Point(271, 30);
+            this.lblReference.Location = new System.Drawing.Point(1, 0);
             this.lblReference.Name = "lblReference";
             this.lblReference.Size = new System.Drawing.Size(74, 17);
             this.lblReference.TabIndex = 10;
@@ -404,7 +376,7 @@
             // lblSearch
             // 
             this.lblSearch.AutoSize = true;
-            this.lblSearch.Location = new System.Drawing.Point(8, 8);
+            this.lblSearch.Location = new System.Drawing.Point(6, 6);
             this.lblSearch.Name = "lblSearch";
             this.lblSearch.Size = new System.Drawing.Size(108, 17);
             this.lblSearch.TabIndex = 10;
@@ -412,13 +384,12 @@
             // 
             // txbReference
             // 
-            this.txbReference.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.txbReference.Location = new System.Drawing.Point(352, 30);
+            this.txbReference.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.txbReference.Location = new System.Drawing.Point(0, 24);
             this.txbReference.Multiline = true;
             this.txbReference.Name = "txbReference";
             this.txbReference.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.txbReference.Size = new System.Drawing.Size(500, 77);
+            this.txbReference.Size = new System.Drawing.Size(859, 119);
             this.txbReference.TabIndex = 8;
             this.txbReference.Text = "google";
             this.txbReference.TextChanged += new System.EventHandler(this.txbReference_TextChanged);
@@ -427,17 +398,17 @@
             // 
             // txbSearch
             // 
-            this.txbSearch.Location = new System.Drawing.Point(181, 5);
+            this.txbSearch.Location = new System.Drawing.Point(213, 6);
             this.txbSearch.Name = "txbSearch";
-            this.txbSearch.Size = new System.Drawing.Size(671, 22);
+            this.txbSearch.Size = new System.Drawing.Size(331, 22);
             this.txbSearch.TabIndex = 8;
             this.txbSearch.Text = "lol";
-            this.txbSearch.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txbSearch_KeyPress);
             this.txbSearch.TextChanged += new System.EventHandler(this.txbSearch_TextChanged);
+            this.txbSearch.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txbSearch_KeyPress);
             // 
             // btnInexactSearch
             // 
-            this.btnInexactSearch.Location = new System.Drawing.Point(181, 85);
+            this.btnInexactSearch.Location = new System.Drawing.Point(282, 49);
             this.btnInexactSearch.Margin = new System.Windows.Forms.Padding(4);
             this.btnInexactSearch.Name = "btnInexactSearch";
             this.btnInexactSearch.Size = new System.Drawing.Size(164, 25);
@@ -699,8 +670,8 @@
             // 
             this.scMain.Panel2.Controls.Add(this.pbTransform);
             this.scMain.Panel2MinSize = 10;
-            this.scMain.Size = new System.Drawing.Size(868, 552);
-            this.scMain.SplitterDistance = 523;
+            this.scMain.Size = new System.Drawing.Size(867, 519);
+            this.scMain.SplitterDistance = 500;
             this.scMain.SplitterWidth = 5;
             this.scMain.TabIndex = 1;
             // 
@@ -710,14 +681,71 @@
             this.pbTransform.Location = new System.Drawing.Point(0, 0);
             this.pbTransform.Margin = new System.Windows.Forms.Padding(4);
             this.pbTransform.Name = "pbTransform";
-            this.pbTransform.Size = new System.Drawing.Size(868, 24);
+            this.pbTransform.Size = new System.Drawing.Size(867, 14);
             this.pbTransform.TabIndex = 0;
+            // 
+            // tcBwa
+            // 
+            this.tcBwa.Controls.Add(this.tpBwaSingleSequence);
+            this.tcBwa.Controls.Add(this.tpBwaMultiSequence);
+            this.tcBwa.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tcBwa.Location = new System.Drawing.Point(0, 0);
+            this.tcBwa.Name = "tcBwa";
+            this.tcBwa.SelectedIndex = 0;
+            this.tcBwa.Size = new System.Drawing.Size(859, 324);
+            this.tcBwa.TabIndex = 14;
+            // 
+            // tpBwaSingleSequence
+            // 
+            this.tpBwaSingleSequence.Controls.Add(this.txbSearch);
+            this.tpBwaSingleSequence.Controls.Add(this.txbBwaResults);
+            this.tpBwaSingleSequence.Controls.Add(this.chbFindGaps);
+            this.tpBwaSingleSequence.Controls.Add(this.lblSearch);
+            this.tpBwaSingleSequence.Controls.Add(this.lblErrorsAllowed);
+            this.tpBwaSingleSequence.Controls.Add(this.btnInexactSearch);
+            this.tpBwaSingleSequence.Controls.Add(this.nupErrorsAllowed);
+            this.tpBwaSingleSequence.Location = new System.Drawing.Point(4, 25);
+            this.tpBwaSingleSequence.Name = "tpBwaSingleSequence";
+            this.tpBwaSingleSequence.Padding = new System.Windows.Forms.Padding(3);
+            this.tpBwaSingleSequence.Size = new System.Drawing.Size(851, 295);
+            this.tpBwaSingleSequence.TabIndex = 0;
+            this.tpBwaSingleSequence.Text = "Single Sequence";
+            this.tpBwaSingleSequence.UseVisualStyleBackColor = true;
+            // 
+            // tpBwaMultiSequence
+            // 
+            this.tpBwaMultiSequence.Location = new System.Drawing.Point(4, 25);
+            this.tpBwaMultiSequence.Name = "tpBwaMultiSequence";
+            this.tpBwaMultiSequence.Padding = new System.Windows.Forms.Padding(3);
+            this.tpBwaMultiSequence.Size = new System.Drawing.Size(851, 295);
+            this.tpBwaMultiSequence.TabIndex = 1;
+            this.tpBwaMultiSequence.Text = "Multiple Sequences";
+            this.tpBwaMultiSequence.UseVisualStyleBackColor = true;
+            // 
+            // scBwa
+            // 
+            this.scBwa.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.scBwa.Location = new System.Drawing.Point(0, 0);
+            this.scBwa.Name = "scBwa";
+            this.scBwa.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            // 
+            // scBwa.Panel1
+            // 
+            this.scBwa.Panel1.Controls.Add(this.txbReference);
+            this.scBwa.Panel1.Controls.Add(this.lblReference);
+            // 
+            // scBwa.Panel2
+            // 
+            this.scBwa.Panel2.Controls.Add(this.tcBwa);
+            this.scBwa.Size = new System.Drawing.Size(859, 471);
+            this.scBwa.SplitterDistance = 143;
+            this.scBwa.TabIndex = 15;
             // 
             // frmBwt
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(868, 552);
+            this.ClientSize = new System.Drawing.Size(867, 519);
             this.Controls.Add(this.scMain);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(4);
@@ -731,7 +759,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.nupReadLength)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nupErrorPercentage)).EndInit();
             this.tpBwa.ResumeLayout(false);
-            this.tpBwa.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nupErrorsAllowed)).EndInit();
             this.tpBwt.ResumeLayout(false);
             this.tpBwt.PerformLayout();
@@ -744,6 +771,14 @@
             this.scMain.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.scMain)).EndInit();
             this.scMain.ResumeLayout(false);
+            this.tcBwa.ResumeLayout(false);
+            this.tpBwaSingleSequence.ResumeLayout(false);
+            this.tpBwaSingleSequence.PerformLayout();
+            this.scBwa.Panel1.ResumeLayout(false);
+            this.scBwa.Panel1.PerformLayout();
+            this.scBwa.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.scBwa)).EndInit();
+            this.scBwa.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -783,8 +818,6 @@
         private System.Windows.Forms.LinkLabel lnkBwaPaper;
         private System.Windows.Forms.CheckBox chbFindGaps;
         private System.Windows.Forms.TabPage tpMultipleBwa;
-        private System.Windows.Forms.Label lblReferenceMirror;
-        private System.Windows.Forms.TextBox txbReferenceMirror;
         private System.Windows.Forms.NumericUpDown nupErrorPercentage;
         private System.Windows.Forms.Label lblErrorPercentage;
         private System.Windows.Forms.NumericUpDown nupNumberOfReads;
@@ -798,6 +831,10 @@
         private System.Windows.Forms.TextBox txbMultiBwaResults;
         private System.Windows.Forms.Button btnClearMultiple;
         private System.Windows.Forms.Label lblRecommendedMaxError;
+        private System.Windows.Forms.SplitContainer scBwa;
+        private System.Windows.Forms.TabControl tcBwa;
+        private System.Windows.Forms.TabPage tpBwaSingleSequence;
+        private System.Windows.Forms.TabPage tpBwaMultiSequence;
 
 
     }
