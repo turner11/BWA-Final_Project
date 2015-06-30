@@ -99,7 +99,7 @@ namespace BWT
         public SequenceLogics() : this(string.Empty, null) { }
         public SequenceLogics(string reference, BackgroundWorker bw)
         {
-            this.worker = bw ?? new BackgroundWorker() { WorkerReportsProgress = true };
+            this.worker = bw ?? new BackgroundWorker() { WorkerReportsProgress = true,WorkerSupportsCancellation = true };
             this.Reference = reference;
         } 
         #endregion
@@ -141,7 +141,7 @@ namespace BWT
                     var rndVal = rnd.NextDouble()*100;
                     bool error = rndVal < errorPercentage;
                     var nextchar = error ?
-                        this.ReferenceLetters[i % this.ReferenceLetters.Count] : originalString[i];
+                        this.ReferenceLetters.Where(c=>c!=originalString[i]).ToArray() [i % (this.ReferenceLetters.Count-1)] : originalString[i];
                     sb.Append(nextchar);
                 }
                 var read = sb.ToString();             
@@ -151,17 +151,18 @@ namespace BWT
             return reads;
         }
 
-        public void RunMultipleAlignments(int readCount, int readLength, double errorPercentage, int errorsAllowed, BackgroundWorker bwReporter, AlignMode alignMode)
+        public void RunMultipleAlignments(int readCount, int readLength, double errorPercentage, int errorsAllowed, BackgroundWorker bwReporter, AlignMode alignMode, bool getShallowResults)
         {
             List<string> reads = this.GetRandomReads(readCount, readLength, errorPercentage);
-            this.RunMultipleAlignments(reads, errorsAllowed, bwReporter, alignMode);
+            this.RunMultipleAlignments(reads, errorsAllowed, bwReporter, alignMode,getShallowResults);
         }
 
-        public TimeSpan RunMultipleAlignments(IList<string> reads, int errorsAllowed, BackgroundWorker bwReporter, AlignMode alignMode)
+        public TimeSpan RunMultipleAlignments(IList<string> reads, int errorsAllowed, BackgroundWorker bwReporter, AlignMode alignMode, bool getShallowResults)
         {
             bwReporter = bwReporter ?? new BackgroundWorker() { WorkerReportsProgress = true , WorkerSupportsCancellation = true};
 
-           
+           var initShallowValue = BWT.InexactSearch.Results.GenerateShallowResults;
+           BWT.InexactSearch.Results.GenerateShallowResults = getShallowResults;
             int parrallelClosureCount = 0;
             Action<int> alignmentAction = (i) =>
             {
@@ -263,6 +264,7 @@ namespace BWT
                 swTime = swTime_multi + swTime_single;
             }
 
+            BWT.InexactSearch.Results.GenerateShallowResults = initShallowValue;
             return swTime;
         }
 

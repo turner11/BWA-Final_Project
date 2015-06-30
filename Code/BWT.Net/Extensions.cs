@@ -4,8 +4,24 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 
+  public static class Extensions
+  {
+      public static void InvokeIfRequired(this Control ctrl, Action action)
+      {
+          if (ctrl.InvokeRequired)
+          {
+              ctrl.BeginInvoke(action);
+
+          }
+          else
+          {
+              action();
+          }
+      }
+  }
     public static class TableExtensions
     {
         /// <summary>

@@ -25,7 +25,7 @@ namespace BWT
 
         public TestSuit()
         {
-            this.bw = new BackgroundWorker() { WorkerReportsProgress = true };
+            this.bw = new BackgroundWorker() { WorkerReportsProgress = true, WorkerSupportsCancellation = true };
             this._slogics = new SequenceLogics();
             this._slogics.Reference = Reference;
             this._slogics.FindGapgs = true;

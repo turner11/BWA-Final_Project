@@ -57,6 +57,7 @@
             this.lblMaxDegreeOfParallelism = new System.Windows.Forms.Label();
             this.nupMaxDegreeOfParallelism = new System.Windows.Forms.NumericUpDown();
             this.chbUseGeneratedSequencies = new System.Windows.Forms.CheckBox();
+            this.btnCancelMulti = new System.Windows.Forms.Button();
             this.btnClearMultiple = new System.Windows.Forms.Button();
             this.tpBwaSingleSequence = new System.Windows.Forms.TabPage();
             this.tlpMultipleBwa = new System.Windows.Forms.TableLayoutPanel();
@@ -107,7 +108,7 @@
             this.scMain = new System.Windows.Forms.SplitContainer();
             this.pbTransform = new System.Windows.Forms.ProgressBar();
             this._tt = new System.Windows.Forms.ToolTip(this.components);
-            this.btnCancelMulti = new System.Windows.Forms.Button();
+            this.btnCancelBenchmark = new System.Windows.Forms.Button();
             this.bchReverse = new BWT.BwtBenchmarkingPanel();
             this.bchBwt = new BWT.BwtBenchmarkingPanel();
             this.tcMain.SuspendLayout();
@@ -534,6 +535,19 @@
             this.chbUseGeneratedSequencies.Text = "Use Generated Sequencies";
             this.chbUseGeneratedSequencies.UseVisualStyleBackColor = true;
             // 
+            // btnCancelMulti
+            // 
+            this.btnCancelMulti.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.btnCancelMulti.Location = new System.Drawing.Point(509, 142);
+            this.btnCancelMulti.MinimumSize = new System.Drawing.Size(68, 34);
+            this.btnCancelMulti.Name = "btnCancelMulti";
+            this.btnCancelMulti.Size = new System.Drawing.Size(110, 34);
+            this.btnCancelMulti.TabIndex = 18;
+            this.btnCancelMulti.Text = "Cancel";
+            this.btnCancelMulti.UseVisualStyleBackColor = true;
+            this.btnCancelMulti.Visible = false;
+            this.btnCancelMulti.Click += new System.EventHandler(this.btnCancelMulti_Click);
+            // 
             // btnClearMultiple
             // 
             this.btnClearMultiple.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -790,14 +804,16 @@
             this.tplBenchmarking.Controls.Add(this.btnBenchmarkVariantSeqCount, 0, 1);
             this.tplBenchmarking.Controls.Add(this.lblBenchmarkingVariantSeqCount, 1, 1);
             this.tplBenchmarking.Controls.Add(this.txbBenchmarkSeqCountVary, 2, 1);
-            this.tplBenchmarking.Controls.Add(this.txbBenchmarkLog, 0, 4);
+            this.tplBenchmarking.Controls.Add(this.txbBenchmarkLog, 0, 5);
             this.tplBenchmarking.Controls.Add(this.btnBenchmarkSorts, 0, 2);
             this.tplBenchmarking.Controls.Add(this.lblBenchmarkSorts, 1, 2);
             this.tplBenchmarking.Controls.Add(this.txbBenchmarkSorts, 2, 2);
+            this.tplBenchmarking.Controls.Add(this.btnCancelBenchmark, 0, 3);
             this.tplBenchmarking.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tplBenchmarking.Location = new System.Drawing.Point(0, 0);
             this.tplBenchmarking.Name = "tplBenchmarking";
-            this.tplBenchmarking.RowCount = 5;
+            this.tplBenchmarking.RowCount = 6;
+            this.tplBenchmarking.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tplBenchmarking.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tplBenchmarking.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tplBenchmarking.RowStyles.Add(new System.Windows.Forms.RowStyle());
@@ -1153,18 +1169,17 @@
             this.pbTransform.Size = new System.Drawing.Size(832, 26);
             this.pbTransform.TabIndex = 0;
             // 
-            // btnCancelMulti
+            // btnCancelBenchmark
             // 
-            this.btnCancelMulti.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.btnCancelMulti.Location = new System.Drawing.Point(509, 142);
-            this.btnCancelMulti.MinimumSize = new System.Drawing.Size(68, 34);
-            this.btnCancelMulti.Name = "btnCancelMulti";
-            this.btnCancelMulti.Size = new System.Drawing.Size(110, 34);
-            this.btnCancelMulti.TabIndex = 18;
-            this.btnCancelMulti.Text = "Cancel";
-            this.btnCancelMulti.UseVisualStyleBackColor = true;
-            this.btnCancelMulti.Visible = false;
-            this.btnCancelMulti.Click += new System.EventHandler(this.btnCancelMulti_Click);
+            this.btnCancelBenchmark.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.btnCancelBenchmark.Location = new System.Drawing.Point(3, 90);
+            this.btnCancelBenchmark.Name = "btnCancelBenchmark";
+            this.btnCancelBenchmark.Size = new System.Drawing.Size(75, 23);
+            this.btnCancelBenchmark.TabIndex = 0;
+            this.btnCancelBenchmark.Text = "Cancel";
+            this.btnCancelBenchmark.UseVisualStyleBackColor = true;
+            this.btnCancelBenchmark.Visible = false;
+            this.btnCancelBenchmark.Click += new System.EventHandler(this.btnCancelBenchmark_Click);
             // 
             // bchReverse
             // 
@@ -1323,6 +1338,7 @@
         private System.Windows.Forms.Label lblBenchmarkSorts;
         private System.Windows.Forms.TextBox txbBenchmarkSorts;
         private System.Windows.Forms.Button btnCancelMulti;
+        private System.Windows.Forms.Button btnCancelBenchmark;
 
 
     }

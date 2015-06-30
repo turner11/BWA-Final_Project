@@ -12,6 +12,7 @@ namespace BWT
    public partial class tplBwaReference
    {
        BackgroundWorker _multipleBwaWorker;
+       BackgroundWorker _bwBenchmark;
        SequenceLogics _seqLogics;
 
        
@@ -21,7 +22,7 @@ namespace BWT
        /// </summary>
        /// <param name="sender">The source of the event.</param>
        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-       private void StartMultipleBwa()
+       private void StartMultipleBwa( bool getShallowResults)
        {
 
            this.SaveSettings();
@@ -29,7 +30,10 @@ namespace BWT
            IList<string> reads = this.chbUseGeneratedSequencies.Checked? this.txbSequencies.Text.Split(new string[]{Environment.NewLine},StringSplitOptions.RemoveEmptyEntries) : (IList<string>)this.GetRandomReads();
          
            this.txbMultiBwaResults.Text = String.Empty;
+
+          
            
+
           this.InitMultiBwaWorker();
            this._multipleBwaWorker.DoWork += (s, arg) =>
            {
@@ -46,7 +50,7 @@ namespace BWT
                if (this.rdvBwaSingleThread.Checked) alignMode = SequenceLogics.AlignMode.SingleThread;
                if (this.rdvBwaMultipleThread.Checked) alignMode = SequenceLogics.AlignMode.MultiThread;
                if (this.rdvBwaBoth.Checked) alignMode = SequenceLogics.AlignMode.SingleThread | SequenceLogics.AlignMode.MultiThread;
-               this._seqLogics.RunMultipleAlignments(reads, (int)this.nupErrorsAllowed.Value,this._multipleBwaWorker, alignMode);
+               this._seqLogics.RunMultipleAlignments(reads, (int)this.nupErrorsAllowed.Value, this._multipleBwaWorker, alignMode, getShallowResults);
            };
 
            this._multipleBwaWorker.RunWorkerCompleted += (s, arg) =>

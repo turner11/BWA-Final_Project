@@ -368,6 +368,8 @@ namespace BWT
 
         public class Results
         {
+            public static bool GenerateShallowResults;
+
             public int[] IndexesSa { get; private set; }
             public int[] Indexes { get; private set; }
             public DataTable SuffixArray { get; private set; }
@@ -388,15 +390,22 @@ namespace BWT
             public Results(int[] indexes, DataTable suffixArray, string bwtString, string stringToMatch, int errorAllowed, bool handleGapError, TimeSpan timeElapes)
             {
                 this.IndexesSa = indexes;
-                Array.Sort(this.IndexesSa);
-                
-                this.SuffixArray = suffixArray;
+
+                bool shallow = Results.GenerateShallowResults;
+
+
+                this.SuffixArray = shallow? new DataTable(): suffixArray;
                 this.BwtString = bwtString;
                 this.StringToMatch = stringToMatch;
                 this.ErrorAllowed = errorAllowed;
                 this.HandleGapError = handleGapError;
                 this.TimeElapsed = timeElapes;
-                this.Indexes = indexes.Select(i => saIndexToReferenceIndex(i)).OrderBy(i=>i).ToArray();
+                this.Indexes = shallow? new int[0]: indexes.Select(i => saIndexToReferenceIndex(i)).OrderBy(i=>i).ToArray();
+                
+                if (!Results.GenerateShallowResults)
+                {
+                    Array.Sort(this.IndexesSa);
+                }
             }
 
             private int saIndexToReferenceIndex(int saIndex)

@@ -63,7 +63,6 @@ namespace BWT
             //#endif
 
             this.RestoreValuesFromSettings();
-            this._seqLogics.FindGapgs = this.chbFindGaps.Checked;
 
             LinkLabel.Link linkBwt = new LinkLabel.Link();
             linkBwt.LinkData = "http://en.wikipedia.org/wiki/Burrows%E2%80%93Wheeler_transform";
@@ -418,7 +417,7 @@ namespace BWT
 
         private void btnStartMultipleBwa_Click(object sender, EventArgs e)
         {
-            this.StartMultipleBwa();
+            this.StartMultipleBwa(false);
         }
 
         private void btnClearMultiple_Click(object sender, EventArgs e)
@@ -429,7 +428,7 @@ namespace BWT
         private async void chbFindGaps_CheckedChanged(object sender, EventArgs e)
         {
             this._seqLogics.FindGapgs = this.chbFindGaps.Checked;
-            this.SaveSettings();
+            
             await this.SetNumberOfStrignsToSearch();
         }
 
@@ -764,7 +763,7 @@ namespace BWT
             for (int currCount = parsedParams.min; currCount <= parsedParams.max; currCount += parsedParams.interval)
             {
 
-                var currReads = this._seqLogics.GetRandomReads(currCount, seqLength,(int)this.nupErrorPercentage.Value);
+                var currReads = this._seqLogics.GetRandomReads(currCount, seqLength,(double)this.nupErrorPercentage.Value);
                 reads.Add(currReads);
             }
 
@@ -800,6 +799,8 @@ namespace BWT
 
         private async Task RunBenchmarkTest(List<List<string>> readsCollection1, string legend1, List<List<string>> readsCollection2, string legend2, SequenceLogics.AlignMode testMode1, SequenceLogics.AlignMode testMode2, Func<List<string>, double> readsToxAxisFunc, string title)
         {
+            this.btnCancelBenchmark.BeginInvoke(new Action(() => this.btnCancelBenchmark.Visible = true));
+
             this.SaveSettings();
             var chartForm = new ChartForm();
 
@@ -821,41 +822,65 @@ namespace BWT
                 {
                     for (int i = 0; i < readSetsCount; i++)
                     {
+                        var bwDispose = this._bwBenchmark;
+                        if (bwDispose != null)
+                        {
+                            this._bwBenchmark = null;
+                            if (bwDispose.CancellationPending)
+                            {
+                                break;
+                            }
+                          
+                            bwDispose.Dispose();
+                        }
 
-                        var bw = new BackgroundWorker() { WorkerReportsProgress = true };
-                        Stopwatch sw = null;
+                        this._bwBenchmark = new BackgroundWorker() { WorkerReportsProgress = true, WorkerSupportsCancellation = true };
+                       
                         TimeSpan elapsedMulti = TimeSpan.Zero;
                         TimeSpan elapsedSingle = TimeSpan.Zero;
                         var test1reads = readsCollection1[i];
                         var test2reads = readsCollection2[i];
 
-                        bw.ProgressChanged += (s, arg) =>
+                        this._bwBenchmark.ProgressChanged += (s, arg) =>
                         {
                             Action ac = () => this.pbTransform.Value = Math.Min(Math.Max(0, arg.ProgressPercentage), 100);
                             this.pbTransform.BeginInvoke(ac, null);
                         };
 
 
-                        sw = Stopwatch.StartNew();
-                        elapsedMulti = this._seqLogics.RunMultipleAlignments(test1reads, (int)this.nupErrorsAllowed.Value, bw, testMode1);
-                        var test1 = sw.Elapsed;
+                       
+                        elapsedMulti = this._seqLogics.RunMultipleAlignments(test1reads, (int)this.nupErrorsAllowed.Value, this._bwBenchmark, testMode1,true);
                         
-                        sw.Restart();
-                        elapsedSingle = this._seqLogics.RunMultipleAlignments(test2reads, (int)this.nupErrorsAllowed.Value, bw, testMode2);
-                        var test2 = sw.Elapsed;
-                        sw.Stop();
+                       
+                        
+                     
+                        elapsedSingle = this._seqLogics.RunMultipleAlignments(test2reads, (int)this.nupErrorsAllowed.Value, this._bwBenchmark, testMode2,true);
+                        
+                        
 
+                        chartForm.InvokeIfRequired(() =>
+                            {
+                                try
+                                {
 
-                        var currXValue = readsToxAxisFunc(test1reads);
-                        chartForm.BeginInvoke(new Action(() =>
-                        {
+                               
+                                var currXValueMulti = readsToxAxisFunc(test1reads);
+                                series_multi.Points.AddXY(currXValueMulti, elapsedMulti.TotalSeconds);
 
-                            series_multi.Points.AddXY(currXValue, elapsedMulti.TotalSeconds);
-                            series_signle.Points.AddXY(currXValue, elapsedSingle.TotalSeconds);
-                            series_ration.Points.AddXY(currXValue, elapsedSingle.TotalSeconds / elapsedMulti.TotalSeconds);
-                            chartForm.Refresh();
-                        }), null);
-                        // this.txbBenchmarkLog.Text = String.Format("Aligned {0} length sequences ({1} seconds)", currLength, sw.Elapsed.TotalSeconds);
+                                var currXValueSingle = readsToxAxisFunc(test2reads);
+                                series_signle.Points.AddXY(currXValueSingle, elapsedSingle.TotalSeconds);
+
+                                series_ration.Points.AddXY(currXValueMulti, elapsedSingle.TotalSeconds / elapsedMulti.TotalSeconds);
+                                chartForm.Refresh();
+                                }
+                                catch (Exception)
+                                {
+
+                                    //...
+                                }
+
+                            });
+                        //this.txbBenchmarkLog.InvokeIfRequired(()=>this.txbBenchmarkLog.Text = String.Format("Aligned {0} length sequences ({1} seconds)", currLength, sw.Elapsed.TotalSeconds));
 
 
                     }
@@ -865,14 +890,22 @@ namespace BWT
 
 
 
-
+            this.btnCancelBenchmark.BeginInvoke(new Action(() => this.btnCancelBenchmark.Visible = false));
         }
 
         private void btnCancelMulti_Click(object sender, EventArgs e)
         {
-            if (this._multipleBwaWorker != null)
+            if (this._multipleBwaWorker != null && this._multipleBwaWorker.WorkerSupportsCancellation)
             {
                 this._multipleBwaWorker.CancelAsync();
+            }
+        }
+
+        private void btnCancelBenchmark_Click(object sender, EventArgs e)
+        {
+            if (this._bwBenchmark != null && this._bwBenchmark.WorkerSupportsCancellation)
+            {
+                this._bwBenchmark.CancelAsync();
             }
         }
 
