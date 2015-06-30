@@ -819,11 +819,11 @@ namespace BWT
 
 
                         sw = Stopwatch.StartNew();
-                        this._seqLogics.RunMultipleAlignments(test1reads, (int)this.nupErrorsAllowed.Value, bw, testMode1);
-                        elapsedMulti = sw.Elapsed;
+                        elapsedMulti = this._seqLogics.RunMultipleAlignments(test1reads, (int)this.nupErrorsAllowed.Value, bw, testMode1);
+                        var test1 = sw.Elapsed;
                         sw.Restart();
-                        this._seqLogics.RunMultipleAlignments(test2reads, (int)this.nupErrorsAllowed.Value, bw, testMode2);
-                        elapsedSingle = sw.Elapsed;
+                        elapsedSingle = this._seqLogics.RunMultipleAlignments(test2reads, (int)this.nupErrorsAllowed.Value, bw, testMode2);
+                        var test2 = sw.Elapsed;
                         sw.Stop();
 
 

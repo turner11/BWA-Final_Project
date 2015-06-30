@@ -368,6 +368,7 @@ namespace BWT
 
         public class Results
         {
+            public int[] IndexesSa { get; private set; }
             public int[] Indexes { get; private set; }
             public DataTable SuffixArray { get; private set; }
             public string BwtString { get; private set; }
@@ -386,14 +387,25 @@ namespace BWT
 
             public Results(int[] indexes, DataTable suffixArray, string bwtString, string stringToMatch, int errorAllowed, bool handleGapError, TimeSpan timeElapes)
             {
-                this.Indexes = indexes;
-                Array.Sort(this.Indexes);
+                this.IndexesSa = indexes;
+                Array.Sort(this.IndexesSa);
+                
                 this.SuffixArray = suffixArray;
                 this.BwtString = bwtString;
                 this.StringToMatch = stringToMatch;
                 this.ErrorAllowed = errorAllowed;
                 this.HandleGapError = handleGapError;
                 this.TimeElapsed = timeElapes;
+                this.Indexes = indexes.Select(i => saIndexToReferenceIndex(i)).OrderBy(i=>i).ToArray();
+            }
+
+            private int saIndexToReferenceIndex(int saIndex)
+            {
+                var currSaRow = this.SuffixArray.Rows[saIndex];
+                var rowString = String.Join("", currSaRow.ItemArray);
+                var index = (rowString.Length - 1) - rowString.IndexOf(BwtLogics.END_OF_FILE_CHAR); //-1 1 is because length is 1-seed
+                return index;
+                //var fromRef = new string(this._slogics.Reference.Skip(index).Take(seq.Length).ToArray());
             }
             /// <summary>
             /// Gets the summary message for the BWA algorithm results.
@@ -409,13 +421,15 @@ namespace BWT
                                            "\t'{1}' with {2} errors allowed ({3}){0} " +
                                            "The results:{0}" +
                                             "\tIndexes: {4}{0}{0}" +
-                                           "\tQuery took: {5}{0}" +
-                                           "\t({6} sec/char){0}",
+                                            "\tSA Indexes: {5}{0}{0}" +
+                                           "\tQuery took: {6}{0}" +
+                                           "\t({7} sec/char){0}",
                                            Environment.NewLine,
                                            this.StringToMatch,
                                            this.ErrorAllowed,
                                            (this.HandleGapError ? "With" : "NO") + " Gap handling",
                                            String.Join(",", this.Indexes),
+                                           String.Join(",", this.IndexesSa),
                                            this.TimeElapsed.ToString(),
                                            this.SecondsPerCharachtar);
 
