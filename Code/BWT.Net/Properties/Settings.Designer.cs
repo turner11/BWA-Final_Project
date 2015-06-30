@@ -118,5 +118,53 @@ namespace BWT.Properties {
                 this["MaxDegreeOfParallelism"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool handleGaps {
+            get {
+                return ((bool)(this["handleGaps"]));
+            }
+            set {
+                this["handleGaps"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string bnechmark_length {
+            get {
+                return ((string)(this["bnechmark_length"]));
+            }
+            set {
+                this["bnechmark_length"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string benchmark_count {
+            get {
+                return ((string)(this["benchmark_count"]));
+            }
+            set {
+                this["benchmark_count"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string benchmark_sort {
+            get {
+                return ((string)(this["benchmark_sort"]));
+            }
+            set {
+                this["benchmark_sort"] = value;
+            }
+        }
     }
 }

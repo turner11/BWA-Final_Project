@@ -159,16 +159,16 @@ namespace BWT
 
         public TimeSpan RunMultipleAlignments(IList<string> reads, int errorsAllowed, BackgroundWorker bwReporter, AlignMode alignMode)
         {
-            bwReporter = bwReporter ?? new BackgroundWorker() { WorkerReportsProgress = true };
+            bwReporter = bwReporter ?? new BackgroundWorker() { WorkerReportsProgress = true , WorkerSupportsCancellation = true};
 
-            var allTimeSpans = new List<TimeSpan>();
+           
             int parrallelClosureCount = 0;
             Action<int> alignmentAction = (i) =>
             {
                 var text = reads[i];
                 //this.txbSearch.Text = text;
                 var results = this.PerformBwaAlignment(text, errorsAllowed);
-                allTimeSpans.Add(results.TimeElapsed);
+               
 
                 string indexesStr = String.Join(",", results.Indexes);
 
@@ -183,6 +183,11 @@ namespace BWT
             {
                 for (int i = 0; i < reads.Count; i++)
                 {
+                    if (bwReporter.CancellationPending)
+                    {
+                        break;
+                    }
+
                     var read = reads[i];
                     var results = this.PerformBwaAlignment(read,errorsAllowed);
                     string indexesStr = String.Join(",", results.Indexes);
@@ -198,8 +203,13 @@ namespace BWT
                 var po =
                 this.DegreeOfParallelism.HasValue ? new ParallelOptions { MaxDegreeOfParallelism = this.DegreeOfParallelism.Value }
                                                         :new ParallelOptions();
-                Parallel.For(0, reads.Count,po, (i) =>
+                Parallel.For(0, reads.Count, po, (i, loopState) =>
                 {
+                    if (bwReporter.CancellationPending)
+                    {
+                        loopState.Stop();
+                        //loopState.Break();
+                    }
                     alignmentAction(i);
                 });
                 //Parallel.ForEach(reads, alignmentAction);
@@ -218,13 +228,10 @@ namespace BWT
                 multiThreadAction();
             }
             sw.Stop();
-
-            var totalAlignmentTime = allTimeSpans.Aggregate((t1, t2) => t1 + t2);
+            
             var swTime = sw.Elapsed;
-            allTimeSpans.Clear();
-
-            bwReporter.ReportProgress(0, Environment.NewLine + String.Format("BWA Elapsed time: {0}", totalAlignmentTime.ToString()) + Environment.NewLine);
-
+            bwReporter.ReportProgress(0, Environment.NewLine + String.Format("BWA Elapsed time: {0}", swTime.ToString()) + Environment.NewLine);
+           
             if (alignMode.HasFlag(AlignMode.SingleThread) && alignMode.HasFlag(AlignMode.MultiThread))
             {
                 sw.Reset();
@@ -232,31 +239,31 @@ namespace BWT
                 singleThreadAction();
                 sw.Stop();
 
-                totalAlignmentTime = allTimeSpans.Aggregate((t1, t2) => t1 + t2);
-                swTime = sw.Elapsed;
-                allTimeSpans.Clear();
+                
+                var swTime_single = sw.Elapsed;
+            
 
                 bwReporter.ReportProgress(0,
-                    Environment.NewLine + String.Format("Elapsed time (single Thread): {0}{1}{1}", totalAlignmentTime.ToString(), Environment.NewLine) + Environment.NewLine
+                    Environment.NewLine + String.Format("Elapsed time (single Thread): {0}{1}{1}", swTime_single.ToString(), Environment.NewLine) + Environment.NewLine
                 );
                 sw.Reset();
                 sw.Start();
 
                 multiThreadAction();
-
-                totalAlignmentTime = allTimeSpans.Aggregate((t1, t2) => t1 + t2);
-                swTime = sw.Elapsed;
-                allTimeSpans.Clear();
-
+               
+                var swTime_multi = sw.Elapsed;
+              
                 sw.Stop();
                 bwReporter.ReportProgress(0,
                      Environment.NewLine +
-                    String.Format("Elapsed time (multi Thread): {0}", totalAlignmentTime.ToString())
+                    String.Format("Elapsed time (multi Thread): {0}", swTime_multi.ToString())
                     + Environment.NewLine
                     );
+
+                swTime = swTime_multi + swTime_single;
             }
 
-            return totalAlignmentTime;
+            return swTime;
         }
 
         public long GetNumberOfStringsTosearch(int seqLength, int alphbetSize, bool handleGap, int errorsAllowd)

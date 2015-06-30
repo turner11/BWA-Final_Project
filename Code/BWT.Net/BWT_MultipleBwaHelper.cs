@@ -52,9 +52,10 @@ namespace BWT
            this._multipleBwaWorker.RunWorkerCompleted += (s, arg) =>
                {
                    this.txbMultiBwaResults.AppendText(Environment.NewLine+ "Alignment Complete" + Environment.NewLine);
+                   this.btnCancelMulti.Visible = false;
                    
                };
-
+           this.btnCancelMulti.Visible = true;
            this._multipleBwaWorker.RunWorkerAsync();
            
 

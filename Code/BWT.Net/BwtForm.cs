@@ -83,8 +83,15 @@ namespace BWT
 
         private void InitMultiBwaWorker()
         {
+            if (this._multipleBwaWorker != null)
+            {
+                this._multipleBwaWorker.Dispose();
+            }
             this._multipleBwaWorker = new BackgroundWorker();
+            
+
             this._multipleBwaWorker.WorkerReportsProgress = true;
+            this._multipleBwaWorker.WorkerSupportsCancellation = true;
             this._multipleBwaWorker.ProgressChanged += (s, arg) =>
             {
                 Action updateProg = () =>
@@ -129,6 +136,12 @@ namespace BWT
             this.nupReadLength.Value = BWT.Properties.Settings.Default.readLength;
 
             this.nupMaxDegreeOfParallelism.Value = BWT.Properties.Settings.Default.MaxDegreeOfParallelism;
+
+            this.chbFindGaps.Checked = BWT.Properties.Settings.Default.handleGaps;
+
+            this.txbBenchmarkSeqCountVary.Text = BWT.Properties.Settings.Default.benchmark_count;
+            this.txbBenchmarkLengthVaryVariables.Text = BWT.Properties.Settings.Default.bnechmark_length;
+            this.txbBenchmarkSorts.Text = BWT.Properties.Settings.Default.benchmark_sort;  
         }
 
         /// <summary>
@@ -144,6 +157,12 @@ namespace BWT
             BWT.Properties.Settings.Default.searchString = this.txbSearch.Text;
             BWT.Properties.Settings.Default.errorsAllowed = (int)this.nupErrorsAllowed.Value;
             BWT.Properties.Settings.Default.MaxDegreeOfParallelism = (int)this.nupMaxDegreeOfParallelism.Value;
+            BWT.Properties.Settings.Default.handleGaps = (bool)this.chbFindGaps.Checked;
+
+            BWT.Properties.Settings.Default.benchmark_count = this.txbBenchmarkSeqCountVary.Text;
+            BWT.Properties.Settings.Default.bnechmark_length = this.txbBenchmarkLengthVaryVariables.Text;
+            BWT.Properties.Settings.Default.benchmark_sort = this.txbBenchmarkSorts.Text;
+
 
 
             BWT.Properties.Settings.Default.Save();
@@ -410,6 +429,7 @@ namespace BWT
         private async void chbFindGaps_CheckedChanged(object sender, EventArgs e)
         {
             this._seqLogics.FindGapgs = this.chbFindGaps.Checked;
+            this.SaveSettings();
             await this.SetNumberOfStrignsToSearch();
         }
 
@@ -688,7 +708,7 @@ namespace BWT
             for (int currLength = parsedParams.min; currLength <= parsedParams.max; currLength += parsedParams.interval)
             {
 
-                var currReads = this._seqLogics.GetRandomReads(seqCount, currLength, parsedParams.errorPercentage);
+                var currReads = this._seqLogics.GetRandomReads(seqCount, currLength, (int)this.nupErrorPercentage.Value);
                 reads.Add(currReads);
             }
 
@@ -711,7 +731,7 @@ namespace BWT
                 paramCollection.max = int.Parse(range[1]);
                 paramCollection.interval = int.Parse(args[1]);
                 paramCollection.freeParam = int.Parse(args[2]);
-                paramCollection.errorPercentage = int.Parse(args[3]);
+              
 
                 var legths = new List<int>();
                 var benchmarks = new List<double>();
@@ -719,10 +739,8 @@ namespace BWT
             }
             catch (Exception ex)
             {
-
-
+                MessageBox.Show("Failed to parse test input values.");
                 paramCollection = null;
-
             }
             return paramCollection;
         }
@@ -733,7 +751,7 @@ namespace BWT
             public int max = -1;
             public int interval = -1;
             public int freeParam = -1;
-            public int errorPercentage = -1;
+           
         }
 
         private async void btnBenchmarkVariantSeqCount_Click(object sender, EventArgs e)
@@ -746,7 +764,7 @@ namespace BWT
             for (int currCount = parsedParams.min; currCount <= parsedParams.max; currCount += parsedParams.interval)
             {
 
-                var currReads = this._seqLogics.GetRandomReads(currCount, seqLength, parsedParams.errorPercentage);
+                var currReads = this._seqLogics.GetRandomReads(currCount, seqLength,(int)this.nupErrorPercentage.Value);
                 reads.Add(currReads);
             }
 
@@ -765,7 +783,7 @@ namespace BWT
             for (int currCount = parsedParams.min; currCount <= parsedParams.max; currCount += parsedParams.interval)
             {
 
-                var currReads = this._seqLogics.GetRandomReads(currCount, seqLength, parsedParams.errorPercentage);
+                var currReads = this._seqLogics.GetRandomReads(currCount, seqLength, (int)this.nupErrorPercentage.Value);
                 reads.Add(currReads);
             }
 
@@ -782,7 +800,7 @@ namespace BWT
 
         private async Task RunBenchmarkTest(List<List<string>> readsCollection1, string legend1, List<List<string>> readsCollection2, string legend2, SequenceLogics.AlignMode testMode1, SequenceLogics.AlignMode testMode2, Func<List<string>, double> readsToxAxisFunc, string title)
         {
-
+            this.SaveSettings();
             var chartForm = new ChartForm();
 
             chartForm.Title = title;
@@ -821,6 +839,7 @@ namespace BWT
                         sw = Stopwatch.StartNew();
                         elapsedMulti = this._seqLogics.RunMultipleAlignments(test1reads, (int)this.nupErrorsAllowed.Value, bw, testMode1);
                         var test1 = sw.Elapsed;
+                        
                         sw.Restart();
                         elapsedSingle = this._seqLogics.RunMultipleAlignments(test2reads, (int)this.nupErrorsAllowed.Value, bw, testMode2);
                         var test2 = sw.Elapsed;
@@ -847,6 +866,14 @@ namespace BWT
 
 
 
+        }
+
+        private void btnCancelMulti_Click(object sender, EventArgs e)
+        {
+            if (this._multipleBwaWorker != null)
+            {
+                this._multipleBwaWorker.CancelAsync();
+            }
         }
 
         

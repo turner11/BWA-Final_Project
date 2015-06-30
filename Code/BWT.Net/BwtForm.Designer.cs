@@ -107,6 +107,7 @@
             this.scMain = new System.Windows.Forms.SplitContainer();
             this.pbTransform = new System.Windows.Forms.ProgressBar();
             this._tt = new System.Windows.Forms.ToolTip(this.components);
+            this.btnCancelMulti = new System.Windows.Forms.Button();
             this.bchReverse = new BWT.BwtBenchmarkingPanel();
             this.bchBwt = new BWT.BwtBenchmarkingPanel();
             this.tcMain.SuspendLayout();
@@ -291,6 +292,7 @@
             this.tplBwaMulti.Controls.Add(this.lblMaxDegreeOfParallelism, 0, 4);
             this.tplBwaMulti.Controls.Add(this.nupMaxDegreeOfParallelism, 1, 4);
             this.tplBwaMulti.Controls.Add(this.chbUseGeneratedSequencies, 0, 0);
+            this.tplBwaMulti.Controls.Add(this.btnCancelMulti, 3, 5);
             this.tplBwaMulti.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tplBwaMulti.Location = new System.Drawing.Point(3, 3);
             this.tplBwaMulti.Name = "tplBwaMulti";
@@ -832,8 +834,8 @@
             this.txbBenchmarkLengthVaryVariables.Name = "txbBenchmarkLengthVaryVariables";
             this.txbBenchmarkLengthVaryVariables.Size = new System.Drawing.Size(528, 22);
             this.txbBenchmarkLengthVaryVariables.TabIndex = 2;
-            this.txbBenchmarkLengthVaryVariables.Text = "35-100, 5, 100, 2";
-            this._tt.SetToolTip(this.txbBenchmarkLengthVaryVariables, "minLength - maxLength, interval, seq count, Error Percentage");
+            this.txbBenchmarkLengthVaryVariables.Text = "35-100, 5, 100";
+            this._tt.SetToolTip(this.txbBenchmarkLengthVaryVariables, "minLength - maxLength, interval, seq count");
             // 
             // btnBenchmarkVariantSeqCount
             // 
@@ -863,8 +865,8 @@
             this.txbBenchmarkSeqCountVary.Name = "txbBenchmarkSeqCountVary";
             this.txbBenchmarkSeqCountVary.Size = new System.Drawing.Size(528, 22);
             this.txbBenchmarkSeqCountVary.TabIndex = 2;
-            this.txbBenchmarkSeqCountVary.Text = "100-1000,50,35,2";
-            this._tt.SetToolTip(this.txbBenchmarkSeqCountVary, "minCount - maxCount, interval, seq length, Error Percentage");
+            this.txbBenchmarkSeqCountVary.Text = "100-1000,50,35";
+            this._tt.SetToolTip(this.txbBenchmarkSeqCountVary, "minCount - maxCount, interval, seq length");
             // 
             // txbBenchmarkLog
             // 
@@ -904,7 +906,8 @@
             this.txbBenchmarkSorts.Name = "txbBenchmarkSorts";
             this.txbBenchmarkSorts.Size = new System.Drawing.Size(528, 22);
             this.txbBenchmarkSorts.TabIndex = 4;
-            this.txbBenchmarkSorts.Text = "100-1000,50,35,2";
+            this.txbBenchmarkSorts.Text = "100-1000,50,35";
+            this._tt.SetToolTip(this.txbBenchmarkSorts, "minCount - maxCount, interval, seq length");
             // 
             // tpBwt
             // 
@@ -1150,6 +1153,19 @@
             this.pbTransform.Size = new System.Drawing.Size(832, 26);
             this.pbTransform.TabIndex = 0;
             // 
+            // btnCancelMulti
+            // 
+            this.btnCancelMulti.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.btnCancelMulti.Location = new System.Drawing.Point(509, 142);
+            this.btnCancelMulti.MinimumSize = new System.Drawing.Size(68, 34);
+            this.btnCancelMulti.Name = "btnCancelMulti";
+            this.btnCancelMulti.Size = new System.Drawing.Size(110, 34);
+            this.btnCancelMulti.TabIndex = 18;
+            this.btnCancelMulti.Text = "Cancel";
+            this.btnCancelMulti.UseVisualStyleBackColor = true;
+            this.btnCancelMulti.Visible = false;
+            this.btnCancelMulti.Click += new System.EventHandler(this.btnCancelMulti_Click);
+            // 
             // bchReverse
             // 
             this.bchReverse.Location = new System.Drawing.Point(260, 500);
@@ -1306,6 +1322,7 @@
         private System.Windows.Forms.Button btnBenchmarkSorts;
         private System.Windows.Forms.Label lblBenchmarkSorts;
         private System.Windows.Forms.TextBox txbBenchmarkSorts;
+        private System.Windows.Forms.Button btnCancelMulti;
 
 
     }
