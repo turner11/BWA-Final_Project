@@ -16,12 +16,12 @@ namespace BWT
 {
     public partial class tplBwaReference : Form
     {
-        
+
         const int EXPANDED_REFERENCE_HEIGHT = 200;
         const int COMPACT_REFERENCE_HEIGHT = 75;
 
         TextWindow _frmSequencies;
-        ChartForm _chartForm;
+
         /// <summary>
         /// The logics for all BWT manners
         /// </summary>
@@ -35,10 +35,10 @@ namespace BWT
         public tplBwaReference()
         {
             this._logics = new BwtLogics();
-             
+
             InitializeComponent();
 
-            this.scBwa.SplitterDistance = COMPACT_REFERENCE_HEIGHT ;
+            this.scBwa.SplitterDistance = COMPACT_REFERENCE_HEIGHT;
 
             this._logics.SpeedOverReports = this.chbSpeedOverReports.Checked;
 
@@ -49,18 +49,18 @@ namespace BWT
             this.nupCountGeneratedStrings_Single.DoubleClick += nupCountGeneratedStrings_DoubleClick;
             this.nupCountGeneratedStrings_Multi.DoubleClick += nupCountGeneratedStrings_DoubleClick;
 
-           
-            
-            
-            this._seqLogics = new SequenceLogics();            
+
+
+
+            this._seqLogics = new SequenceLogics();
             this._seqLogics.PreAlignmnet += seqLogics_PreAlignmnet;
 
-            
-           
 
-//#if DEBUG
-            this.txbInput.Text ="^BANANA";
-//#endif
+
+
+            //#if DEBUG
+            this.txbInput.Text = "^BANANA";
+            //#endif
 
             this.RestoreValuesFromSettings();
             this._seqLogics.FindGapgs = this.chbFindGaps.Checked;
@@ -74,13 +74,13 @@ namespace BWT
             this.lnkBwaPaper.Links.Add(linkBwa);
 
 
-            this._frmSequencies = new TextWindow() ;
-            this._chartForm = new ChartForm();
+            this._frmSequencies = new TextWindow();
+
             this.InitMultiBwaWorker();
         }
 
-       
-        
+
+
         private void InitMultiBwaWorker()
         {
             this._multipleBwaWorker = new BackgroundWorker();
@@ -90,12 +90,12 @@ namespace BWT
                 Action updateProg = () =>
                     {
                         this.txbMultiBwaResults.AppendText(arg.UserState.ToString() + Environment.NewLine);
-                        this.pbTransform.Value = Math.Min(Math.Max(0, arg.ProgressPercentage),100);
+                        this.pbTransform.Value = Math.Min(Math.Max(0, arg.ProgressPercentage), 100);
                     };
 
                 if (this.InvokeRequired)
                 {
-                    this.BeginInvoke(updateProg, new object[0]);                    
+                    this.BeginInvoke(updateProg, new object[0]);
                 }
                 else
                 {
@@ -110,8 +110,8 @@ namespace BWT
         private void RestoreValuesFromSettings()
         {
             string settingsReference = BWT.Properties.Settings.Default.referecne;
-           
-          
+
+
             if (String.IsNullOrWhiteSpace(settingsReference))
             {
                 BWT.Properties.Settings.Default.referecne = DEFAULT_REFERENCE;
@@ -144,7 +144,7 @@ namespace BWT
             BWT.Properties.Settings.Default.searchString = this.txbSearch.Text;
             BWT.Properties.Settings.Default.errorsAllowed = (int)this.nupErrorsAllowed.Value;
             BWT.Properties.Settings.Default.MaxDegreeOfParallelism = (int)this.nupMaxDegreeOfParallelism.Value;
-            
+
 
             BWT.Properties.Settings.Default.Save();
         }
@@ -175,7 +175,7 @@ namespace BWT
 
                     thrownException = ex;
                 }
-                
+
             };
             bw.ProgressChanged += (bwSender, bwArgs) =>
             {
@@ -183,9 +183,9 @@ namespace BWT
             };
             bw.RunWorkerCompleted += (bwSender, bwArgs) =>
             {
-                
+
                 bw.Dispose();
-                
+
                 this.bchBwt.SetValues(input.Length, sw.Elapsed);
                 this.bchBwt.Visible = true;
 
@@ -202,7 +202,7 @@ namespace BWT
                     string caption = "An error occurred during calculation of BWT transform";
                     this.ShowExceptionMessageBox(thrownException, caption);
                 }
-                
+
             };
             bw.RunWorkerAsync();
         }
@@ -237,7 +237,7 @@ namespace BWT
 
                     thrownException = ex;
                 }
-                
+
             };
             bw.ProgressChanged += (bwSender, bwArgs) =>
             {
@@ -259,7 +259,7 @@ namespace BWT
                     string caption = "An error occurred during calculation of reverse transform";
                     this.ShowExceptionMessageBox(thrownException, caption);
                 }
-                
+
             };
             bw.RunWorkerAsync();
         }
@@ -270,11 +270,11 @@ namespace BWT
         /// <param name="bwArgs">The <see cref="ProgressChangedEventArgs"/> instance containing the event data.</param>
         private void AssignProgressToGUI(ProgressChangedEventArgs bwArgs)
         {
-            
+
             int percentage = Math.Max(Math.Min(bwArgs.ProgressPercentage, 100), 0);
             this.pbTransform.Value = percentage;
             this.pbTransform.Visible = percentage != 100;
-            
+
             string progressState = bwArgs.UserState as string;
 
             bool showProgressText = !String.IsNullOrWhiteSpace(progressState)
@@ -334,7 +334,7 @@ namespace BWT
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void btnExecute_Click(object sender, EventArgs e)
         {
-            
+
             string input = this.txbInput.Text;
             this.PerformBwt(input);
 
@@ -426,17 +426,17 @@ namespace BWT
                 await Task.Run(() =>
                     {
                         sa = this._seqLogics.iSearch.GetIndexedSuffixArray();
-                        
+
                     });
 
                 var txtWindow = new TextWindow();
                 //txtWindow.txb.WordWrap = false;// for performance
-               txtWindow.Show(this);
-               txtWindow.TextContent = "Loading...";
-               txtWindow.Refresh();
-               txtWindow.TextContent = sa;
+                txtWindow.Show(this);
+                txtWindow.TextContent = "Loading...";
+                txtWindow.Refresh();
+                txtWindow.TextContent = sa;
 
-               
+
 
             }
         }
@@ -639,7 +639,7 @@ namespace BWT
         private void nupMaxDegreeOfParallelism_ValueChanged(object sender, EventArgs e)
         {
             var val = (int)this.nupMaxDegreeOfParallelism.Value;
-            this._seqLogics.DegreeOfParallelism = val > 1? (int?)val :null;
+            this._seqLogics.DegreeOfParallelism = val > 1 ? (int?)val : null;
         }
 
         private void btnGenerateSequencies_Click(object sender, EventArgs e)
@@ -678,108 +678,177 @@ namespace BWT
         }
         #endregion
 
-        private void btnlblBenchmarkVariantLength_Click(object sender, EventArgs e)
+        private async void btnlblBenchmarkVariantLength_Click(object sender, EventArgs e)
         {
-            var args = this.txbBenchmarkLengthVaryVariables.Text.Split(new char[]{','}, StringSplitOptions.RemoveEmptyEntries);
+            var txt = this.txbBenchmarkLengthVaryVariables.Text;
+            var parsedParams = this.ParseBenchmarkArguments(txt);
+            var seqCount = parsedParams.freeParam;
 
+            var reads = new List<List<string>>();
+            for (int currLength = parsedParams.min; currLength <= parsedParams.max; currLength += parsedParams.interval)
+            {
+
+                var currReads = this._seqLogics.GetRandomReads(seqCount, currLength, parsedParams.errorPercentage);
+                reads.Add(currReads);
+            }
+
+            string title = "Time over Seq length";
+            Func<List<string>, double> xAxisFunc = (readsCollection) => readsCollection.First().Length;
+            await RunBenchmarkTest(reads, xAxisFunc, title);
+
+
+        }
+
+        private ParsedBenchmarkParameters ParseBenchmarkArguments(string txt)
+        {
+            var args = txt.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+
+            var paramCollection = new ParsedBenchmarkParameters();
             try
             {
                 var range = args[0].Split(new char[] { '-' });
-                int lengthMin = int.Parse(range[0]);
-                int lengthMax = int.Parse(range[1]);
-                int interval = int.Parse(args[1]);
-                int seqCount = int.Parse(args[2]);
-                int errorPercentage = int.Parse(args[3]);
+                paramCollection.min = int.Parse(range[0]);
+                paramCollection.max = int.Parse(range[1]);
+                paramCollection.interval = int.Parse(args[1]);
+                paramCollection.freeParam = int.Parse(args[2]);
+                paramCollection.errorPercentage = int.Parse(args[3]);
 
                 var legths = new List<int>();
                 var benchmarks = new List<double>();
 
-
-
-                this._chartForm.Clear();                
-                var series_multi = this._chartForm.AddSeries("Time over Seq length (parallel)",Color.Green);
-                var series_signle = this._chartForm.AddSeries("Time over Seq length (sequential)", Color.Red);
-                var series_ration = this._chartForm.AddSeries("Time over Seq length (sequential / parallel)", Color.Blue);
-
-                series_multi.IsValueShownAsLabel = true;
-                series_signle.IsValueShownAsLabel = true;
-                series_ration.IsValueShownAsLabel = true;
-
-                this._chartForm.Show();
-                
-                var restEvent = new AutoResetEvent(true);
-
-
-                var loops = (lengthMax - lengthMin) / interval;
-                for (int i = 0; i <= loops; i++)
-                {
-                    restEvent.Reset();
-                    var currLength = lengthMin + i * interval;
-                    var bw = new BackgroundWorker() { WorkerReportsProgress = true };
-                    Stopwatch sw = null;
-                    TimeSpan elapsedMulti = TimeSpan.Zero;
-                    TimeSpan elapsedSingle = TimeSpan.Zero;
-                    var reads = this._seqLogics.GetRandomReads(seqCount, currLength, errorPercentage);
-                    bw.DoWork += (s, arg) =>
-                        {
-                            
-                            sw = Stopwatch.StartNew();
-                            this._seqLogics.RunMultipleAlignments(reads, (int)this.nupErrorsAllowed.Value, bw, SequenceLogics.AlignMode.MultiThread);
-                            elapsedMulti = sw.Elapsed;
-                            sw.Restart();
-                            this._seqLogics.RunMultipleAlignments(reads, (int)this.nupErrorsAllowed.Value, bw, SequenceLogics.AlignMode.SingleThread);
-                            elapsedSingle = sw.Elapsed;
-                            sw.Stop();
-                        };
-                    bw.ProgressChanged += (s, arg) =>
-                        {                            
-                            this.pbTransform.Value = Math.Min(Math.Max(0, arg.ProgressPercentage), 100);
-                        };
-                    bw.RunWorkerCompleted += (s, arg) =>
-                        {
-                            bw.Dispose();
-
-                            series_multi.Points.AddXY(currLength, elapsedMulti.TotalSeconds);
-                            series_signle.Points.AddXY(currLength, elapsedSingle.TotalSeconds);
-                            series_ration.Points.AddXY(currLength, elapsedSingle.TotalSeconds / elapsedMulti.TotalSeconds);
-                            this._chartForm.Refresh();
-                            this.txbBenchmarkLog.Text = String.Format("Aligned {0} length sequences ({1} seconds)",currLength,sw.Elapsed.TotalSeconds);
-                            restEvent.Set();
-
-                        };
-
-                    bw.RunWorkerAsync();
-                   
-                }
-              
-                
             }
             catch (Exception ex)
             {
 
-                MessageBox.Show("Failed to parse test arguments. View tooltip for more details.");
-                return;
-                
+
+                paramCollection = null;
+
             }
-            
+            return paramCollection;
+        }
+
+        class ParsedBenchmarkParameters
+        {
+            public int min = -1;
+            public int max = -1;
+            public int interval = -1;
+            public int freeParam = -1;
+            public int errorPercentage = -1;
+        }
+
+        private async void btnlblBenchmarkVariantSeqCount_Click(object sender, EventArgs e)
+        {
+            var txt = this.txbBenchmarkSeqCountVary.Text;
+            var parsedParams = this.ParseBenchmarkArguments(txt);
+            var seqLength = parsedParams.freeParam;
+
+            var reads = new List<List<string>>();
+            for (int currCount = parsedParams.min; currCount <= parsedParams.max; currCount += parsedParams.interval)
+            {
+
+                var currReads = this._seqLogics.GetRandomReads(currCount, seqLength, parsedParams.errorPercentage);
+                reads.Add(currReads);
+            }
+
+            string title = "Time over Seq Count";
+            Func<List<string>, double> xAxisFunc = (readsCollection) => readsCollection.Count;
+            await RunBenchmarkTest(reads, xAxisFunc, title);
+        }
+
+        private async Task RunBenchmarkTest(List<List<string>> readsCollection, Func<List<string>, double> readsToxAxisFunc, string title)
+        {
+
+            var chartForm = new ChartForm();
+
+            chartForm.Title = title;
+            var series_signle = chartForm.AddSeries("Sequential", Color.Red);
+            var series_multi = chartForm.AddSeries("Parallel", Color.Green);
+            var series_ration = chartForm.AddSeries("Sequential / Parallel", Color.Blue);
+
+            series_multi.IsValueShownAsLabel = true;
+            series_signle.IsValueShownAsLabel = true;
+            series_ration.IsValueShownAsLabel = true;
+
+            chartForm.Show();
+
+            var restEvent = new AutoResetEvent(true);
+
+
+
+
+            for (int i = 0; i < readsCollection.Count; i++)
+            {
+                restEvent.WaitOne();
+                restEvent.Reset();
+
+                var bw = new BackgroundWorker() { WorkerReportsProgress = true };
+                Stopwatch sw = null;
+                TimeSpan elapsedMulti = TimeSpan.Zero;
+                TimeSpan elapsedSingle = TimeSpan.Zero;
+                var reads = readsCollection[i];
+                bw.DoWork += (s, arg) =>
+                {
+
+                    sw = Stopwatch.StartNew();
+                    this._seqLogics.RunMultipleAlignments(reads, (int)this.nupErrorsAllowed.Value, bw, SequenceLogics.AlignMode.MultiThread);
+                    elapsedMulti = sw.Elapsed;
+                    sw.Restart();
+                    this._seqLogics.RunMultipleAlignments(reads, (int)this.nupErrorsAllowed.Value, bw, SequenceLogics.AlignMode.SingleThread);
+                    elapsedSingle = sw.Elapsed;
+                    sw.Stop();
+
+                    var currXValue = readsToxAxisFunc(reads);
+                    chartForm.BeginInvoke(new Action(() =>
+                    {
+
+                        series_multi.Points.AddXY(currXValue, elapsedMulti.TotalSeconds);
+                        series_signle.Points.AddXY(currXValue, elapsedSingle.TotalSeconds);
+                        series_ration.Points.AddXY(currXValue, elapsedSingle.TotalSeconds / elapsedMulti.TotalSeconds);
+                        chartForm.Refresh();
+                    }), null);
+                    // this.txbBenchmarkLog.Text = String.Format("Aligned {0} length sequences ({1} seconds)", currLength, sw.Elapsed.TotalSeconds);
+
+
+                    restEvent.Set();
+                };
+                bw.ProgressChanged += (s, arg) =>
+                {
+                    Action ac = () => this.pbTransform.Value = Math.Min(Math.Max(0, arg.ProgressPercentage), 100);
+                    this.pbTransform.BeginInvoke(ac, null);
+                };
+                bw.RunWorkerCompleted += (s, arg) =>
+                {
+                    bw.Dispose();
+                };
+
+                bw.RunWorkerAsync();
+
+            }
+
+            chartForm.Title = title + "  - Completed." ;
+
+
+
 
         }
 
-       
 
-       
 
-  
-      
 
-        
 
-      
 
-      
 
-       
 
-      
+
+
+
+
+
+
+
+
+
+
+
     }
 }

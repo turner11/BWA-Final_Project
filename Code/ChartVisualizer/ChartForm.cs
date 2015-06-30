@@ -28,7 +28,18 @@ namespace ChartVisualizer
 
     public partial  class ChartForm : Form
     {
+
         System.Windows.Forms.DataVisualization.Charting.Chart Chart;
+
+        public string Title
+        {
+            get { return (this.Chart.Titles.FirstOrDefault() ?? new System.Windows.Forms.DataVisualization.Charting.Title("")).Text; }
+            set
+            {
+                this.Chart.Titles.Clear();
+                this.Chart.Titles.Add(new System.Windows.Forms.DataVisualization.Charting.Title(value));
+            }
+        }
 
         public ChartForm()
         {
@@ -100,9 +111,18 @@ namespace ChartVisualizer
 
         public void Clear()
         {
-            if (this.Chart.Series != null)
+            try
             {
-                this.Chart.Series.Clear();    
+                if (this.Chart.Series != null)
+                {
+                    this.Chart.Series.Clear();
+                }
+            }
+            catch (Exception)
+            {
+                
+              this.Chart = new Chart();
+
             }
             
         }

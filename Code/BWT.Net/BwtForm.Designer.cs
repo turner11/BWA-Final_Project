@@ -75,7 +75,18 @@
             this.btnClearSequencies = new System.Windows.Forms.Button();
             this.txbSequencies = new System.Windows.Forms.TextBox();
             this.btnSortSequencies = new System.Windows.Forms.Button();
+            this.tpBwaBenchmarking = new System.Windows.Forms.TabPage();
+            this.tplBenchmarking = new System.Windows.Forms.TableLayoutPanel();
+            this.btnlblBenchmarkVariantLength = new System.Windows.Forms.Button();
+            this.lblBenchmarkingVariantLrngth = new System.Windows.Forms.Label();
+            this.txbBenchmarkLengthVaryVariables = new System.Windows.Forms.TextBox();
+            this.btnlblBenchmarkVariantSeqCount = new System.Windows.Forms.Button();
+            this.lblBenchmarkingVariantSeqCount = new System.Windows.Forms.Label();
+            this.txbBenchmarkSeqCountVary = new System.Windows.Forms.TextBox();
+            this.txbBenchmarkLog = new System.Windows.Forms.TextBox();
             this.tpBwt = new System.Windows.Forms.TabPage();
+            this.bchReverse = new BWT.BwtBenchmarkingPanel();
+            this.bchBwt = new BWT.BwtBenchmarkingPanel();
             this.btnExecuteBwt = new System.Windows.Forms.Button();
             this.lblSeparator = new System.Windows.Forms.Label();
             this.lblReversedOutput = new System.Windows.Forms.Label();
@@ -95,17 +106,6 @@
             this.scMain = new System.Windows.Forms.SplitContainer();
             this.pbTransform = new System.Windows.Forms.ProgressBar();
             this._tt = new System.Windows.Forms.ToolTip(this.components);
-            this.tpBwaBenchmarking = new System.Windows.Forms.TabPage();
-            this.tplBenchmarking = new System.Windows.Forms.TableLayoutPanel();
-            this.btnlblBenchmarkVariantLength = new System.Windows.Forms.Button();
-            this.lblBenchmarkingVariantLrngth = new System.Windows.Forms.Label();
-            this.txbBenchmarkLengthVaryVariables = new System.Windows.Forms.TextBox();
-            this.btnlblBenchmarkVariantSeqCount = new System.Windows.Forms.Button();
-            this.lblBenchmarkingVariantSeqCount = new System.Windows.Forms.Label();
-            this.txbBenchmarkSeqCountVary = new System.Windows.Forms.TextBox();
-            this.bchReverse = new BWT.BwtBenchmarkingPanel();
-            this.bchBwt = new BWT.BwtBenchmarkingPanel();
-            this.txbBenchmarkLog = new System.Windows.Forms.TextBox();
             this.tcMain.SuspendLayout();
             this.tpBwa.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.scBwa)).BeginInit();
@@ -127,6 +127,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.nupCountGeneratedStrings_Single)).BeginInit();
             this.tpSequencies.SuspendLayout();
             this.tplSequencies.SuspendLayout();
+            this.tpBwaBenchmarking.SuspendLayout();
+            this.tplBenchmarking.SuspendLayout();
             this.tpBwt.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbLed)).BeginInit();
             this.tpIntermediates.SuspendLayout();
@@ -135,8 +137,6 @@
             this.scMain.Panel1.SuspendLayout();
             this.scMain.Panel2.SuspendLayout();
             this.scMain.SuspendLayout();
-            this.tpBwaBenchmarking.SuspendLayout();
-            this.tplBenchmarking.SuspendLayout();
             this.SuspendLayout();
             // 
             // tcMain
@@ -763,6 +763,112 @@
             this.btnSortSequencies.UseVisualStyleBackColor = true;
             this.btnSortSequencies.Click += new System.EventHandler(this.btnSortSequencies_Click);
             // 
+            // tpBwaBenchmarking
+            // 
+            this.tpBwaBenchmarking.Controls.Add(this.tplBenchmarking);
+            this.tpBwaBenchmarking.Location = new System.Drawing.Point(4, 25);
+            this.tpBwaBenchmarking.Name = "tpBwaBenchmarking";
+            this.tpBwaBenchmarking.Size = new System.Drawing.Size(816, 358);
+            this.tpBwaBenchmarking.TabIndex = 3;
+            this.tpBwaBenchmarking.Text = "Benchmarking";
+            this.tpBwaBenchmarking.UseVisualStyleBackColor = true;
+            // 
+            // tplBenchmarking
+            // 
+            this.tplBenchmarking.ColumnCount = 3;
+            this.tplBenchmarking.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.tplBenchmarking.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.tplBenchmarking.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tplBenchmarking.Controls.Add(this.btnlblBenchmarkVariantLength, 0, 0);
+            this.tplBenchmarking.Controls.Add(this.lblBenchmarkingVariantLrngth, 1, 0);
+            this.tplBenchmarking.Controls.Add(this.txbBenchmarkLengthVaryVariables, 2, 0);
+            this.tplBenchmarking.Controls.Add(this.btnlblBenchmarkVariantSeqCount, 0, 1);
+            this.tplBenchmarking.Controls.Add(this.lblBenchmarkingVariantSeqCount, 1, 1);
+            this.tplBenchmarking.Controls.Add(this.txbBenchmarkSeqCountVary, 2, 1);
+            this.tplBenchmarking.Controls.Add(this.txbBenchmarkLog, 0, 3);
+            this.tplBenchmarking.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tplBenchmarking.Location = new System.Drawing.Point(0, 0);
+            this.tplBenchmarking.Name = "tplBenchmarking";
+            this.tplBenchmarking.RowCount = 4;
+            this.tplBenchmarking.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tplBenchmarking.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tplBenchmarking.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tplBenchmarking.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tplBenchmarking.Size = new System.Drawing.Size(816, 358);
+            this.tplBenchmarking.TabIndex = 0;
+            // 
+            // btnlblBenchmarkVariantLength
+            // 
+            this.btnlblBenchmarkVariantLength.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.btnlblBenchmarkVariantLength.Location = new System.Drawing.Point(3, 3);
+            this.btnlblBenchmarkVariantLength.Name = "btnlblBenchmarkVariantLength";
+            this.btnlblBenchmarkVariantLength.Size = new System.Drawing.Size(75, 23);
+            this.btnlblBenchmarkVariantLength.TabIndex = 0;
+            this.btnlblBenchmarkVariantLength.Text = "Run";
+            this.btnlblBenchmarkVariantLength.UseVisualStyleBackColor = true;
+            this.btnlblBenchmarkVariantLength.Click += new System.EventHandler(this.btnlblBenchmarkVariantLength_Click);
+            // 
+            // lblBenchmarkingVariantLrngth
+            // 
+            this.lblBenchmarkingVariantLrngth.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.lblBenchmarkingVariantLrngth.AutoSize = true;
+            this.lblBenchmarkingVariantLrngth.Location = new System.Drawing.Point(84, 6);
+            this.lblBenchmarkingVariantLrngth.Name = "lblBenchmarkingVariantLrngth";
+            this.lblBenchmarkingVariantLrngth.Size = new System.Drawing.Size(146, 17);
+            this.lblBenchmarkingVariantLrngth.TabIndex = 1;
+            this.lblBenchmarkingVariantLrngth.Text = "Sequence length vary";
+            // 
+            // txbBenchmarkLengthVaryVariables
+            // 
+            this.txbBenchmarkLengthVaryVariables.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txbBenchmarkLengthVaryVariables.Location = new System.Drawing.Point(236, 3);
+            this.txbBenchmarkLengthVaryVariables.Name = "txbBenchmarkLengthVaryVariables";
+            this.txbBenchmarkLengthVaryVariables.Size = new System.Drawing.Size(577, 22);
+            this.txbBenchmarkLengthVaryVariables.TabIndex = 2;
+            this.txbBenchmarkLengthVaryVariables.Text = "35-100, 5, 100, 2";
+            this._tt.SetToolTip(this.txbBenchmarkLengthVaryVariables, "minLength - maxLength, interval, seq count, Error Percentage");
+            // 
+            // btnlblBenchmarkVariantSeqCount
+            // 
+            this.btnlblBenchmarkVariantSeqCount.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.btnlblBenchmarkVariantSeqCount.Location = new System.Drawing.Point(3, 32);
+            this.btnlblBenchmarkVariantSeqCount.Name = "btnlblBenchmarkVariantSeqCount";
+            this.btnlblBenchmarkVariantSeqCount.Size = new System.Drawing.Size(75, 23);
+            this.btnlblBenchmarkVariantSeqCount.TabIndex = 0;
+            this.btnlblBenchmarkVariantSeqCount.Text = "Run";
+            this.btnlblBenchmarkVariantSeqCount.UseVisualStyleBackColor = true;
+            this.btnlblBenchmarkVariantSeqCount.Click += new System.EventHandler(this.btnlblBenchmarkVariantSeqCount_Click);
+            // 
+            // lblBenchmarkingVariantSeqCount
+            // 
+            this.lblBenchmarkingVariantSeqCount.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.lblBenchmarkingVariantSeqCount.AutoSize = true;
+            this.lblBenchmarkingVariantSeqCount.Location = new System.Drawing.Point(84, 35);
+            this.lblBenchmarkingVariantSeqCount.Name = "lblBenchmarkingVariantSeqCount";
+            this.lblBenchmarkingVariantSeqCount.Size = new System.Drawing.Size(142, 17);
+            this.lblBenchmarkingVariantSeqCount.TabIndex = 1;
+            this.lblBenchmarkingVariantSeqCount.Text = "Sequence count vary";
+            // 
+            // txbBenchmarkSeqCountVary
+            // 
+            this.txbBenchmarkSeqCountVary.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txbBenchmarkSeqCountVary.Location = new System.Drawing.Point(236, 32);
+            this.txbBenchmarkSeqCountVary.Name = "txbBenchmarkSeqCountVary";
+            this.txbBenchmarkSeqCountVary.Size = new System.Drawing.Size(577, 22);
+            this.txbBenchmarkSeqCountVary.TabIndex = 2;
+            this.txbBenchmarkSeqCountVary.Text = "100-1000,50,35,100";
+            this._tt.SetToolTip(this.txbBenchmarkSeqCountVary, "minCount - maxCount, interval, seq length, Error Percentage");
+            // 
+            // txbBenchmarkLog
+            // 
+            this.tplBenchmarking.SetColumnSpan(this.txbBenchmarkLog, 3);
+            this.txbBenchmarkLog.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txbBenchmarkLog.Location = new System.Drawing.Point(3, 341);
+            this.txbBenchmarkLog.Name = "txbBenchmarkLog";
+            this.txbBenchmarkLog.ReadOnly = true;
+            this.txbBenchmarkLog.Size = new System.Drawing.Size(810, 22);
+            this.txbBenchmarkLog.TabIndex = 3;
+            // 
             // tpBwt
             // 
             this.tpBwt.Controls.Add(this.bchReverse);
@@ -784,6 +890,26 @@
             this.tpBwt.TabIndex = 0;
             this.tpBwt.Text = "BWT";
             this.tpBwt.UseVisualStyleBackColor = true;
+            // 
+            // bchReverse
+            // 
+            this.bchReverse.Location = new System.Drawing.Point(260, 500);
+            this.bchReverse.Margin = new System.Windows.Forms.Padding(5);
+            this.bchReverse.Name = "bchReverse";
+            this.bchReverse.Precision = 8;
+            this.bchReverse.Size = new System.Drawing.Size(536, 38);
+            this.bchReverse.TabIndex = 4;
+            this.bchReverse.Visible = false;
+            // 
+            // bchBwt
+            // 
+            this.bchBwt.Location = new System.Drawing.Point(260, 292);
+            this.bchBwt.Margin = new System.Windows.Forms.Padding(5);
+            this.bchBwt.Name = "bchBwt";
+            this.bchBwt.Precision = 8;
+            this.bchBwt.Size = new System.Drawing.Size(536, 38);
+            this.bchBwt.TabIndex = 4;
+            this.bchBwt.Visible = false;
             // 
             // btnExecuteBwt
             // 
@@ -1007,129 +1133,6 @@
             this.pbTransform.Size = new System.Drawing.Size(832, 26);
             this.pbTransform.TabIndex = 0;
             // 
-            // tpBwaBenchmarking
-            // 
-            this.tpBwaBenchmarking.Controls.Add(this.tplBenchmarking);
-            this.tpBwaBenchmarking.Location = new System.Drawing.Point(4, 25);
-            this.tpBwaBenchmarking.Name = "tpBwaBenchmarking";
-            this.tpBwaBenchmarking.Size = new System.Drawing.Size(816, 358);
-            this.tpBwaBenchmarking.TabIndex = 3;
-            this.tpBwaBenchmarking.Text = "Benchmarking";
-            this.tpBwaBenchmarking.UseVisualStyleBackColor = true;
-            // 
-            // tplBenchmarking
-            // 
-            this.tplBenchmarking.ColumnCount = 3;
-            this.tplBenchmarking.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.tplBenchmarking.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.tplBenchmarking.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tplBenchmarking.Controls.Add(this.btnlblBenchmarkVariantLength, 0, 0);
-            this.tplBenchmarking.Controls.Add(this.lblBenchmarkingVariantLrngth, 1, 0);
-            this.tplBenchmarking.Controls.Add(this.txbBenchmarkLengthVaryVariables, 2, 0);
-            this.tplBenchmarking.Controls.Add(this.btnlblBenchmarkVariantSeqCount, 0, 1);
-            this.tplBenchmarking.Controls.Add(this.lblBenchmarkingVariantSeqCount, 1, 1);
-            this.tplBenchmarking.Controls.Add(this.txbBenchmarkSeqCountVary, 2, 1);
-            this.tplBenchmarking.Controls.Add(this.txbBenchmarkLog, 0, 3);
-            this.tplBenchmarking.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tplBenchmarking.Location = new System.Drawing.Point(0, 0);
-            this.tplBenchmarking.Name = "tplBenchmarking";
-            this.tplBenchmarking.RowCount = 4;
-            this.tplBenchmarking.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tplBenchmarking.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tplBenchmarking.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tplBenchmarking.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tplBenchmarking.Size = new System.Drawing.Size(816, 358);
-            this.tplBenchmarking.TabIndex = 0;
-            // 
-            // btnlblBenchmarkVariantLength
-            // 
-            this.btnlblBenchmarkVariantLength.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.btnlblBenchmarkVariantLength.Location = new System.Drawing.Point(3, 3);
-            this.btnlblBenchmarkVariantLength.Name = "btnlblBenchmarkVariantLength";
-            this.btnlblBenchmarkVariantLength.Size = new System.Drawing.Size(75, 23);
-            this.btnlblBenchmarkVariantLength.TabIndex = 0;
-            this.btnlblBenchmarkVariantLength.Text = "Run";
-            this.btnlblBenchmarkVariantLength.UseVisualStyleBackColor = true;
-            this.btnlblBenchmarkVariantLength.Click += new System.EventHandler(this.btnlblBenchmarkVariantLength_Click);
-            // 
-            // lblBenchmarkingVariantLrngth
-            // 
-            this.lblBenchmarkingVariantLrngth.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.lblBenchmarkingVariantLrngth.AutoSize = true;
-            this.lblBenchmarkingVariantLrngth.Location = new System.Drawing.Point(84, 6);
-            this.lblBenchmarkingVariantLrngth.Name = "lblBenchmarkingVariantLrngth";
-            this.lblBenchmarkingVariantLrngth.Size = new System.Drawing.Size(146, 17);
-            this.lblBenchmarkingVariantLrngth.TabIndex = 1;
-            this.lblBenchmarkingVariantLrngth.Text = "Sequence length vary";
-            // 
-            // txbBenchmarkLengthVaryVariables
-            // 
-            this.txbBenchmarkLengthVaryVariables.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txbBenchmarkLengthVaryVariables.Location = new System.Drawing.Point(236, 3);
-            this.txbBenchmarkLengthVaryVariables.Name = "txbBenchmarkLengthVaryVariables";
-            this.txbBenchmarkLengthVaryVariables.Size = new System.Drawing.Size(577, 22);
-            this.txbBenchmarkLengthVaryVariables.TabIndex = 2;
-            this.txbBenchmarkLengthVaryVariables.Text = "35-100, 5, 100, 2";
-            this._tt.SetToolTip(this.txbBenchmarkLengthVaryVariables, "minLength - maxLength, interval, seq count, Error Percentage");
-            // 
-            // btnlblBenchmarkVariantSeqCount
-            // 
-            this.btnlblBenchmarkVariantSeqCount.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.btnlblBenchmarkVariantSeqCount.Location = new System.Drawing.Point(3, 32);
-            this.btnlblBenchmarkVariantSeqCount.Name = "btnlblBenchmarkVariantSeqCount";
-            this.btnlblBenchmarkVariantSeqCount.Size = new System.Drawing.Size(75, 23);
-            this.btnlblBenchmarkVariantSeqCount.TabIndex = 0;
-            this.btnlblBenchmarkVariantSeqCount.Text = "Run";
-            this.btnlblBenchmarkVariantSeqCount.UseVisualStyleBackColor = true;
-            // 
-            // lblBenchmarkingVariantSeqCount
-            // 
-            this.lblBenchmarkingVariantSeqCount.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.lblBenchmarkingVariantSeqCount.AutoSize = true;
-            this.lblBenchmarkingVariantSeqCount.Location = new System.Drawing.Point(84, 35);
-            this.lblBenchmarkingVariantSeqCount.Name = "lblBenchmarkingVariantSeqCount";
-            this.lblBenchmarkingVariantSeqCount.Size = new System.Drawing.Size(142, 17);
-            this.lblBenchmarkingVariantSeqCount.TabIndex = 1;
-            this.lblBenchmarkingVariantSeqCount.Text = "Sequence count vary";
-            // 
-            // txbBenchmarkSeqCountVary
-            // 
-            this.txbBenchmarkSeqCountVary.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txbBenchmarkSeqCountVary.Location = new System.Drawing.Point(236, 32);
-            this.txbBenchmarkSeqCountVary.Name = "txbBenchmarkSeqCountVary";
-            this.txbBenchmarkSeqCountVary.Size = new System.Drawing.Size(577, 22);
-            this.txbBenchmarkSeqCountVary.TabIndex = 2;
-            // 
-            // bchReverse
-            // 
-            this.bchReverse.Location = new System.Drawing.Point(260, 500);
-            this.bchReverse.Margin = new System.Windows.Forms.Padding(5);
-            this.bchReverse.Name = "bchReverse";
-            this.bchReverse.Precision = 8;
-            this.bchReverse.Size = new System.Drawing.Size(536, 38);
-            this.bchReverse.TabIndex = 4;
-            this.bchReverse.Visible = false;
-            // 
-            // bchBwt
-            // 
-            this.bchBwt.Location = new System.Drawing.Point(260, 292);
-            this.bchBwt.Margin = new System.Windows.Forms.Padding(5);
-            this.bchBwt.Name = "bchBwt";
-            this.bchBwt.Precision = 8;
-            this.bchBwt.Size = new System.Drawing.Size(536, 38);
-            this.bchBwt.TabIndex = 4;
-            this.bchBwt.Visible = false;
-            // 
-            // txbBenchmarkLog
-            // 
-            this.tplBenchmarking.SetColumnSpan(this.txbBenchmarkLog, 3);
-            this.txbBenchmarkLog.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txbBenchmarkLog.Location = new System.Drawing.Point(3, 341);
-            this.txbBenchmarkLog.Name = "txbBenchmarkLog";
-            this.txbBenchmarkLog.ReadOnly = true;
-            this.txbBenchmarkLog.Size = new System.Drawing.Size(810, 22);
-            this.txbBenchmarkLog.TabIndex = 3;
-            // 
             // tplBwaReference
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -1167,6 +1170,9 @@
             this.tpSequencies.ResumeLayout(false);
             this.tplSequencies.ResumeLayout(false);
             this.tplSequencies.PerformLayout();
+            this.tpBwaBenchmarking.ResumeLayout(false);
+            this.tplBenchmarking.ResumeLayout(false);
+            this.tplBenchmarking.PerformLayout();
             this.tpBwt.ResumeLayout(false);
             this.tpBwt.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbLed)).EndInit();
@@ -1178,9 +1184,6 @@
             this.scMain.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.scMain)).EndInit();
             this.scMain.ResumeLayout(false);
-            this.tpBwaBenchmarking.ResumeLayout(false);
-            this.tplBenchmarking.ResumeLayout(false);
-            this.tplBenchmarking.PerformLayout();
             this.ResumeLayout(false);
 
         }
