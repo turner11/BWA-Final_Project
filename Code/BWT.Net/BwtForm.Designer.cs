@@ -77,16 +77,14 @@
             this.btnSortSequencies = new System.Windows.Forms.Button();
             this.tpBwaBenchmarking = new System.Windows.Forms.TabPage();
             this.tplBenchmarking = new System.Windows.Forms.TableLayoutPanel();
-            this.btnlblBenchmarkVariantLength = new System.Windows.Forms.Button();
+            this.btnBenchmarkVariantLength = new System.Windows.Forms.Button();
             this.lblBenchmarkingVariantLrngth = new System.Windows.Forms.Label();
             this.txbBenchmarkLengthVaryVariables = new System.Windows.Forms.TextBox();
-            this.btnlblBenchmarkVariantSeqCount = new System.Windows.Forms.Button();
+            this.btnBenchmarkVariantSeqCount = new System.Windows.Forms.Button();
             this.lblBenchmarkingVariantSeqCount = new System.Windows.Forms.Label();
             this.txbBenchmarkSeqCountVary = new System.Windows.Forms.TextBox();
             this.txbBenchmarkLog = new System.Windows.Forms.TextBox();
             this.tpBwt = new System.Windows.Forms.TabPage();
-            this.bchReverse = new BWT.BwtBenchmarkingPanel();
-            this.bchBwt = new BWT.BwtBenchmarkingPanel();
             this.btnExecuteBwt = new System.Windows.Forms.Button();
             this.lblSeparator = new System.Windows.Forms.Label();
             this.lblReversedOutput = new System.Windows.Forms.Label();
@@ -106,6 +104,11 @@
             this.scMain = new System.Windows.Forms.SplitContainer();
             this.pbTransform = new System.Windows.Forms.ProgressBar();
             this._tt = new System.Windows.Forms.ToolTip(this.components);
+            this.bchReverse = new BWT.BwtBenchmarkingPanel();
+            this.bchBwt = new BWT.BwtBenchmarkingPanel();
+            this.btnBenchmarkSorts = new System.Windows.Forms.Button();
+            this.lblBenchmarkSorts = new System.Windows.Forms.Label();
+            this.txbBenchmarkSorts = new System.Windows.Forms.TextBox();
             this.tcMain.SuspendLayout();
             this.tpBwa.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.scBwa)).BeginInit();
@@ -779,17 +782,21 @@
             this.tplBenchmarking.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.tplBenchmarking.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.tplBenchmarking.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tplBenchmarking.Controls.Add(this.btnlblBenchmarkVariantLength, 0, 0);
+            this.tplBenchmarking.Controls.Add(this.btnBenchmarkVariantLength, 0, 0);
             this.tplBenchmarking.Controls.Add(this.lblBenchmarkingVariantLrngth, 1, 0);
             this.tplBenchmarking.Controls.Add(this.txbBenchmarkLengthVaryVariables, 2, 0);
-            this.tplBenchmarking.Controls.Add(this.btnlblBenchmarkVariantSeqCount, 0, 1);
+            this.tplBenchmarking.Controls.Add(this.btnBenchmarkVariantSeqCount, 0, 1);
             this.tplBenchmarking.Controls.Add(this.lblBenchmarkingVariantSeqCount, 1, 1);
             this.tplBenchmarking.Controls.Add(this.txbBenchmarkSeqCountVary, 2, 1);
-            this.tplBenchmarking.Controls.Add(this.txbBenchmarkLog, 0, 3);
+            this.tplBenchmarking.Controls.Add(this.txbBenchmarkLog, 0, 4);
+            this.tplBenchmarking.Controls.Add(this.btnBenchmarkSorts, 0, 2);
+            this.tplBenchmarking.Controls.Add(this.lblBenchmarkSorts, 1, 2);
+            this.tplBenchmarking.Controls.Add(this.txbBenchmarkSorts, 2, 2);
             this.tplBenchmarking.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tplBenchmarking.Location = new System.Drawing.Point(0, 0);
             this.tplBenchmarking.Name = "tplBenchmarking";
-            this.tplBenchmarking.RowCount = 4;
+            this.tplBenchmarking.RowCount = 5;
+            this.tplBenchmarking.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tplBenchmarking.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tplBenchmarking.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tplBenchmarking.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
@@ -797,16 +804,16 @@
             this.tplBenchmarking.Size = new System.Drawing.Size(816, 358);
             this.tplBenchmarking.TabIndex = 0;
             // 
-            // btnlblBenchmarkVariantLength
+            // btnBenchmarkVariantLength
             // 
-            this.btnlblBenchmarkVariantLength.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.btnlblBenchmarkVariantLength.Location = new System.Drawing.Point(3, 3);
-            this.btnlblBenchmarkVariantLength.Name = "btnlblBenchmarkVariantLength";
-            this.btnlblBenchmarkVariantLength.Size = new System.Drawing.Size(75, 23);
-            this.btnlblBenchmarkVariantLength.TabIndex = 0;
-            this.btnlblBenchmarkVariantLength.Text = "Run";
-            this.btnlblBenchmarkVariantLength.UseVisualStyleBackColor = true;
-            this.btnlblBenchmarkVariantLength.Click += new System.EventHandler(this.btnlblBenchmarkVariantLength_Click);
+            this.btnBenchmarkVariantLength.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.btnBenchmarkVariantLength.Location = new System.Drawing.Point(3, 3);
+            this.btnBenchmarkVariantLength.Name = "btnBenchmarkVariantLength";
+            this.btnBenchmarkVariantLength.Size = new System.Drawing.Size(75, 23);
+            this.btnBenchmarkVariantLength.TabIndex = 0;
+            this.btnBenchmarkVariantLength.Text = "Run";
+            this.btnBenchmarkVariantLength.UseVisualStyleBackColor = true;
+            this.btnBenchmarkVariantLength.Click += new System.EventHandler(this.btnlblBenchmarkVariantLength_Click);
             // 
             // lblBenchmarkingVariantLrngth
             // 
@@ -821,23 +828,23 @@
             // txbBenchmarkLengthVaryVariables
             // 
             this.txbBenchmarkLengthVaryVariables.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txbBenchmarkLengthVaryVariables.Location = new System.Drawing.Point(236, 3);
+            this.txbBenchmarkLengthVaryVariables.Location = new System.Drawing.Point(285, 3);
             this.txbBenchmarkLengthVaryVariables.Name = "txbBenchmarkLengthVaryVariables";
-            this.txbBenchmarkLengthVaryVariables.Size = new System.Drawing.Size(577, 22);
+            this.txbBenchmarkLengthVaryVariables.Size = new System.Drawing.Size(528, 22);
             this.txbBenchmarkLengthVaryVariables.TabIndex = 2;
             this.txbBenchmarkLengthVaryVariables.Text = "35-100, 5, 100, 2";
             this._tt.SetToolTip(this.txbBenchmarkLengthVaryVariables, "minLength - maxLength, interval, seq count, Error Percentage");
             // 
-            // btnlblBenchmarkVariantSeqCount
+            // btnBenchmarkVariantSeqCount
             // 
-            this.btnlblBenchmarkVariantSeqCount.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.btnlblBenchmarkVariantSeqCount.Location = new System.Drawing.Point(3, 32);
-            this.btnlblBenchmarkVariantSeqCount.Name = "btnlblBenchmarkVariantSeqCount";
-            this.btnlblBenchmarkVariantSeqCount.Size = new System.Drawing.Size(75, 23);
-            this.btnlblBenchmarkVariantSeqCount.TabIndex = 0;
-            this.btnlblBenchmarkVariantSeqCount.Text = "Run";
-            this.btnlblBenchmarkVariantSeqCount.UseVisualStyleBackColor = true;
-            this.btnlblBenchmarkVariantSeqCount.Click += new System.EventHandler(this.btnlblBenchmarkVariantSeqCount_Click);
+            this.btnBenchmarkVariantSeqCount.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.btnBenchmarkVariantSeqCount.Location = new System.Drawing.Point(3, 32);
+            this.btnBenchmarkVariantSeqCount.Name = "btnBenchmarkVariantSeqCount";
+            this.btnBenchmarkVariantSeqCount.Size = new System.Drawing.Size(75, 23);
+            this.btnBenchmarkVariantSeqCount.TabIndex = 0;
+            this.btnBenchmarkVariantSeqCount.Text = "Run";
+            this.btnBenchmarkVariantSeqCount.UseVisualStyleBackColor = true;
+            this.btnBenchmarkVariantSeqCount.Click += new System.EventHandler(this.btnBenchmarkVariantSeqCount_Click);
             // 
             // lblBenchmarkingVariantSeqCount
             // 
@@ -852,11 +859,11 @@
             // txbBenchmarkSeqCountVary
             // 
             this.txbBenchmarkSeqCountVary.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txbBenchmarkSeqCountVary.Location = new System.Drawing.Point(236, 32);
+            this.txbBenchmarkSeqCountVary.Location = new System.Drawing.Point(285, 32);
             this.txbBenchmarkSeqCountVary.Name = "txbBenchmarkSeqCountVary";
-            this.txbBenchmarkSeqCountVary.Size = new System.Drawing.Size(577, 22);
+            this.txbBenchmarkSeqCountVary.Size = new System.Drawing.Size(528, 22);
             this.txbBenchmarkSeqCountVary.TabIndex = 2;
-            this.txbBenchmarkSeqCountVary.Text = "100-1000,50,35,100";
+            this.txbBenchmarkSeqCountVary.Text = "100-1000,50,35,2";
             this._tt.SetToolTip(this.txbBenchmarkSeqCountVary, "minCount - maxCount, interval, seq length, Error Percentage");
             // 
             // txbBenchmarkLog
@@ -890,26 +897,6 @@
             this.tpBwt.TabIndex = 0;
             this.tpBwt.Text = "BWT";
             this.tpBwt.UseVisualStyleBackColor = true;
-            // 
-            // bchReverse
-            // 
-            this.bchReverse.Location = new System.Drawing.Point(260, 500);
-            this.bchReverse.Margin = new System.Windows.Forms.Padding(5);
-            this.bchReverse.Name = "bchReverse";
-            this.bchReverse.Precision = 8;
-            this.bchReverse.Size = new System.Drawing.Size(536, 38);
-            this.bchReverse.TabIndex = 4;
-            this.bchReverse.Visible = false;
-            // 
-            // bchBwt
-            // 
-            this.bchBwt.Location = new System.Drawing.Point(260, 292);
-            this.bchBwt.Margin = new System.Windows.Forms.Padding(5);
-            this.bchBwt.Name = "bchBwt";
-            this.bchBwt.Precision = 8;
-            this.bchBwt.Size = new System.Drawing.Size(536, 38);
-            this.bchBwt.TabIndex = 4;
-            this.bchBwt.Visible = false;
             // 
             // btnExecuteBwt
             // 
@@ -1133,6 +1120,56 @@
             this.pbTransform.Size = new System.Drawing.Size(832, 26);
             this.pbTransform.TabIndex = 0;
             // 
+            // bchReverse
+            // 
+            this.bchReverse.Location = new System.Drawing.Point(260, 500);
+            this.bchReverse.Margin = new System.Windows.Forms.Padding(5);
+            this.bchReverse.Name = "bchReverse";
+            this.bchReverse.Precision = 8;
+            this.bchReverse.Size = new System.Drawing.Size(536, 38);
+            this.bchReverse.TabIndex = 4;
+            this.bchReverse.Visible = false;
+            // 
+            // bchBwt
+            // 
+            this.bchBwt.Location = new System.Drawing.Point(260, 292);
+            this.bchBwt.Margin = new System.Windows.Forms.Padding(5);
+            this.bchBwt.Name = "bchBwt";
+            this.bchBwt.Precision = 8;
+            this.bchBwt.Size = new System.Drawing.Size(536, 38);
+            this.bchBwt.TabIndex = 4;
+            this.bchBwt.Visible = false;
+            // 
+            // btnBenchmarkSorts
+            // 
+            this.btnBenchmarkSorts.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.btnBenchmarkSorts.Location = new System.Drawing.Point(3, 61);
+            this.btnBenchmarkSorts.Name = "btnBenchmarkSorts";
+            this.btnBenchmarkSorts.Size = new System.Drawing.Size(75, 23);
+            this.btnBenchmarkSorts.TabIndex = 0;
+            this.btnBenchmarkSorts.Text = "Run";
+            this.btnBenchmarkSorts.UseVisualStyleBackColor = true;
+            this.btnBenchmarkSorts.Click += new System.EventHandler(this.btnBenchmarkSorts_Click);
+            // 
+            // lblBenchmarkSorts
+            // 
+            this.lblBenchmarkSorts.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.lblBenchmarkSorts.AutoSize = true;
+            this.lblBenchmarkSorts.Location = new System.Drawing.Point(84, 64);
+            this.lblBenchmarkSorts.Name = "lblBenchmarkSorts";
+            this.lblBenchmarkSorts.Size = new System.Drawing.Size(195, 17);
+            this.lblBenchmarkSorts.TabIndex = 1;
+            this.lblBenchmarkSorts.Text = "Compare Sorted / Non Sorted";
+            // 
+            // txbBenchmarkSorts
+            // 
+            this.txbBenchmarkSorts.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txbBenchmarkSorts.Location = new System.Drawing.Point(285, 61);
+            this.txbBenchmarkSorts.Name = "txbBenchmarkSorts";
+            this.txbBenchmarkSorts.Size = new System.Drawing.Size(528, 22);
+            this.txbBenchmarkSorts.TabIndex = 4;
+            this.txbBenchmarkSorts.Text = "100-1000,50,35,2";
+            // 
             // tplBwaReference
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -1259,13 +1296,16 @@
         private System.Windows.Forms.CheckBox chbUseGeneratedSequencies;
         private System.Windows.Forms.TabPage tpBwaBenchmarking;
         private System.Windows.Forms.TableLayoutPanel tplBenchmarking;
-        private System.Windows.Forms.Button btnlblBenchmarkVariantLength;
+        private System.Windows.Forms.Button btnBenchmarkVariantLength;
         private System.Windows.Forms.Label lblBenchmarkingVariantLrngth;
         private System.Windows.Forms.TextBox txbBenchmarkLengthVaryVariables;
-        private System.Windows.Forms.Button btnlblBenchmarkVariantSeqCount;
+        private System.Windows.Forms.Button btnBenchmarkVariantSeqCount;
         private System.Windows.Forms.Label lblBenchmarkingVariantSeqCount;
         private System.Windows.Forms.TextBox txbBenchmarkSeqCountVary;
         private System.Windows.Forms.TextBox txbBenchmarkLog;
+        private System.Windows.Forms.Button btnBenchmarkSorts;
+        private System.Windows.Forms.Label lblBenchmarkSorts;
+        private System.Windows.Forms.TextBox txbBenchmarkSorts;
 
 
     }

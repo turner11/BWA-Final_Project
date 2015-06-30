@@ -736,7 +736,7 @@ namespace BWT
             public int errorPercentage = -1;
         }
 
-        private async void btnlblBenchmarkVariantSeqCount_Click(object sender, EventArgs e)
+        private async void btnBenchmarkVariantSeqCount_Click(object sender, EventArgs e)
         {
             var txt = this.txbBenchmarkSeqCountVary.Text;
             var parsedParams = this.ParseBenchmarkArguments(txt);
@@ -755,32 +755,61 @@ namespace BWT
             await RunBenchmarkTest(reads, xAxisFunc, title);
         }
 
-        private async Task RunBenchmarkTest(List<List<string>> readsCollection, Func<List<string>, double> readsToxAxisFunc, string title)
+        private async void btnBenchmarkSorts_Click(object sender, EventArgs e)
+        {
+            var txt = this.txbBenchmarkSorts.Text;
+            var parsedParams = this.ParseBenchmarkArguments(txt);
+            var seqLength = parsedParams.freeParam;
+
+            var reads = new List<List<string>>();
+            for (int currCount = parsedParams.min; currCount <= parsedParams.max; currCount += parsedParams.interval)
+            {
+
+                var currReads = this._seqLogics.GetRandomReads(currCount, seqLength, parsedParams.errorPercentage);
+                reads.Add(currReads);
+            }
+
+            var readsSorted = reads.Select(r => r.OrderBy(c => c).ToList()).ToList();
+            string title = "Time over Seq Count. sorted VS not sorted";
+            Func<List<string>, double> xAxisFunc = (readsCollection) => readsCollection.Count;
+            await RunBenchmarkTest(readsSorted, "Sorted", reads, "Not Sorted", SequenceLogics.AlignMode.MultiThread, SequenceLogics.AlignMode.MultiThread, xAxisFunc, title);
+        }
+
+        private Task RunBenchmarkTest(List<List<string>> reads, Func<List<string>, double> readsToxAxisFunc, string title)
+        {
+            return this.RunBenchmarkTest(reads,"Parallel", reads,"Sequential", SequenceLogics.AlignMode.MultiThread, SequenceLogics.AlignMode.SingleThread, readsToxAxisFunc, title);
+        }
+
+        private async Task RunBenchmarkTest(List<List<string>> readsCollection1, string legend1, List<List<string>> readsCollection2, string legend2, SequenceLogics.AlignMode testMode1, SequenceLogics.AlignMode testMode2, Func<List<string>, double> readsToxAxisFunc, string title)
         {
 
             var chartForm = new ChartForm();
 
             chartForm.Title = title;
-            var series_signle = chartForm.AddSeries("Sequential", Color.Red);
-            var series_multi = chartForm.AddSeries("Parallel", Color.Green);
-            var series_ration = chartForm.AddSeries("Sequential / Parallel", Color.Blue);
+            var series_multi = chartForm.AddSeries(legend1, Color.Green);
+            var series_signle = chartForm.AddSeries(legend2, Color.Red);
+            var series_ration = chartForm.AddSeries(legend1 + " / " +legend2, Color.Blue);
 
             series_multi.IsValueShownAsLabel = true;
             series_signle.IsValueShownAsLabel = true;
             series_ration.IsValueShownAsLabel = true;
 
+            chartForm.Text = String.Format("{0} ", legend1 + " / " + legend2);
             chartForm.Show();
+
+            var readSetsCount = Math.Min(readsCollection1.Count, readsCollection2.Count);
 
             await Task.Run(() =>
                 {
-                    for (int i = 0; i < readsCollection.Count; i++)
+                    for (int i = 0; i < readSetsCount; i++)
                     {
 
                         var bw = new BackgroundWorker() { WorkerReportsProgress = true };
                         Stopwatch sw = null;
                         TimeSpan elapsedMulti = TimeSpan.Zero;
                         TimeSpan elapsedSingle = TimeSpan.Zero;
-                        var reads = readsCollection[i];
+                        var test1reads = readsCollection1[i];
+                        var test2reads = readsCollection2[i];
 
                         bw.ProgressChanged += (s, arg) =>
                         {
@@ -790,14 +819,15 @@ namespace BWT
 
 
                         sw = Stopwatch.StartNew();
-                        this._seqLogics.RunMultipleAlignments(reads, (int)this.nupErrorsAllowed.Value, bw, SequenceLogics.AlignMode.MultiThread);
+                        this._seqLogics.RunMultipleAlignments(test1reads, (int)this.nupErrorsAllowed.Value, bw, testMode1);
                         elapsedMulti = sw.Elapsed;
                         sw.Restart();
-                        this._seqLogics.RunMultipleAlignments(reads, (int)this.nupErrorsAllowed.Value, bw, SequenceLogics.AlignMode.SingleThread);
+                        this._seqLogics.RunMultipleAlignments(test2reads, (int)this.nupErrorsAllowed.Value, bw, testMode2);
                         elapsedSingle = sw.Elapsed;
                         sw.Stop();
 
-                        var currXValue = readsToxAxisFunc(reads);
+
+                        var currXValue = readsToxAxisFunc(test1reads);
                         chartForm.BeginInvoke(new Action(() =>
                         {
 
@@ -818,6 +848,8 @@ namespace BWT
 
 
         }
+
+        
 
 
 
