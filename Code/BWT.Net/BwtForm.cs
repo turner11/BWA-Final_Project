@@ -771,61 +771,48 @@ namespace BWT
 
             chartForm.Show();
 
-            var restEvent = new AutoResetEvent(true);
-
-
-
-
-            for (int i = 0; i < readsCollection.Count; i++)
-            {
-                restEvent.WaitOne();
-                restEvent.Reset();
-
-                var bw = new BackgroundWorker() { WorkerReportsProgress = true };
-                Stopwatch sw = null;
-                TimeSpan elapsedMulti = TimeSpan.Zero;
-                TimeSpan elapsedSingle = TimeSpan.Zero;
-                var reads = readsCollection[i];
-                bw.DoWork += (s, arg) =>
+            await Task.Run(() =>
                 {
-
-                    sw = Stopwatch.StartNew();
-                    this._seqLogics.RunMultipleAlignments(reads, (int)this.nupErrorsAllowed.Value, bw, SequenceLogics.AlignMode.MultiThread);
-                    elapsedMulti = sw.Elapsed;
-                    sw.Restart();
-                    this._seqLogics.RunMultipleAlignments(reads, (int)this.nupErrorsAllowed.Value, bw, SequenceLogics.AlignMode.SingleThread);
-                    elapsedSingle = sw.Elapsed;
-                    sw.Stop();
-
-                    var currXValue = readsToxAxisFunc(reads);
-                    chartForm.BeginInvoke(new Action(() =>
+                    for (int i = 0; i < readsCollection.Count; i++)
                     {
 
-                        series_multi.Points.AddXY(currXValue, elapsedMulti.TotalSeconds);
-                        series_signle.Points.AddXY(currXValue, elapsedSingle.TotalSeconds);
-                        series_ration.Points.AddXY(currXValue, elapsedSingle.TotalSeconds / elapsedMulti.TotalSeconds);
-                        chartForm.Refresh();
-                    }), null);
-                    // this.txbBenchmarkLog.Text = String.Format("Aligned {0} length sequences ({1} seconds)", currLength, sw.Elapsed.TotalSeconds);
+                        var bw = new BackgroundWorker() { WorkerReportsProgress = true };
+                        Stopwatch sw = null;
+                        TimeSpan elapsedMulti = TimeSpan.Zero;
+                        TimeSpan elapsedSingle = TimeSpan.Zero;
+                        var reads = readsCollection[i];
+
+                        bw.ProgressChanged += (s, arg) =>
+                        {
+                            Action ac = () => this.pbTransform.Value = Math.Min(Math.Max(0, arg.ProgressPercentage), 100);
+                            this.pbTransform.BeginInvoke(ac, null);
+                        };
 
 
-                    restEvent.Set();
-                };
-                bw.ProgressChanged += (s, arg) =>
-                {
-                    Action ac = () => this.pbTransform.Value = Math.Min(Math.Max(0, arg.ProgressPercentage), 100);
-                    this.pbTransform.BeginInvoke(ac, null);
-                };
-                bw.RunWorkerCompleted += (s, arg) =>
-                {
-                    bw.Dispose();
-                };
+                        sw = Stopwatch.StartNew();
+                        this._seqLogics.RunMultipleAlignments(reads, (int)this.nupErrorsAllowed.Value, bw, SequenceLogics.AlignMode.MultiThread);
+                        elapsedMulti = sw.Elapsed;
+                        sw.Restart();
+                        this._seqLogics.RunMultipleAlignments(reads, (int)this.nupErrorsAllowed.Value, bw, SequenceLogics.AlignMode.SingleThread);
+                        elapsedSingle = sw.Elapsed;
+                        sw.Stop();
 
-                bw.RunWorkerAsync();
+                        var currXValue = readsToxAxisFunc(reads);
+                        chartForm.BeginInvoke(new Action(() =>
+                        {
 
-            }
+                            series_multi.Points.AddXY(currXValue, elapsedMulti.TotalSeconds);
+                            series_signle.Points.AddXY(currXValue, elapsedSingle.TotalSeconds);
+                            series_ration.Points.AddXY(currXValue, elapsedSingle.TotalSeconds / elapsedMulti.TotalSeconds);
+                            chartForm.Refresh();
+                        }), null);
+                        // this.txbBenchmarkLog.Text = String.Format("Aligned {0} length sequences ({1} seconds)", currLength, sw.Elapsed.TotalSeconds);
 
-            chartForm.Title = title + "  - Completed." ;
+
+                    }
+                });
+
+            chartForm.Title = title + "  - Completed.";
 
 
 
