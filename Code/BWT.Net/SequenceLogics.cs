@@ -157,11 +157,12 @@ namespace BWT
             this.RunMultipleAlignments(reads, errorsAllowed, bwReporter, alignMode,getShallowResults);
         }
 
-        public TimeSpan RunMultipleAlignments(IList<string> reads, int errorsAllowed, BackgroundWorker bwReporter, AlignMode alignMode, bool getShallowResults)
+        public MultiAlignResults RunMultipleAlignments(IList<string> reads, int errorsAllowed, BackgroundWorker bwReporter, AlignMode alignMode, bool getShallowResults)
         {
-            bwReporter = bwReporter ?? new BackgroundWorker() { WorkerReportsProgress = true , WorkerSupportsCancellation = true};
+           bwReporter = bwReporter ?? new BackgroundWorker() { WorkerReportsProgress = true , WorkerSupportsCancellation = true};
+           var allResults = new List<InexactSearch.Results>();
 
-           var initShallowValue = BWT.InexactSearch.Results.GenerateShallowResults;
+           var initShallowValue = InexactSearch.Results.GenerateShallowResults;
            BWT.InexactSearch.Results.GenerateShallowResults = getShallowResults;
             int parrallelClosureCount = 0;
             Action<int> alignmentAction = (i) =>
@@ -169,7 +170,7 @@ namespace BWT
                 var text = reads[i];
                 //this.txbSearch.Text = text;
                 var results = this.PerformBwaAlignment(text, errorsAllowed);
-               
+                allResults.Add(results);
 
                 string indexesStr = String.Join(",", results.Indexes);
 
@@ -265,7 +266,7 @@ namespace BWT
             }
 
             BWT.InexactSearch.Results.GenerateShallowResults = initShallowValue;
-            return swTime;
+            return new MultiAlignResults(swTime, allResults);
         }
 
         public long GetNumberOfStringsTosearch(int seqLength, int alphbetSize, bool handleGap, int errorsAllowd)
@@ -290,6 +291,17 @@ namespace BWT
             return results; 
         }
 
+        public class MultiAlignResults
+        {
+            public TimeSpan Duration { get; private set; }
+            public List<InexactSearch.Results> AllResults { get; private set; }
+
+            public MultiAlignResults(TimeSpan duration, List<InexactSearch.Results> allResults)
+            {
+                this.Duration = duration;
+                this.AllResults = allResults;
+            }
+        }
         [Flags]
         public enum AlignMode
         {

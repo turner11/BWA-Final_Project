@@ -849,13 +849,13 @@ namespace BWT
 
 
                        
-                        elapsedMulti = this._seqLogics.RunMultipleAlignments(test1reads, (int)this.nupErrorsAllowed.Value, this._bwBenchmark, testMode1,true);
-                        
+                        var multiResults = this._seqLogics.RunMultipleAlignments(test1reads, (int)this.nupErrorsAllowed.Value, this._bwBenchmark, testMode1,true);
+                        elapsedMulti = multiResults.Duration;
                        
                         
                      
-                        elapsedSingle = this._seqLogics.RunMultipleAlignments(test2reads, (int)this.nupErrorsAllowed.Value, this._bwBenchmark, testMode2,true);
-                        
+                        var singleResults = this._seqLogics.RunMultipleAlignments(test2reads, (int)this.nupErrorsAllowed.Value, this._bwBenchmark, testMode2,true);
+                        elapsedSingle = singleResults.Duration;
                         
 
                         chartForm.InvokeIfRequired(() =>
