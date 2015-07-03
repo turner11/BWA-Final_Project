@@ -115,7 +115,7 @@ namespace BWT
         /// <param name="lowerBound">The lower bound.</param>
         /// <param name="upperBound">The upper bound.</param>
         /// <returns>The indexes that the <paramref name="w_stringToMatch"/> is located at, bounded to the number of errors allowed</returns>
-        private IEnumerable<int> GetIndexRecursive(string w_stringToMatch, int i, int errorsAllowed, int lowerBound, int upperBound)
+        private unsafe IEnumerable<int> GetIndexRecursive(string w_stringToMatch, int i, int errorsAllowed, int lowerBound, int upperBound)
         {
             if (errorsAllowed < 0)
                 return new List<int>();
@@ -161,7 +161,7 @@ namespace BWT
                         var deepperRecursiveBoundaries =
                         this.GetIndexRecursive(w_stringToMatch, i - 1, errorsAllowed, temp_lowerBound, temp_upperBound);
                         I = I.Union(deepperRecursiveBoundaries);
-                        var a = String.Join(",", I.ToList());
+                        //var a = String.Join(",", I.ToList());
                     }
                     else
                     {
@@ -200,7 +200,7 @@ namespace BWT
         }
 
 
-        private int[] CalculateD2(string w)
+        private unsafe int[] CalculateD2(string w)
         {
             int[] d = new int[w.Length];
 
@@ -266,7 +266,7 @@ namespace BWT
             {
                 string str = this._bwtResults.BwtString;
                 var val =  O_Base(a, i, str);
-                if (_o_cache.Keys.Count < O_CACHE_SIZE && i > MIN_CACH_INDEX)
+                if (_o_cache.Keys.Count < O_CACHE_SIZE && i % 5 == 0 && i > MIN_CACH_INDEX)
                 {
                     return _o_cache[key] = val;
                 }
@@ -297,7 +297,7 @@ namespace BWT
             {
                 string str = this._bwtReverseResults.BwtString;
                 var val = O_Base(a, i, str);
-                if (_oT_cache.Keys.Count < O_CACHE_SIZE && i > MIN_CACH_INDEX)
+                if (_oT_cache.Keys.Count < O_CACHE_SIZE && i % 5 == 0 && i > MIN_CACH_INDEX)
                 {
                     return _oT_cache[key] = val;
                 }
@@ -307,7 +307,26 @@ namespace BWT
 #endif
         }
 
-        
+        /// <summary>
+        /// Gets the number of occurrences of a in specified string
+        /// </summary>
+        /// <param name="a">the char to find it's occurrences</param>
+        /// <param name="i">the index to look up to</param>
+        /// <param name="str">the str4ing to look in</param>
+        /// <returns>number of occurrences of a in specified string</returns>
+        private static unsafe int O_Base(char a, int i, string str)
+        {
+            int c = 0;
+            for (int idx = 0; idx <= i; idx++)
+            {
+                if (str[idx] == a)
+                {
+                    c++;
+                }
+            }
+
+            return c;
+        }
 
         /// <summary>
         /// Gets the number of occurrences of a in specified string
@@ -316,7 +335,8 @@ namespace BWT
         /// <param name="i">the index to look up to</param>
         /// <param name="str">the str4ing to look in</param>
         /// <returns>number of occurrences of a in specified string</returns>
-        private static int O_Base(char a, int i, string str)
+        [Obsolete]
+        private static int O_Base_OBS(char a, int i, string str)
         {
             int c = /*O(a,i)*/str.Take(i + 1).Count(x => x == a);
             return c;
