@@ -199,9 +199,9 @@ namespace BWT
             const int TARGET_FACTOR = 3;
             Assert.IsTrue(actualFactor >= TARGET_FACTOR, String.Format("Got a time factor of {0}, while expecting at list {1}", actualFactor.ToString("N2"), TARGET_FACTOR));
 
-
-
         }
+
+        
 
 
         [TestAttribute]
@@ -249,10 +249,10 @@ namespace BWT
         [TestCase(TestSuit.IndexOfSeqAtEnd, 2, 2, ErrorLocation.End, ErrorType.Swap, TestName = "Compare Multi / Single thread Results at End - with Errors at end")]
         [TestCase(TestSuit.IndexOfSeqAtEnd, 2, 3, ErrorLocation.End, ErrorType.Swap, TestName = "Compare Multi / Single thread Results at End -  (Miss Align) with Errors at end")]
         [TestCase(TestSuit.IndexOfSeqAtEnd, 2, 1, ErrorLocation.End, ErrorType.Gap, TestName = "Compare Multi / Single thread Results at End - gap errors at end ")]
-        public void CompareMultiThreadingDuration(int startIndex, int errorsAllowed, int errorsCountToImplant, ErrorLocation errorLocation, ErrorType errorType)
+        public void CompareMultiThreadingResults(int startIndex, int errorsAllowed, int errorsCountToImplant, ErrorLocation errorLocation, ErrorType errorType)
         {
 
-            this._slogics.FindGapgs = false; //for performance
+            this._slogics.FindGapgs = errorType == ErrorType.Gap; //for performance
             //arrange
             var read = GetRead(startIndex, SEQ_LENGTH, errorsCountToImplant, errorLocation, errorType);
 
@@ -277,6 +277,7 @@ namespace BWT
 
 
         }
+
         #region Helpers
 
         /// <summary>
