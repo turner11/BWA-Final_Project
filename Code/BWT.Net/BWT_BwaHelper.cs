@@ -65,9 +65,9 @@ namespace BWT
                     var handleGaps = this.chbFindGaps.Checked;
                     singleSearchCount = this._seqLogics.GetNumberOfStringsTosearch(this.txbSearch.Text.Length, alphBetSize, handleGaps,(int)this.nupErrorsAllowed.Value);
 
-                    var errorAllowed_multi = (int)Math.Round(this.nupErrorPercentage.Value / 100M * this.nupReadLength.Value);
+                    
                     multiSearchCount =
-                        this._seqLogics.GetNumberOfStringsTosearch((int)this.nupReadLength.Value, alphBetSize, handleGaps, errorAllowed_multi)
+                        this._seqLogics.GetNumberOfStringsTosearch((int)this.nupReadLength.Value, alphBetSize, handleGaps, (int)this.nupErrorsAllowed.Value)
                         * (long)this.nupNumberOfReads.Value;
 
                 });

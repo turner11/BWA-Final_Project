@@ -18,7 +18,7 @@ namespace BWT
     {
 
         const int EXPANDED_REFERENCE_HEIGHT = 200;
-        const int COMPACT_REFERENCE_HEIGHT = 75;
+        const int COMPACT_REFERENCE_HEIGHT = 100;
 
         TextWindow _frmSequencies;
 

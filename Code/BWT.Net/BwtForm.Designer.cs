@@ -88,6 +88,7 @@
             this.btnBenchmarkSorts = new System.Windows.Forms.Button();
             this.lblBenchmarkSorts = new System.Windows.Forms.Label();
             this.txbBenchmarkSorts = new System.Windows.Forms.TextBox();
+            this.btnCancelBenchmark = new System.Windows.Forms.Button();
             this.tpBwt = new System.Windows.Forms.TabPage();
             this.btnExecuteBwt = new System.Windows.Forms.Button();
             this.lblSeparator = new System.Windows.Forms.Label();
@@ -108,7 +109,6 @@
             this.scMain = new System.Windows.Forms.SplitContainer();
             this.pbTransform = new System.Windows.Forms.ProgressBar();
             this._tt = new System.Windows.Forms.ToolTip(this.components);
-            this.btnCancelBenchmark = new System.Windows.Forms.Button();
             this.bchReverse = new BWT.BwtBenchmarkingPanel();
             this.bchBwt = new BWT.BwtBenchmarkingPanel();
             this.tcMain.SuspendLayout();
@@ -188,17 +188,21 @@
             // 
             // tplReference
             // 
-            this.tplReference.ColumnCount = 1;
+            this.tplReference.ColumnCount = 2;
+            this.tplReference.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.tplReference.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tplReference.Controls.Add(this.lblReference, 0, 0);
             this.tplReference.Controls.Add(this.txbReference, 0, 1);
             this.tplReference.Controls.Add(this.chbFindGaps, 0, 2);
+            this.tplReference.Controls.Add(this.lblErrorsAllowed, 0, 3);
+            this.tplReference.Controls.Add(this.nupErrorsAllowed, 1, 3);
             this.tplReference.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tplReference.Location = new System.Drawing.Point(0, 0);
             this.tplReference.Name = "tplReference";
-            this.tplReference.RowCount = 3;
+            this.tplReference.RowCount = 4;
             this.tplReference.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tplReference.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tplReference.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tplReference.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tplReference.Size = new System.Drawing.Size(824, 75);
             this.tplReference.TabIndex = 11;
@@ -216,12 +220,13 @@
             // 
             // txbReference
             // 
+            this.tplReference.SetColumnSpan(this.txbReference, 2);
             this.txbReference.Dock = System.Windows.Forms.DockStyle.Fill;
             this.txbReference.Location = new System.Drawing.Point(3, 20);
             this.txbReference.Multiline = true;
             this.txbReference.Name = "txbReference";
             this.txbReference.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.txbReference.Size = new System.Drawing.Size(818, 25);
+            this.txbReference.Size = new System.Drawing.Size(818, 1);
             this.txbReference.TabIndex = 8;
             this.txbReference.Text = "google";
             this.txbReference.TextChanged += new System.EventHandler(this.txbReference_TextChanged);
@@ -235,7 +240,8 @@
             this.chbFindGaps.AutoSize = true;
             this.chbFindGaps.Checked = true;
             this.chbFindGaps.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chbFindGaps.Location = new System.Drawing.Point(3, 51);
+            this.tplReference.SetColumnSpan(this.chbFindGaps, 2);
+            this.chbFindGaps.Location = new System.Drawing.Point(3, 23);
             this.chbFindGaps.Name = "chbFindGaps";
             this.chbFindGaps.Size = new System.Drawing.Size(127, 21);
             this.chbFindGaps.TabIndex = 13;
@@ -577,10 +583,8 @@
             this.tlpMultipleBwa.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.tlpMultipleBwa.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tlpMultipleBwa.Controls.Add(this.lblSearch, 0, 0);
-            this.tlpMultipleBwa.Controls.Add(this.lblErrorsAllowed, 0, 1);
             this.tlpMultipleBwa.Controls.Add(this.txbBwaResults, 0, 3);
             this.tlpMultipleBwa.Controls.Add(this.txbSearch, 1, 0);
-            this.tlpMultipleBwa.Controls.Add(this.nupErrorsAllowed, 1, 1);
             this.tlpMultipleBwa.Controls.Add(this.lblStringsToSearchFor, 0, 2);
             this.tlpMultipleBwa.Controls.Add(this.nupCountGeneratedStrings_Single, 1, 2);
             this.tlpMultipleBwa.Controls.Add(this.btnInexactSearch, 2, 2);
@@ -610,7 +614,7 @@
             // 
             this.lblErrorsAllowed.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.lblErrorsAllowed.AutoSize = true;
-            this.lblErrorsAllowed.Location = new System.Drawing.Point(3, 33);
+            this.lblErrorsAllowed.Location = new System.Drawing.Point(3, 52);
             this.lblErrorsAllowed.Name = "lblErrorsAllowed";
             this.lblErrorsAllowed.Size = new System.Drawing.Size(167, 17);
             this.lblErrorsAllowed.TabIndex = 9;
@@ -620,12 +624,12 @@
             // 
             this.tlpMultipleBwa.SetColumnSpan(this.txbBwaResults, 3);
             this.txbBwaResults.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txbBwaResults.Location = new System.Drawing.Point(3, 92);
+            this.txbBwaResults.Location = new System.Drawing.Point(3, 64);
             this.txbBwaResults.Multiline = true;
             this.txbBwaResults.Name = "txbBwaResults";
             this.txbBwaResults.ReadOnly = true;
             this.txbBwaResults.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.txbBwaResults.Size = new System.Drawing.Size(804, 257);
+            this.txbBwaResults.Size = new System.Drawing.Size(804, 285);
             this.txbBwaResults.TabIndex = 12;
             this.txbBwaResults.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txbBwaResults_KeyDown);
             // 
@@ -646,9 +650,9 @@
             // 
             this.nupErrorsAllowed.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
-            this.nupErrorsAllowed.Location = new System.Drawing.Point(198, 31);
+            this.nupErrorsAllowed.Location = new System.Drawing.Point(176, 50);
             this.nupErrorsAllowed.Name = "nupErrorsAllowed";
-            this.nupErrorsAllowed.Size = new System.Drawing.Size(85, 22);
+            this.nupErrorsAllowed.Size = new System.Drawing.Size(79, 22);
             this.nupErrorsAllowed.TabIndex = 11;
             this.nupErrorsAllowed.Value = new decimal(new int[] {
             1,
@@ -661,7 +665,7 @@
             // 
             this.lblStringsToSearchFor.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.lblStringsToSearchFor.AutoSize = true;
-            this.lblStringsToSearchFor.Location = new System.Drawing.Point(3, 64);
+            this.lblStringsToSearchFor.Location = new System.Drawing.Point(3, 36);
             this.lblStringsToSearchFor.Name = "lblStringsToSearchFor";
             this.lblStringsToSearchFor.Size = new System.Drawing.Size(189, 17);
             this.lblStringsToSearchFor.TabIndex = 9;
@@ -671,7 +675,7 @@
             // 
             this.nupCountGeneratedStrings_Single.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
-            this.nupCountGeneratedStrings_Single.Location = new System.Drawing.Point(198, 59);
+            this.nupCountGeneratedStrings_Single.Location = new System.Drawing.Point(198, 31);
             this.nupCountGeneratedStrings_Single.Maximum = new decimal(new int[] {
             1569325055,
             23283064,
@@ -690,7 +694,7 @@
             // btnInexactSearch
             // 
             this.btnInexactSearch.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnInexactSearch.Location = new System.Drawing.Point(642, 60);
+            this.btnInexactSearch.Location = new System.Drawing.Point(642, 32);
             this.btnInexactSearch.Margin = new System.Windows.Forms.Padding(4);
             this.btnInexactSearch.Name = "btnInexactSearch";
             this.btnInexactSearch.Size = new System.Drawing.Size(164, 25);
@@ -924,6 +928,18 @@
             this.txbBenchmarkSorts.TabIndex = 4;
             this.txbBenchmarkSorts.Text = "100-1000,50,35";
             this._tt.SetToolTip(this.txbBenchmarkSorts, "minCount - maxCount, interval, seq length");
+            // 
+            // btnCancelBenchmark
+            // 
+            this.btnCancelBenchmark.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.btnCancelBenchmark.Location = new System.Drawing.Point(3, 90);
+            this.btnCancelBenchmark.Name = "btnCancelBenchmark";
+            this.btnCancelBenchmark.Size = new System.Drawing.Size(75, 23);
+            this.btnCancelBenchmark.TabIndex = 0;
+            this.btnCancelBenchmark.Text = "Cancel";
+            this.btnCancelBenchmark.UseVisualStyleBackColor = true;
+            this.btnCancelBenchmark.Visible = false;
+            this.btnCancelBenchmark.Click += new System.EventHandler(this.btnCancelBenchmark_Click);
             // 
             // tpBwt
             // 
@@ -1168,18 +1184,6 @@
             this.pbTransform.Name = "pbTransform";
             this.pbTransform.Size = new System.Drawing.Size(832, 26);
             this.pbTransform.TabIndex = 0;
-            // 
-            // btnCancelBenchmark
-            // 
-            this.btnCancelBenchmark.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.btnCancelBenchmark.Location = new System.Drawing.Point(3, 90);
-            this.btnCancelBenchmark.Name = "btnCancelBenchmark";
-            this.btnCancelBenchmark.Size = new System.Drawing.Size(75, 23);
-            this.btnCancelBenchmark.TabIndex = 0;
-            this.btnCancelBenchmark.Text = "Cancel";
-            this.btnCancelBenchmark.UseVisualStyleBackColor = true;
-            this.btnCancelBenchmark.Visible = false;
-            this.btnCancelBenchmark.Click += new System.EventHandler(this.btnCancelBenchmark_Click);
             // 
             // bchReverse
             // 
