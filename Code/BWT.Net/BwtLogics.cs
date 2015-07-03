@@ -80,7 +80,7 @@ namespace BWT
         /// <returns>
         /// The text after the reverse transform
         /// </returns>
-        public string ReverseBwt(string transformedInput, BackgroundWorker bw)
+        public unsafe string ReverseBwt(string transformedInput, BackgroundWorker bw)
         {
             BackgroundWorker worker = bw ?? new BackgroundWorker();
 
@@ -158,7 +158,7 @@ namespace BWT
         /// </summary>
         /// <param name="table">The table.</param>
         /// <returns></returns>
-        private string GetSortString(DataTable table)
+        private unsafe string GetSortString(DataTable table)
         {
             var sb = new StringBuilder();
             for (int i = 0; i < table.Columns.Count; i++)
@@ -179,7 +179,7 @@ namespace BWT
         /// </summary>
         /// <param name="input">The input.</param>
         /// <returns></returns>
-        private DataTable GetPopulatedBwtDataTable(string input)
+        private unsafe DataTable GetPopulatedBwtDataTable(string input)
         {
             DataTable dt = this.GetEmptyBwtDataTable(input.Length);
 
@@ -204,19 +204,19 @@ namespace BWT
         /// </summary>
         /// <param name="input">The input.</param>
         /// <returns></returns>
-        private IList<string> GetRotations(string input)
+        private unsafe IList<string> GetRotations(string input)
         {
-            var rotations = new List<string>();
+            var rotations = new string[input.Length];
             StringBuilder sb = new StringBuilder(input);
             //adding first rotation (the input itself)
-            rotations.Add(sb.ToString());
+            rotations[0] = sb.ToString();
             int length = input.Length;
-            for (int i = 0; i < length - 1; i++)
+            for (int i = 1; i < length; i++)
             {
                 char last = sb[length - 1];
                 sb.Remove(length - 1, 1);
                 sb.Insert(0, last);
-                rotations.Add(sb.ToString());
+                rotations[i]  = sb.ToString();
 
             }
             return rotations;
@@ -243,7 +243,7 @@ namespace BWT
         /// </summary>
         /// <param name="input">The input.</param>
         /// <returns>the Sterilized input</returns>
-        private string SterilizeInput(string input)
+        private unsafe string SterilizeInput(string input)
         {
             if (input.Last() != END_OF_FILE_CHAR)
             {
