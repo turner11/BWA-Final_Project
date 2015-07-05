@@ -28,8 +28,39 @@ namespace ChartVisualizer
 
     public partial  class ChartForm : Form
     {
+        Chart _chart;
+        Chart Chart
+        {
+            get
+            {
+                if (this._chart == null)
+                {
+                    this._chart = new System.Windows.Forms.DataVisualization.Charting.Chart();
+                   
+                    var eh = new EventHandler((s, e) =>
+                    {
+                        if (Chart.Series.Count == 0)
+                        {
+                            return;
+                        }
+                        bool visible = !Chart.Series.First().IsValueShownAsLabel;
+                        foreach (var ser in Chart.Series)
+                        {
+                            ser.IsValueShownAsLabel = visible;
+                        }
+                    });
+                    MenuItem mi = new MenuItem("Show / Hide labels", eh);
+                    ContextMenu cm = new ContextMenu(new MenuItem[]{mi});
+                    this._chart.ContextMenu = cm;
+                    this._chart.MouseClick += ((s, e) => {
+                        if(e.Button == System.Windows.Forms.MouseButtons.Right)
+                            this.Chart.ContextMenu.Show(this.Chart,new Point(e.X,e.Y));
+                    });
 
-        System.Windows.Forms.DataVisualization.Charting.Chart Chart;
+                }
+                return this._chart;
+            }
+        }
 
         public string Title
         {
@@ -44,6 +75,7 @@ namespace ChartVisualizer
         public ChartForm()
         {
             InitializeComponent();
+            
         }
 
        
@@ -121,7 +153,7 @@ namespace ChartVisualizer
             catch (Exception)
             {
                 
-              this.Chart = new Chart();
+              this._chart = new Chart();
 
             }
             

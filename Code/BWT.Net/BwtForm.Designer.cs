@@ -1,6 +1,6 @@
 ﻿namespace BWT
 {
-    partial class tplBwaReference
+    partial class frmBwa
     {
         /// <summary>
         /// Required designer variable.
@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(tplBwaReference));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmBwa));
             this.tcMain = new System.Windows.Forms.TabControl();
             this.tpBwa = new System.Windows.Forms.TabPage();
             this.scBwa = new System.Windows.Forms.SplitContainer();
@@ -1205,7 +1205,7 @@
             this.bchBwt.TabIndex = 4;
             this.bchBwt.Visible = false;
             // 
-            // tplBwaReference
+            // frmBwa
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -1213,7 +1213,7 @@
             this.Controls.Add(this.scMain);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(4);
-            this.Name = "tplBwaReference";
+            this.Name = "frmBwa";
             this.Text = "Burrows–Wheeler transform";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmBwt_FormClosing);

@@ -1,0 +1,154 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="BWT.frmBwa">
+    <Position X="6.75" Y="0.5" Width="2.75" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+      <Compartment Name="Properties" Collapsed="true" />
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <NestedTypes>
+      <Class Name="BWT.frmBwa.ParsedBenchmarkParameters" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>BwtForm.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>qlYwl6ukGmZIJKQ0tm7jJKMbowJ/yVRMSrywrlpGQN4=</HashCode>
+      <FileName>BWT_BwaHelper.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BWT.BwtLogics">
+    <Position X="0.75" Y="0.75" Width="2.25" />
+    <Members>
+      <Method Name="GetEmptyBwtDataTable" Hidden="true" />
+      <Method Name="GetPopulatedBwtDataTable" Hidden="true" />
+      <Method Name="GetRotations" Hidden="true" />
+      <Method Name="GetSortString" Hidden="true" />
+      <Method Name="ReverseBwt" Hidden="true" />
+      <Method Name="SterilizeInput" Hidden="true" />
+      <Method Name="ThrowExceptionIfInputNotValid" Hidden="true" />
+      <Method Name="ValidateInputEof" Hidden="true" />
+    </Members>
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+      <Compartment Name="Properties" Collapsed="true" />
+      <Compartment Name="Nested Types" Collapsed="false" />
+    </Compartments>
+    <NestedTypes>
+      <Class Name="BWT.BwtLogics.BwtResults">
+        <TypeIdentifier>
+          <NewMemberFileName>BwtLogics.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>BAIAAAAAAACAIAAAgAAAAACgAEAAAEABAAAABAAAAAA=</HashCode>
+      <FileName>BwtLogics.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BWT.InexactSearch">
+    <Position X="10" Y="0.75" Width="1.5" />
+    <Members>
+      <Method Name="C" Hidden="true" />
+      <Method Name="CalculateD" Hidden="true" />
+      <Method Name="CalculateD2" Hidden="true" />
+      <Method Name="DeSerialize" Hidden="true" />
+      <Method Name="GetBottomRowIndex2" Hidden="true" />
+      <Method Name="GetCalculatedMaxError" Hidden="true" />
+      <Method Name="GetIndexedSuffixArray" Hidden="true" />
+      <Method Name="GetIndexRecursive" Hidden="true" />
+      <Method Name="GetRowIndex" Hidden="true" />
+      <Method Name="GetTopRowIndex2" Hidden="true" />
+      <Method Name="InexactSearch" Hidden="true" />
+      <Method Name="O" Hidden="true" />
+      <Method Name="O_Base" Hidden="true" />
+      <Method Name="O_Base_OBS" Hidden="true" />
+      <Method Name="OT" Hidden="true" />
+      <Method Name="Serialize" Hidden="true" />
+    </Members>
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <NestedTypes>
+      <Enum Name="BWT.InexactSearch.RowBoundaries" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>InexactSearch.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Enum>
+      <Class Name="BWT.InexactSearch.Results" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>InexactSearch.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>BgQAACAAKAAAAAAQEAgAAAAECDHAAIAAAAAohIkRAQI=</HashCode>
+      <FileName>InexactSearch.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BWT.SequenceLogics">
+    <Position X="3.25" Y="0.5" Width="3" />
+    <Members>
+      <Method Name="GetNumberOfStringsTosearch" Hidden="true" />
+      <Method Name="SequenceLogics" Hidden="true" />
+    </Members>
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+      <Compartment Name="Properties" Collapsed="true" />
+      <Compartment Name="Events" Collapsed="true" />
+    </Compartments>
+    <NestedTypes>
+      <Class Name="BWT.SequenceLogics.MultiAlignResults" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>SequenceLogics.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+      <Enum Name="BWT.SequenceLogics.AlignMode" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>SequenceLogics.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Enum>
+      <Class Name="BWT.SequenceLogics.PermutationsAndCombinations" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>SequenceLogics.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAAAAASCAAAQEAAEAAAAAAAAAAAAAAAAACgwAAAgAAI=</HashCode>
+      <FileName>SequenceLogics.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BWT.TestSuit">
+    <Position X="7" Y="3" Width="2.75" />
+    <Members>
+      <Method Name="GetRead" Hidden="true" />
+      <Method Name="ImplantErrorsInSequence" Hidden="true" />
+      <Method Name="MyTestCleanup" Hidden="true" />
+      <Method Name="MyTestInitialize" Hidden="true" />
+      <Method Name="TestSuit" Hidden="true" />
+    </Members>
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <NestedTypes>
+      <Enum Name="BWT.TestSuit.ErrorLocation" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>TestSuit.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Enum>
+      <Enum Name="BWT.TestSuit.ErrorType" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>TestSuit.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Enum>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>BAAAAgCgAgAHAAAAQQAAAAAAAABCAAAAAAAgACAAAAA=</HashCode>
+      <FileName>TestSuit.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

@@ -158,7 +158,7 @@ namespace BWT
             //Arrange
             var seqWithErrors = this.GetRead(startIndex, length, errorsCountToImplant, errorLocation, errorType);
 
-            //Act
+            //Act/8
             var results = this._slogics.iSearch.GetIndex(seqWithErrors, errorsAllowed);
 
             //Assert

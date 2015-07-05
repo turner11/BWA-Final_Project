@@ -9,7 +9,7 @@ using System.Windows.Forms;
 
 namespace BWT
 {
-   public partial class tplBwaReference
+   public partial class frmBwa
    {
        BackgroundWorker _multipleBwaWorker;
        BackgroundWorker _bwBenchmark;

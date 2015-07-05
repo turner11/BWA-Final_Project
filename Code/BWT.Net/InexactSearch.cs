@@ -56,7 +56,7 @@ namespace BWT
             
             bw.ReportProgress(0,"Starting Index");
             sw.Start();
-            this._bwtResults = this._bwtLogics.Bwt(X_Reference);
+            this._bwtResults = this._bwtLogics.GetBwtIndex(X_Reference);
             sw.Stop();
 
             this._o_cache = new Dictionary<Tuple<int, char>, int>(O_CACHE_SIZE);
@@ -67,14 +67,14 @@ namespace BWT
 
             bw.ReportProgress(0, "Index Took: "+sw.Elapsed.ToString());
 
-            /*Get Bwt for reverse reference*/
+            /*Get GetBwtIndex for reverse reference*/
             char[] chars = this.X_Reference.Replace(BwtLogics.END_OF_FILE_CHAR.ToString(), String.Empty).ToCharArray();
             Array.Reverse(chars);
             string reverseReference = new String(chars);
             sw.Reset();
             bw.ReportProgress(0, "Starting Reverse index.");
             sw.Start();
-            this._bwtReverseResults = this._bwtLogics.Bwt(reverseReference);
+            this._bwtReverseResults = this._bwtLogics.GetBwtIndex(reverseReference);
             sw.Stop();
             bw.ReportProgress(0, "Reverse Index Took: " + sw.Elapsed.ToString());
 

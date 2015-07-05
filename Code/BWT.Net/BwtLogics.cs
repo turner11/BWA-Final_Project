@@ -44,7 +44,7 @@ namespace BWT
         /// </summary>
         /// <param name="input">The input to perform the transform on.</param>
         /// <returns>The text after the transform</returns>
-        public BwtResults Bwt(string input)
+        public BwtResults GetBwtIndex(string input)
         {   
             this.ThrowExceptionIfInputNotValid(input);
 
