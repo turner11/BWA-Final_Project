@@ -278,10 +278,10 @@ namespace BWT
             var potentialErrorLocations = PermutationsAndCombinations.nCr(seqLength, errorsAllowd);
             //we relate to a gap as another option to mistake, just outside of the alphabet... 2 is because a letter can be added / omitted
             // -1 is because there is the option that we got the right value...
-            var errorOptions = alphbetSize - 1 + (handleGap ? 2:0);
+            var errorOptions = alphbetSize + (handleGap ? 2:0);
 
-            var numberOfStringsToSearch = potentialErrorLocations * Math.Pow(errorOptions, errorsAllowd);
-            return (long)numberOfStringsToSearch +1;// +1 for the original string...
+            var numberOfStringsToSearch = potentialErrorLocations * Math.Pow(errorOptions, errorsAllowd); // +1 for the correct char
+            return (long)numberOfStringsToSearch;
         }
 
 
