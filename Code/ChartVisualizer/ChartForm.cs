@@ -67,7 +67,15 @@ namespace ChartVisualizer
             get { return (this.Chart.Titles.FirstOrDefault() ?? new System.Windows.Forms.DataVisualization.Charting.Title("")).Text; }
             set
             {
-                this.Chart.Titles.Clear();
+                try
+                {
+                    this.Chart.Titles.Clear();
+                }
+                catch (Exception)
+                {
+                    this.Clear();
+                }
+               
                 this.Chart.Titles.Add(new System.Windows.Forms.DataVisualization.Charting.Title(value));
             }
         }
